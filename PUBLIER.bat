@@ -15,7 +15,7 @@ if errorlevel 1 (
 if not exist ".git" (
   echo Premiere publication : connexion du dossier au depot GitHub...
   git init -b main >nul
-  git remote add origin https://github.com/enzocerejo/cyber.git
+  git remote add origin https://github.com/enzocerejo/Cyber.git
   git config user.name "Enzo Cerejo"
   git config user.email "enzocerejo@users.noreply.github.com"
   git fetch origin main
@@ -41,6 +41,6 @@ if errorlevel 1 (
 
 echo.
 echo [OK] Site publie ! Il sera a jour dans 1 a 2 minutes sur :
-echo      https://enzocerejo.github.io/cyber/
-start https://enzocerejo.github.io/cyber/
+echo      https://enzocerejo.github.io/Cyber/
+start https://enzocerejo.github.io/Cyber/
 pause
