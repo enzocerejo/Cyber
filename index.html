@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cyber · Bot Discord de modération, niveaux et tickets</title>
+  <meta name="description" content="Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.">
+  <meta name="theme-color" content="#ff3d5a">
+  <meta property="og:title" content="Cyber · Bot Discord">
+  <meta property="og:description" content="Modération, automod, niveaux, tickets, giveaways et outils réseau. 100 % gratuit.">
+  <meta property="og:image" content="assets/banniere.jpg">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="#haut"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
+    <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="links">
+      <a href="#fonctions">Fonctions</a>
+      <a href="#commandes">Commandes</a>
+      <a href="#tableau">Tableau de bord</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn small" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter Cyber</a>
+    </nav>
+  </header>
+
+  <main id="haut">
+    <!-- Accueil -->
+    <section class="hero">
+      <img class="hero-banner" src="assets/banniere.jpg" alt="Cyber" width="1600" height="533">
+      <h1 class="sr-only">Cyber, le bot Discord</h1>
+      <p class="tagline">Protège et anime ton serveur Discord.<br>Modération, niveaux, tickets, giveaways et bien plus. <b>100 % gratuit.</b></p>
+      <div class="cta">
+        <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter à Discord</a>
+        <a class="btn big ghost" href="#commandes">Voir les commandes</a>
+      </div>
+      <ul class="counters">
+        <li><b id="nb-commandes">49</b><span>commandes</span></li>
+        <li><b>8</b><span>catégories</span></li>
+        <li><b>24/7</b><span>protection</span></li>
+        <li><b>0 €</b><span>pour toujours</span></li>
+      </ul>
+    </section>
+
+    <!-- Fonctions -->
+    <section id="fonctions" class="section">
+      <h2>Tout ce dont ton serveur a besoin</h2>
+      <p class="lead">Un seul bot pour remplacer MEE6, Carl-bot, Dyno et Ticket Tool.</p>
+      <div class="grid">
+        <article class="card"><span class="ico">🛡️</span><h3>Modération</h3><p>Kick, ban, mute, avertissements, nettoyage de messages, verrouillage de salons. Chaque sanction est envoyée en MP et enregistrée dans les logs.</p></article>
+        <article class="card"><span class="ico">🤖</span><h3>Automod</h3><p>Anti-spam, anti-invitations, anti-liens, mots interdits, majuscules et mentions de masse. Mute automatique après plusieurs infractions.</p></article>
+        <article class="card"><span class="ico">📈</span><h3>Niveaux & XP</h3><p>Les membres gagnent de l'XP en discutant. Classement, carte de rang et rôles récompenses donnés automatiquement.</p></article>
+        <article class="card"><span class="ico">🎫</span><h3>Tickets</h3><p>Un bouton ouvre un salon privé avec ton équipe. À la fermeture, la conversation est sauvegardée dans les logs.</p></article>
+        <article class="card"><span class="ico">🎉</span><h3>Giveaways</h3><p>Concours avec bouton de participation, tirage automatique et relance du tirage. Rien n'est perdu si le bot redémarre.</p></article>
+        <article class="card"><span class="ico">✅</span><h3>Vérification</h3><p>Bouton anti-robot qui donne l'accès au serveur. Les comptes de moins de 24 h sont bloqués pour éviter les raids.</p></article>
+        <article class="card"><span class="ico">👋</span><h3>Accueil & rôles</h3><p>Message de bienvenue personnalisé, rôle automatique, panneau de rôles à boutons et vocaux temporaires.</p></article>
+        <article class="card"><span class="ico">🌐</span><h3>Outils réseau</h3><p>Calcul de sous-réseau, requêtes DNS, ping d'IP publique et convertisseur binaire/hexa. Idéal pour les passionnés d'informatique.</p></article>
+      </div>
+    </section>
+
+    <!-- Commandes -->
+    <section id="commandes" class="section">
+      <h2>Les commandes</h2>
+      <p class="lead">Toutes les commandes s'utilisent avec <code>/</code>. Celles marquées <span class="tag-staff">staff</span> ne sont visibles que par les membres autorisés.</p>
+      <div class="cmd-tools">
+        <input id="recherche" type="search" placeholder="🔍 Rechercher une commande…" aria-label="Rechercher une commande">
+      </div>
+      <div class="cats" id="cats" role="tablist"></div>
+      <div class="cmd-list" id="liste"></div>
+    </section>
+
+    <!-- Tableau de bord -->
+    <section id="tableau" class="section split">
+      <div>
+        <span class="badge">Bientôt en ligne</span>
+        <h2>Un tableau de bord comme MEE6</h2>
+        <p class="lead left">Configure Cyber sans taper une seule commande : connexion avec Discord, choix du serveur, et tous les réglages en quelques clics.</p>
+        <ul class="checks">
+          <li>Logs, bienvenue et rôle automatique</li>
+          <li>Automod : filtres, mots interdits, sanctions</li>
+          <li>Niveaux et rôles récompenses</li>
+          <li>Tickets, vérification et vocaux temporaires</li>
+          <li>Aperçu en direct des messages</li>
+        </ul>
+      </div>
+      <img class="shot" src="assets/tableau-de-bord.png" width="1280" height="800" alt="Aperçu du tableau de bord de Cyber" loading="lazy">
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <h2>Questions fréquentes</h2>
+      <div class="faq">
+        <details><summary>Cyber est-il vraiment gratuit ?</summary><p>Oui, toutes les fonctions sont gratuites. Pas d'abonnement, pas de fonctions « premium ».</p></details>
+        <details><summary>Comment ajouter Cyber à mon serveur ?</summary><p>Clique sur « Ajouter à Discord », choisis ton serveur et valide. Il faut la permission « Gérer le serveur ». Ensuite, place le rôle de Cyber au-dessus des rôles qu'il doit gérer.</p></details>
+        <details><summary>Les commandes n'apparaissent pas, que faire ?</summary><p>Attends quelques minutes puis redémarre Discord (Ctrl + R). Vérifie aussi que Cyber a bien été invité avec la permission « applications.commands ».</p></details>
+        <details><summary>Quelles données Cyber enregistre-t-il ?</summary><p>Uniquement ce qui est nécessaire : les réglages de ton serveur, l'XP des membres et les avertissements. Aucune donnée n'est vendue ni partagée.</p></details>
+        <details><summary>Qui a créé Cyber ?</summary><p>Cyber est développé par Enzo, étudiant en BTS CIEL (informatique et réseaux) passionné de cybersécurité.</p></details>
+      </div>
+    </section>
+
+    <section class="section final">
+      <img src="assets/logo.png" alt="" width="120" height="120" loading="lazy">
+      <h2>Prêt à protéger ton serveur ?</h2>
+      <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter Cyber gratuitement</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="annee">2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a></p>
+    <p class="muted">Cyber n'est pas affilié à Discord Inc.</p>
+  </footer>
+
+  <script src="commandes.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
