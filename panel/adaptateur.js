@@ -6,7 +6,8 @@
 (function () {
   const CLIENT_ID = '1563977964616421376';
   const API = 'https://discord.com/api/v10';
-  const REDIRECT = location.origin + location.pathname;
+  // Adresse de retour toujours identique (avec ou sans « index.html »), elle doit être enregistrée telle quelle dans le Developer Portal
+  const REDIRECT = location.origin + location.pathname.replace(/index\.html$/, '');
   const DEMO_ID = 'demo';
 
   // Stockage protégé (le navigateur peut le bloquer en navigation privée)
@@ -122,7 +123,7 @@
           ss.set('cyber-token', frag.get('access_token'));
           ss.del('cyber-demo');
         }
-        history.replaceState(null, '', location.pathname + location.search);
+        history.replaceState(null, '', location.pathname.replace(/index\.html$/, '') + location.search);
       }
     },
 
