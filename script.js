@@ -162,3 +162,171 @@ async function verifierStatut() {
 }
 verifierStatut();
 setInterval(verifierStatut, 60_000);
+
+// ---------- Fond : réseau de nœuds connectés ----------
+(function reseau() {
+  const cv = document.getElementById('reseau');
+  if (!cv || !cv.getContext) return;
+  const ctx = cv.getContext('2d');
+  let w, h, dpr, nodes = [], raf = null;
+  const souris = { x: -9999, y: -9999 };
+  const DIST = 140;
+
+  function taille() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.min(90, Math.round((w * h) / 17000));
+    nodes = Array.from({ length: n }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.8, phase: Math.random() * Math.PI * 2,
+    }));
+  }
+
+  function dessiner(t) {
+    ctx.clearRect(0, 0, w, h);
+    for (const a of nodes) {
+      if (!reduceMotion) {
+        a.x += a.vx; a.y += a.vy;
+        if (a.x < -20) a.x = w + 20; if (a.x > w + 20) a.x = -20;
+        if (a.y < -20) a.y = h + 20; if (a.y > h + 20) a.y = -20;
+      }
+    }
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+        if (d < DIST) {
+          ctx.strokeStyle = `rgba(255, 61, 90, ${(1 - d / DIST) * 0.34})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      const dm = Math.hypot(a.x - souris.x, a.y - souris.y);
+      if (dm < 180) {
+        ctx.strokeStyle = `rgba(255, 122, 140, ${(1 - dm / 180) * 0.55})`;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(souris.x, souris.y); ctx.stroke();
+      }
+      const lueur = reduceMotion ? 0.7 : 0.55 + Math.sin(t / 900 + a.phase) * 0.35;
+      ctx.fillStyle = `rgba(255, 90, 110, ${lueur})`;
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
+    }
+    if (!reduceMotion) raf = requestAnimationFrame(dessiner);
+  }
+
+  taille();
+  dessiner(0);
+  window.addEventListener('resize', () => { taille(); if (reduceMotion) dessiner(0); });
+  window.addEventListener('pointermove', (e) => { souris.x = e.clientX; souris.y = e.clientY; });
+  window.addEventListener('pointerleave', () => { souris.x = souris.y = -9999; });
+  document.addEventListener('visibilitychange', () => {
+    if (reduceMotion) return;
+    if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(dessiner);
+  });
+})();
+
+// ---------- Démo animée : Cyber en action dans Discord ----------
+(function demo() {
+  const feed = document.getElementById('demo-feed');
+  const input = document.querySelector('.demo-input');
+  const typing = document.getElementById('demo-typing');
+  if (!feed) return;
+  const heure = () => `Aujourd'hui à ${new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+  const pause = (ms) => new Promise((r) => setTimeout(r, reduceMotion ? 0 : ms));
+  const COULEURS = { Léo: '#5865f2', Spam_bot: '#ed4245', Enzo: '#ff3d5a', Maya: '#3ba55d' };
+
+  function ajouter(auteur, contenu, opts = {}) {
+    const m = el('div', 'msg');
+    const av = el('div', 'av');
+    if (auteur === 'Cyber') { const i = el('img'); i.src = 'assets/logo.png'; i.alt = ''; av.append(i); }
+    else { av.textContent = auteur[0]; av.style.background = COULEURS[auteur] || '#4e5058'; }
+    const corps = el('div');
+    const who = el('div', 'who', auteur);
+    if (auteur === 'Cyber') who.append(el('span', 'app', 'APP'));
+    who.append(el('time', null, heure()));
+    corps.append(who);
+    if (contenu) corps.append(el('div', `txt${opts.cmd ? ' cmd' : ''}`, contenu));
+    if (opts.embed) corps.append(opts.embed);
+    m.append(av, corps);
+    feed.append(m);
+    while (feed.children.length > 6) feed.firstElementChild.remove();
+    return m;
+  }
+
+  function embed(titre, lignes, extra) {
+    const e = el('div', 'emb');
+    e.append(el('b', null, titre));
+    for (const l of lignes) {
+      const d = el('div');
+      for (const part of l) d.append(typeof part === 'string' ? part : part);
+      e.append(d);
+    }
+    if (extra) e.append(extra);
+    return e;
+  }
+  const mention = (n) => el('span', 'mention', `@${n}`);
+
+  async function taper(texte) {
+    input.classList.add('typing');
+    typing.textContent = '';
+    for (const c of texte) { typing.textContent += c; await pause(55); }
+    await pause(350);
+    input.classList.remove('typing');
+    typing.textContent = 'Envoyer un message dans #général';
+  }
+
+  const scenes = [
+    async () => {
+      ajouter('Cyber', null, { embed: embed('👋 Nouveau membre', [['Bienvenue ', mention('Léo'), ' sur ', el('b', null, 'Mon serveur'), ' ! Tu es notre 128ᵉ membre 🎉']]) });
+    },
+    async () => {
+      const spam = ajouter('Spam_bot', 'nitro gratuit ici 🎁 discord.gg/free-nitro');
+      await pause(1100);
+      spam.classList.add('deleted');
+      await pause(500);
+      const w = ajouter('Cyber', null, { embed: embed('🤖 Automod', [[mention('Spam_bot'), ', invitation Discord interdite (1/3).']]) });
+      w.querySelector('.emb').style.borderLeftColor = '#ffc457';
+      await pause(1400);
+      spam.classList.add('gone');
+      await pause(400);
+      spam.remove();
+    },
+    async () => {
+      await taper('/rang');
+      ajouter('Enzo', '/rang', { cmd: true });
+      await pause(600);
+      const bar = el('div', 'bar'); const fill = el('span'); bar.append(fill);
+      ajouter('Cyber', null, { embed: embed('📈 Rang de Enzo', [['Niveau ', el('b', null, '12'), ' · Classement ', el('b', null, '#3')], ['1 840 / 2 400 XP']], bar) });
+      await pause(80); fill.style.width = '77%';
+    },
+    async () => {
+      await taper('/ticket ouvrir');
+      ajouter('Maya', '🎫 Ouvrir un ticket');
+      await pause(600);
+      const b = el('span', 'btn-d', '🔒 Fermer le ticket');
+      ajouter('Cyber', null, { embed: embed('🎫 Ticket ouvert', [['Ton ticket est prêt : ', el('b', null, '#ticket-0042')], ['L\'équipe va te répondre.']], b) });
+    },
+    async () => {
+      await taper('/sousreseau 10.0.0.0/26');
+      ajouter('Enzo', '/sousreseau 10.0.0.0/26', { cmd: true });
+      await pause(600);
+      ajouter('Cyber', null, { embed: embed('🧮 10.0.0.0/26', [['Masque ', el('b', null, '255.255.255.192')], ['Broadcast ', el('b', null, '10.0.0.63'), ' · ', el('b', null, '62'), ' hôtes']]) });
+    },
+  ];
+
+  let visible = true;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(feed);
+  }
+  (async () => {
+    if (reduceMotion) { for (const s of scenes) await s(); return; }
+    for (let i = 0; ; i = (i + 1) % scenes.length) {
+      while (!visible || document.hidden) await pause(500);
+      await scenes[i]();
+      await pause(2600);
+    }
+  })();
+})();

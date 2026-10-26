@@ -18,7 +18,8 @@
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
-  <div class="bg" aria-hidden="true"></div>
+  <canvas id="reseau" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
@@ -36,43 +37,115 @@
   <main id="contenu">
     <!-- Accueil -->
     <section class="hero">
-      <img class="hero-banner" src="assets/banniere.jpg" alt="Cyber" width="1600" height="533">
-      <h1 class="sr-only">Cyber, le bot Discord</h1>
-      <p class="tagline">Protège et anime ton serveur Discord.<br>Modération, niveaux, tickets, giveaways et bien plus. <b>100 % gratuit.</b></p>
-      <div class="cta">
-        <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter à Discord</a>
-        <a class="btn big ghost" href="#commandes">Voir les commandes</a>
+      <div class="hero-text">
+        <span class="badge"><span class="dot-status on"></span> Bot Discord · 100 % gratuit</span>
+        <h1 class="glitch" data-text="CYBER">CYBER</h1>
+        <p class="hero-sub">Le gardien de ton serveur Discord.</p>
+        <p class="tagline">Modération, automod, niveaux, tickets, giveaways et outils réseau.<br>Un seul bot pour remplacer tous les autres.</p>
+        <div class="cta">
+          <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter à Discord</a>
+          <a class="btn big ghost" href="demarrer.html">Bien démarrer →</a>
+        </div>
+        <ul class="counters">
+          <li><b id="nb-commandes">49</b><span>commandes</span></li>
+          <li><b>8</b><span>catégories</span></li>
+          <li><b>0 €</b><span>pour toujours</span></li>
+        </ul>
       </div>
-      <ul class="counters">
-        <li><b id="nb-commandes">49</b><span>commandes</span></li>
-        <li><b>8</b><span>catégories</span></li>
-        <li><b>24/7</b><span>protection</span></li>
-        <li><b>0 €</b><span>pour toujours</span></li>
-      </ul>
+
+      <!-- Démo animée : fausse fenêtre Discord -->
+      <div class="demo" aria-label="Démonstration animée de Cyber dans Discord">
+        <div class="demo-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="demo-channel"># général</span>
+          <span class="demo-live">● EN DIRECT</span>
+        </div>
+        <div class="demo-feed" id="demo-feed" aria-live="off"></div>
+        <div class="demo-input"><span id="demo-typing">Envoyer un message dans #général</span></div>
+      </div>
     </section>
 
-    <!-- Fonctions -->
+    <!-- Bandeau défilant -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>/ban</span><span>/automod</span><span>/rang</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/sousreseau</span><span>/dns</span><span>/userinfo</span><span>/classement</span><span>/mute</span><span>/panelroles</span>
+        <span>/ban</span><span>/automod</span><span>/rang</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/sousreseau</span><span>/dns</span><span>/userinfo</span><span>/classement</span><span>/mute</span><span>/panelroles</span>
+      </div>
+    </div>
+
+    <!-- Fonctions en grille « bento » -->
     <section id="fonctions" class="section">
+      <span class="kicker">// FONCTIONS</span>
       <h2>Tout ce dont ton serveur a besoin</h2>
-      <p class="lead">Un seul bot pour remplacer MEE6, Carl-bot, Dyno et Ticket Tool.</p>
-      <div class="grid">
-        <article class="card"><span class="ico">🛡️</span><h3>Modération</h3><p>Kick, ban, mute, avertissements, nettoyage de messages, verrouillage de salons. Chaque sanction est envoyée en MP et enregistrée dans les logs.</p></article>
-        <article class="card"><span class="ico">🤖</span><h3>Automod</h3><p>Anti-spam, anti-invitations, anti-liens, mots interdits, majuscules et mentions de masse. Mute automatique après plusieurs infractions.</p></article>
-        <article class="card"><span class="ico">📈</span><h3>Niveaux & XP</h3><p>Les membres gagnent de l'XP en discutant. Classement, fiche de rang et rôles récompenses donnés automatiquement.</p></article>
-        <article class="card"><span class="ico">🎫</span><h3>Tickets</h3><p>Un bouton ouvre un salon privé avec ton équipe. À la fermeture, la conversation est sauvegardée dans les logs.</p></article>
-        <article class="card"><span class="ico">🎉</span><h3>Giveaways</h3><p>Concours avec bouton de participation, tirage automatique et relance du tirage. Rien n'est perdu si le bot redémarre.</p></article>
-        <article class="card"><span class="ico">✅</span><h3>Vérification</h3><p>Bouton anti-robot qui donne l'accès au serveur. Les comptes de moins de 24 h sont bloqués pour éviter les raids.</p></article>
-        <article class="card"><span class="ico">👋</span><h3>Accueil & rôles</h3><p>Message de bienvenue personnalisé, rôle automatique, panneau de rôles à boutons et vocaux temporaires.</p></article>
-        <article class="card"><span class="ico">🌐</span><h3>Outils réseau</h3><p>Calcul de sous-réseau, requêtes DNS, ping d'IP publique et convertisseur binaire/hexa. Idéal pour les passionnés d'informatique.</p></article>
+      <p class="lead">Pensé pour remplacer MEE6, Carl-bot, Dyno et Ticket Tool. Sans abonnement.</p>
+      <div class="bento">
+        <article class="card big">
+          <span class="ico">🛡️</span>
+          <h3>Modération complète</h3>
+          <p>Kick, ban, mute temporaire, avertissements, nettoyage de messages, verrouillage de salons. Chaque sanction est envoyée en MP au membre et enregistrée dans les logs, avec vérification de la hiérarchie des rôles.</p>
+          <div class="term">
+            <div><span class="p">&gt;</span> /mute membre:@spammeur duree:10m</div>
+            <div class="ok">✔ @spammeur est muet pendant 10 minutes.</div>
+          </div>
+        </article>
+        <article class="card tall">
+          <span class="ico">🤖</span>
+          <h3>Automod</h3>
+          <p>Supprime tout seul le spam, les invitations, les liens, les insultes, l'abus de majuscules et les mentions de masse.</p>
+          <ul class="mini-list">
+            <li><span class="dot-status on"></span>Anti-spam</li>
+            <li><span class="dot-status on"></span>Anti-invitations</li>
+            <li><span class="dot-status on"></span>Mots interdits</li>
+            <li><span class="dot-status on"></span>Mentions de masse</li>
+            <li><span class="dot-status off"></span>Liens <small>(au choix)</small></li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="ico">📈</span>
+          <h3>Niveaux & XP</h3>
+          <p>XP en discutant, classement et rôles récompenses automatiques.</p>
+          <div class="xpbar"><span></span></div>
+          <small class="muted-s">Niveau 12 · 1 840 / 2 400 XP</small>
+        </article>
+        <article class="card">
+          <span class="ico">🎫</span>
+          <h3>Tickets</h3>
+          <p>Un bouton ouvre un salon privé avec ton équipe. La conversation est sauvegardée à la fermeture.</p>
+        </article>
+        <article class="card">
+          <span class="ico">🎉</span>
+          <h3>Giveaways</h3>
+          <p>Bouton de participation, tirage automatique, relance du tirage.</p>
+        </article>
+        <article class="card">
+          <span class="ico">✅</span>
+          <h3>Anti-raid</h3>
+          <p>Vérification par bouton. Les comptes de moins de 24 h sont bloqués.</p>
+        </article>
+        <article class="card">
+          <span class="ico">👋</span>
+          <h3>Accueil & rôles</h3>
+          <p>Bienvenue personnalisée, rôle automatique, rôles à boutons, vocaux temporaires.</p>
+        </article>
+        <article class="card">
+          <span class="ico">🌐</span>
+          <h3>Outils réseau</h3>
+          <p>Pour les passionnés d'informatique : calcul de sous-réseau, requêtes DNS, ping d'IP publique et conversion binaire/hexa.</p>
+          <div class="term">
+            <div><span class="p">&gt;</span> /sousreseau adresse:192.168.1.10/26</div>
+            <div class="ok">✔ 62 hôtes · broadcast .63</div>
+          </div>
+        </article>
       </div>
     </section>
 
     <!-- Commandes -->
     <section id="commandes" class="section">
+      <span class="kicker">// COMMANDES</span>
       <h2>Les commandes</h2>
-      <p class="lead">Toutes les commandes s'utilisent avec <code>/</code>. Celles marquées <span class="tag-staff">staff</span> ne sont visibles que par les membres autorisés.</p>
+      <p class="lead">Toutes s'utilisent avec <code>/</code>. Celles marquées <span class="tag-staff">staff</span> ne sont visibles que par les membres autorisés.</p>
       <div class="cmd-tools">
-        <input id="recherche" type="search" placeholder="🔍 Rechercher une commande…" aria-label="Rechercher une commande">
+        <label class="search"><span aria-hidden="true">&gt;_</span><input id="recherche" type="search" placeholder="rechercher une commande…" aria-label="Rechercher une commande"></label>
       </div>
       <div class="cats" id="cats" role="tablist"></div>
       <div class="cmd-list" id="liste"></div>
@@ -81,9 +154,9 @@
     <!-- Tableau de bord -->
     <section id="tableau" class="section split">
       <div>
-        <span class="badge">Bientôt en ligne</span>
-        <h2>Un tableau de bord comme MEE6</h2>
-        <p class="lead left">Configure Cyber sans taper une seule commande : connexion avec Discord, choix du serveur, et tous les réglages en quelques clics.</p>
+        <span class="kicker">// TABLEAU DE BORD</span>
+        <h2>Configure tout en quelques clics</h2>
+        <p class="lead left">Connexion avec Discord, choix du serveur, et tous les réglages sans taper une seule commande. Comme MEE6, mais gratuit.</p>
         <ul class="checks">
           <li>Logs, bienvenue et rôle automatique</li>
           <li>Automod : filtres, mots interdits, sanctions</li>
@@ -91,28 +164,36 @@
           <li>Tickets, vérification et vocaux temporaires</li>
           <li>Aperçu en direct des messages</li>
         </ul>
+        <span class="badge soon">Bientôt en ligne</span>
       </div>
-      <img class="shot" src="assets/tableau-de-bord.png" width="1280" height="800" alt="Aperçu du tableau de bord de Cyber" loading="lazy">
+      <div class="browser">
+        <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">cyber · tableau de bord</span></div>
+        <img src="assets/tableau-de-bord.png" width="1280" height="800" alt="Aperçu du tableau de bord de Cyber" loading="lazy">
+      </div>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="section">
+      <span class="kicker">// FAQ</span>
       <h2>Questions fréquentes</h2>
       <div class="faq">
         <details><summary>Cyber est-il vraiment gratuit ?</summary><p>Oui, toutes les fonctions sont gratuites. Pas d'abonnement, pas de fonctions « premium ».</p></details>
-        <details><summary>Comment ajouter Cyber à mon serveur ?</summary><p>Clique sur « Ajouter à Discord », choisis ton serveur et valide. Il faut la permission « Gérer le serveur ». Ensuite, place le rôle de Cyber au-dessus des rôles qu'il doit gérer.</p></details>
+        <details><summary>Comment ajouter Cyber à mon serveur ?</summary><p>Clique sur « Ajouter à Discord », choisis ton serveur et valide. Il faut la permission « Gérer le serveur ». Ensuite, suis le guide <a href="demarrer.html">Bien démarrer</a>.</p></details>
         <details><summary>Les commandes n'apparaissent pas, que faire ?</summary><p>Attends quelques minutes puis redémarre Discord (Ctrl + R). Vérifie aussi que Cyber a bien été invité avec la permission « applications.commands ».</p></details>
-        <details><summary>Quelles données Cyber enregistre-t-il ?</summary><p>Uniquement ce qui est nécessaire : les réglages de ton serveur, l'XP des membres et les avertissements. Aucune donnée n'est vendue ni partagée.</p></details>
+        <details><summary>Quelles données Cyber enregistre-t-il ?</summary><p>Uniquement ce qui est nécessaire : les réglages de ton serveur, l'XP des membres et les avertissements. Aucune donnée n'est vendue ni partagée. Tout est détaillé dans la <a href="confidentialite.html">politique de confidentialité</a>.</p></details>
         <details><summary>Qui a créé Cyber ?</summary><p>Cyber est développé par Enzo, étudiant en BTS CIEL (informatique et réseaux) passionné de cybersécurité.</p></details>
       </div>
     </section>
 
     <section class="section final">
-      <img src="assets/logo.png" alt="" width="120" height="120" loading="lazy">
+      <div class="ring">
+        <img src="assets/logo.png" alt="Logo de Cyber" width="150" height="150" loading="lazy">
+      </div>
       <h2>Prêt à protéger ton serveur ?</h2>
       <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter Cyber gratuitement</a>
     </section>
   </main>
+
 
   <footer class="footer">
     <div class="foot-grid">
@@ -131,7 +212,6 @@
         <h3>Légal</h3>
         <a href="conditions.html">Conditions d'utilisation</a>
         <a href="confidentialite.html">Confidentialité</a>
-        <a href="mailto:enzo.cerejo@proton.me">Contact</a>
       </div>
     </div>
     <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>

@@ -18,7 +18,8 @@
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
-  <div class="bg" aria-hidden="true"></div>
+  <canvas id="reseau" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
@@ -37,13 +38,13 @@
     <section class="page-hero">
       <span class="badge">Légal</span>
       <h1>Politique de confidentialité</h1>
-      <p class="lead">Dernière mise à jour : 26 octobre 2026</p>
+      <p class="lead">Dernière mise à jour : 27 octobre 2026</p>
     </section>
 
     <section class="section narrow legal">
       <article>
         <h2>1. Responsable</h2>
-        <p>Cyber est développé et hébergé par Enzo Cerejo (France). Contact : <a href="mailto:enzo.cerejo@proton.me">enzo.cerejo@proton.me</a>.</p>
+        <p>Cyber est développé et hébergé par Enzo Cerejo (France). Un moyen de contact (serveur de support Discord et adresse e-mail) sera bientôt indiqué sur ce site.</p>
       </article>
 
       <article>
@@ -70,7 +71,7 @@
 
       <article>
         <h2>5. Ce site</h2>
-        <p>Ce site est hébergé par GitHub Pages, qui peut enregistrer des données techniques de connexion (comme l'adresse IP) pour des raisons de sécurité. Les polices et images sont hébergées sur le site lui-même : aucune donnée n'est envoyée à un service tiers de polices ou de publicité. L'indicateur de statut interroge l'API publique de Discord.</p>
+        <p>Ce site est hébergé par GitHub Pages, qui peut enregistrer des données techniques de connexion (comme l'adresse IP) pour des raisons de sécurité. Les polices sont hébergées sur le site lui-même : aucune donnée n'est envoyée à un service tiers de polices ou de publicité. L'indicateur de statut interroge l'API publique de Discord.</p>
       </article>
 
       <article>
@@ -85,7 +86,7 @@
 
       <article>
         <h2>8. Tes droits</h2>
-        <p>Conformément au RGPD, tu peux demander l'accès, la rectification ou la suppression de tes données en écrivant à <a href="mailto:enzo.cerejo@proton.me">enzo.cerejo@proton.me</a> avec ton identifiant Discord. Les administrateurs peuvent aussi effacer certaines données directement (<code>/warn effacer</code>, <code>/xp reset</code>). Tu peux également saisir la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
+        <p>Conformément au RGPD, tu peux demander l'accès, la rectification ou la suppression de tes données en contactant le développeur (le moyen de contact sera bientôt indiqué ici), avec ton identifiant Discord. Les administrateurs peuvent aussi effacer certaines données directement (<code>/warn effacer</code>, <code>/xp reset</code>). Tu peux également saisir la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
       </article>
 
       <article>
@@ -113,7 +114,6 @@
         <h3>Légal</h3>
         <a href="conditions.html">Conditions d'utilisation</a>
         <a href="confidentialite.html">Confidentialité</a>
-        <a href="mailto:enzo.cerejo@proton.me">Contact</a>
       </div>
     </div>
     <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>
