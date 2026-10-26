@@ -135,7 +135,7 @@ window.CYBER_COMMANDES = [
    },
    {
     "name": "glossaire",
-    "desc": "Définition rapide d'un terme réseau / cybersécurité",
+    "desc": "Définition détaillée d'un terme réseau / cybersécurité",
     "subs": [],
     "staff": false
    },
@@ -163,7 +163,7 @@ window.CYBER_COMMANDES = [
     "subs": [
      {
       "name": "jouer",
-      "desc": "Une question au hasard"
+      "desc": "Une question au hasard, ou une série de 5 sur un sujet"
      },
      {
       "name": "classement",
