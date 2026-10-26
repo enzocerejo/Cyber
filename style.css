@@ -190,7 +190,7 @@ body { background: radial-gradient(1200px 700px at 75% -10%, #3a0a1433, transpar
 }
 .card:hover { border-color: #ff3d5a77; transform: translateY(-3px); }
 .card:hover::before { opacity: 1; }
-.card .ico { font-size: 1.8rem; display: inline-block; transition: transform .3s; }
+.card .ico { font-size: 1.8rem; display: inline-block; width: max-content; align-self: flex-start; line-height: 1.2; transform-origin: center; transition: transform .3s; }
 .card:hover .ico { transform: scale(1.15) rotate(-6deg); }
 .card h3 { margin: 8px 0 6px; font-size: 1.15rem; }
 .card p { margin: 0; color: var(--mut); font-size: .95rem; }
