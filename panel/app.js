@@ -93,16 +93,17 @@ function roleSelect(value, { onlyAssignable = false, none = '— Aucun —' } = 
 }
 
 function toggle(title, desc, checked, onchange) {
-  const input = h('input', { type: 'checkbox', checked, onchange: (e) => onchange(e.target.checked) });
+  const input = h('input', { type: 'checkbox', checked, onchange: (e) => { onchange(e.target.checked); marquerModifie(); } });
   return h('div', { class: 'toggle' },
     h('div', { class: 't-text' }, h('b', { text: title }), desc ? h('span', { text: desc }) : null),
     h('label', { class: 'switch' }, input, h('span', { class: 'slider' })));
 }
 
 function saveButton(getPatch, label = 'Enregistrer') {
-  const btn = h('button', { class: 'btn', text: label });
+  const btn = h('button', { class: 'btn save', text: label });
   btn.addEventListener('click', async () => {
     btn.disabled = true;
+    btn.classList.add('chargement');
     try {
       const patch = getPatch();
       const res = await api('PUT', `/guilds/${currentGuild}/config`, patch);
@@ -112,41 +113,129 @@ function saveButton(getPatch, label = 'Enregistrer') {
         else data.config[k] = v;
       }
       toast(res?.message || '✅ Modifications enregistrées');
+      remettreAZero();
+      btn.classList.add('ok');
+      setTimeout(() => btn.classList.remove('ok'), 1200);
     } catch (err) {
       toast(`❌ ${err.message}`, false);
     } finally {
       btn.disabled = false;
+      btn.classList.remove('chargement');
     }
   });
-  return h('div', { class: 'actions' }, btn);
+  return h('div', { class: 'actions' }, h('span', { class: 'non-enregistre', text: '● Modifications non enregistrées' }), btn);
 }
 
-// Aperçu façon Discord (le texte est échappé avant toute mise en forme)
-function renderPreview(el, text, vars) {
+// ---------- Aperçus façon Discord (le texte est toujours échappé avant la mise en forme) ----------
+function md(text, vars = {}) {
   let html = escapeHtml(text);
   for (const [k, v] of Object.entries(vars)) {
     html = html.split(escapeHtml(k)).join(v.mention ? `<span class="mention">${escapeHtml(v.text)}</span>` : escapeHtml(v.text));
   }
-  html = html.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[^*])\*(?!\*)(.+?)\*/g, '$1<i>$2</i>');
-  el.innerHTML = html;
+  html = html
+    .replace(/`([^`\n]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/__(.+?)__/g, '<u>$1</u>')
+    .replace(/~~(.+?)~~/g, '<s>$1</s>')
+    .replace(/(^|[^*])\*(?!\*)(.+?)\*/g, '$1<i>$2</i>')
+    .replace(/\n/g, '<br>');
+  const span = h('span', { class: 'md' });
+  span.innerHTML = html;
+  return span;
 }
 
-function messageEditor(value, def, vars, max) {
+const heureDiscord = () => `Aujourd'hui à ${new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+const avatarMoi = () => (me?.user?.avatar ? `https://cdn.discordapp.com/avatars/${me.user.id}/${me.user.avatar}.png?size=128` : 'https://cdn.discordapp.com/embed/avatars/0.png');
+
+// Message de Cyber tel qu'il apparaîtra dans Discord
+function discordMsg({ content = null, embed = null, buttons = [] } = {}) {
+  const body = h('div', { class: 'dm-body' },
+    h('div', { class: 'dm-head' }, h('b', { text: 'Cyber' }), h('span', { class: 'dm-app', text: 'APP' }), h('span', { class: 'dm-time', text: heureDiscord() })));
+  if (content) body.append(h('div', { class: 'dm-content' }, content));
+  if (embed) {
+    const e = h('div', { class: 'dm-embed' });
+    if (embed.color) e.style.borderLeftColor = embed.color;
+    const main = h('div', { class: 'dm-embed-main' });
+    if (embed.title) main.append(h('div', { class: 'dm-title', text: embed.title }));
+    if (embed.desc) main.append(h('div', { class: 'dm-desc' }, embed.desc));
+    for (const [n, v] of embed.fields || []) main.append(h('div', { class: 'dm-field' }, h('b', { text: n }), h('div', { text: v })));
+    if (embed.footer) main.append(h('div', { class: 'dm-footer', text: embed.footer }));
+    e.append(main);
+    if (embed.thumb) e.append(h('img', { class: 'dm-thumb', src: embed.thumb, alt: '' }));
+    body.append(e);
+  }
+  if (buttons.length) {
+    body.append(h('div', { class: 'dm-buttons' }, buttons.map((b) => h('span', { class: `dm-btn ${b.style || 'grey'}` }, b.emoji ? h('span', { text: b.emoji }) : null, b.label))));
+  }
+  return h('div', { class: 'dmsg' }, h('img', { class: 'dm-av', src: LOGO, alt: '' }), body);
+}
+
+function apercuBox(build) {
+  const box = h('div', { class: 'apercu' });
+  const maj = () => { box.replaceChildren(build()); box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash'); };
+  return { box, maj };
+}
+
+function messageEditor(value, def, vars, max, construire) {
   const ta = h('textarea', { maxLength: max, placeholder: def });
   ta.value = value || '';
-  const prev = h('div', { class: 'preview' });
-  const update = () => renderPreview(prev, ta.value || def, vars);
+  const compteur = h('span', { class: 'compteur' });
+  const ap = apercuBox(() => construire(md(ta.value || def, vars)));
+  const update = () => { compteur.textContent = `${ta.value.length} / ${max}`; ap.maj(); };
   ta.addEventListener('input', update);
-  const chips = h('div', { class: 'chips' }, Object.keys(vars).map((k) => h('span', {
-    class: 'chip var', text: k, title: 'Cliquer pour insérer',
+  const chips = h('div', { class: 'chips' }, Object.keys(vars).map((k) => h('button', {
+    type: 'button', class: 'chip var', text: k, title: 'Cliquer pour insérer',
     onclick: () => {
-      const s = ta.selectionStart ?? ta.value.length;
-      ta.value = ta.value.slice(0, s) + k + ta.value.slice(ta.selectionEnd ?? s);
-      ta.focus(); update();
+      const st = ta.selectionStart ?? ta.value.length;
+      ta.value = ta.value.slice(0, st) + k + ta.value.slice(ta.selectionEnd ?? st);
+      ta.focus(); update(); marquerModifie();
     },
-  })));
+  })), compteur);
   update();
-  return { ta, node: h('div', {}, ta, chips, h('div', { class: 'hint', text: 'Aperçu :' }), prev) };
+  return { ta, node: h('div', {}, ta, chips, h('div', { class: 'apercu-label' }, h('span', { class: 'live-dot' }), 'Aperçu en direct dans Discord'), ap.box) };
+}
+
+// ---------- Modifications non enregistrées ----------
+let modifie = false;
+let confirmerSortie = false;
+function marquerModifie() {
+  if (modifie) return;
+  modifie = true;
+  document.body.classList.add('modifie');
+}
+function remettreAZero() { modifie = false; confirmerSortie = false; document.body.classList.remove('modifie'); }
+function quitterSiPossible(aller) {
+  if (modifie && !confirmerSortie) {
+    confirmerSortie = true;
+    toast('⚠️ Modifications non enregistrées : clique encore pour quitter sans enregistrer.', false);
+    setTimeout(() => { confirmerSortie = false; }, 4000);
+    return;
+  }
+  remettreAZero();
+  aller();
+}
+window.addEventListener('beforeunload', (e) => { if (modifie) { e.preventDefault(); e.returnValue = ''; } });
+
+// Compteurs animés
+function animerNombres(racine) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  racine.querySelectorAll('[data-compte]').forEach((n) => {
+    const cible = Number(n.dataset.compte);
+    const pre = n.dataset.prefixe || '';
+    const t0 = performance.now();
+    const pas = (t) => {
+      const p = Math.min(1, (t - t0) / 900);
+      n.textContent = pre + Math.round(cible * (1 - (1 - p) ** 3));
+      if (p < 1) requestAnimationFrame(pas);
+    };
+    requestAnimationFrame(pas);
+  });
+}
+
+// Entrée en cascade des éléments
+function cascade(enfants) {
+  enfants.forEach((n, i) => { if (n instanceof Element) { n.classList.add('entree'); n.style.setProperty('--i', String(i)); } });
+  return enfants;
 }
 
 // ---------- Pages ----------
@@ -197,12 +286,12 @@ function serverList() {
     h('h1', { class: 'page-title', text: 'Tes serveurs' }),
     h('p', { class: 'page-sub', text: `Serveurs où tu as la permission « Gérer le serveur » · Cyber est présent sur ${withBot.length} d'entre eux.` }),
     me.guilds.length
-      ? h('div', { class: 'guilds' }, me.guilds.map((g) => h('div', { class: `guild-card${g.botIn ? '' : ' off'}` },
+      ? h('div', { class: 'guilds' }, cascade(me.guilds.map((g) => h('div', { class: `guild-card${g.botIn ? '' : ' off'}` },
         guildIcon(g),
         h('div', { class: 'gname', text: g.name }),
         g.botIn
           ? h('a', { class: 'btn', href: `#/g/${g.id}/apercu`, text: 'Configurer' })
-          : h('a', { class: 'btn ghost', href: g.invite, target: '_blank', rel: 'noopener', text: 'Inviter Cyber' }))))
+          : h('a', { class: 'btn ghost', href: g.invite, target: '_blank', rel: 'noopener', text: 'Inviter Cyber' })))))
       : h('p', { class: 'empty', text: 'Aucun serveur que tu peux gérer.' }));
 }
 
@@ -220,16 +309,57 @@ const TABS = [
 function guildPage(tab) {
   const panel = h('div', { class: 'panel' });
   const views = { apercu: tabOverview, general: tabGeneral, bienvenue: tabWelcome, automod: tabAutomod, niveaux: tabLevels, tickets: tabTickets, vocaux: tabVoice, academie: tabAcademie };
-  panel.append(...(views[tab] || tabOverview)());
+  panel.append(...cascade((views[tab] || tabOverview)().filter(Boolean)));
+  panel.addEventListener('input', (e) => { if (!e.target.closest('.simu')) marquerModifie(); });
+  panel.addEventListener('change', (e) => { if (!e.target.closest('.simu')) marquerModifie(); });
   return h('div', { class: 'layout' },
     h('aside', { class: 'sidebar' },
       h('div', { class: 'side-head' }, guildIcon(data.guild), h('b', { text: data.guild.name })),
       h('nav', { class: 'tabs' }, TABS.map(([id, ico, label]) => h('button', {
         class: `tab${id === tab ? ' active' : ''}`,
-        onclick: () => { location.hash = `#/g/${currentGuild}/${id}`; },
+        onclick: () => { if (id !== tab) quitterSiPossible(() => { location.hash = `#/g/${currentGuild}/${id}`; }); },
       }, h('span', { text: ico }), h('span', { text: label })))),
-      h('a', { class: 'back', href: '#/serveurs', text: '← Tous mes serveurs' })),
+      h('a', { class: 'back', href: '#/serveurs', text: '← Tous mes serveurs', onclick: (e) => { e.preventDefault(); quitterSiPossible(() => { location.hash = '#/serveurs'; }); } })),
     panel);
+}
+
+function choixModules() {
+  const options = [
+    ['communaute', '🛡️', 'Communauté', 'Modération, automod, niveaux et XP, tickets, giveaways, rôles à boutons, bienvenue, vocaux temporaires, jeux.'],
+    ['academie', '🎓', 'Académie', 'Cours réseau et cybersécurité niveau CCNA, glossaire, quiz avec classement, défi du jour, outils réseau, IA.'],
+    ['tous', '✨', 'Les deux', 'Tout Cyber : protège ta communauté et apprends le réseau et la cybersécurité.'],
+  ];
+  const choisir = async (id, carte) => {
+    carte.classList.add('choisie');
+    const modules = { communaute: id !== 'academie', academie: id !== 'communaute' };
+    try {
+      await api('PUT', `/guilds/${currentGuild}/config`, { modules, modulesChoisis: true });
+      data.config.modules = modules;
+      data.config.modulesChoisis = true;
+      toast('✅ Modules enregistrés. Tu pourras changer dans l\'onglet Général.');
+      setTimeout(render, 450);
+    } catch (err) { carte.classList.remove('choisie'); toast(`❌ ${err.message}`, false); }
+  };
+  return h('section', { class: 'onboarding' },
+    ...cascade([
+      guildIcon(data.guild, 'gicon big'),
+      h('h1', { class: 'page-title', text: `Bienvenue sur ${data.guild.name} !` }),
+      h('p', { class: 'page-sub', text: 'Que doit faire Cyber sur ce serveur ? Tu pourras changer à tout moment.' }),
+      h('div', { class: 'choix' }, options.map(([id, ico, titre, desc]) => {
+        const carte = h('button', { class: `choix-carte${id === 'tous' ? ' reco' : ''}`, type: 'button' },
+          id === 'tous' ? h('span', { class: 'reco-badge', text: 'Recommandé' }) : null,
+          h('span', { class: 'choix-ico', text: ico }), h('b', { text: titre }), h('span', { text: desc }));
+        carte.addEventListener('click', () => choisir(id, carte));
+        return carte;
+      })),
+    ]));
+}
+
+function squelette() {
+  return h('div', { class: 'layout' },
+    h('aside', { class: 'sidebar sk-side' }, ...Array.from({ length: 8 }, () => h('div', { class: 'sk sk-line' }))),
+    h('div', { class: 'panel' }, h('div', { class: 'sk sk-title' }), h('div', { class: 'sk sk-sub' }),
+      ...Array.from({ length: 3 }, () => h('div', { class: 'sk sk-card' }))));
 }
 
 function header(title, desc) {
@@ -248,7 +378,7 @@ function tabOverview() {
     h('div', { class: 'stats' }, [
       ['👤', s.humans, 'Humains'], ['🤖', s.bots, 'Bots'], ['💬', s.channels, 'Salons'], ['🎭', s.roles, 'Rôles'],
       ['⚠️', s.warns, 'Avertissements'], ['🎫', s.openTickets, 'Tickets ouverts'], ['📈', s.ranked, 'Membres classés'], ['🏷️', s.tags, 'Tags'],
-    ].map(([i, v, l]) => h('div', { class: 'stat' }, h('div', { class: 'v', text: `${i} ${v}` }), h('div', { class: 'l', text: l })))),
+    ].map(([i, v, l]) => h('div', { class: 'stat' }, h('div', { class: 'v' }, h('span', { class: 'ico', text: i }), h('span', { 'data-compte': String(v), text: String(v) })), h('div', { class: 'l', text: l })))),
     h('div', { class: 'card' }, h('h3', { text: 'Modules' }), h('p', { class: 'hint', text: 'Ce qui est actif sur ton serveur.' }),
       h('div', { class: 'modules' },
         mod('Logs', !!c.logChannelId), mod('Bienvenue', !!c.welcomeChannelId), mod('Rôle automatique', !!c.autoRoleId),
@@ -303,6 +433,18 @@ function tabAcademie() {
   heure.value = String(d.heure ?? 18);
   const role = roleSelect(d.roleId, { none: '— Aucune mention —' });
   const off = data.config.modules?.academie === false;
+  const ap = apercuBox(() => {
+    const r = data.roles.find((x) => x.id === role.value);
+    return discordMsg({
+      content: r ? h('span', { class: 'mention role', text: `@${r.name}` }) : null,
+      embed: { color: '#4DA3FF', title: `🧠 Défi du jour · ${new Date().toLocaleDateString('fr-FR')}`,
+        desc: md('**Combien d\'hôtes utilisables dans un /27 ?**\n\n🇦 30\n🇧 32\n🇨 62\n🇩 14'),
+        fields: [['Comment jouer', 'Clique sur ta réponse : une seule tentative. +15 points si c\'est juste !']], footer: 'ITN · Masque de sous-réseau' },
+      buttons: ['A', 'B', 'C', 'D'].map((l) => ({ label: l })),
+    });
+  });
+  role.addEventListener('change', ap.maj);
+  ap.maj();
   return [
     ...header('Académie', 'Cours réseau et cybersécurité niveau CCNA : /apprendre, /glossaire, /quiz, /osi, /port, /cisco, /ia.'),
     off ? h('div', { class: 'card' }, h('p', { class: 'hint', text: '⚠️ Le module Académie est désactivé. Active-le dans l\'onglet Général.' })) : null,
@@ -310,7 +452,8 @@ function tabAcademie() {
       h('h3', { text: '🧠 Défi du jour' }), h('p', { class: 'hint', text: 'Une question est publiée chaque jour. Chacun répond une seule fois (+15 points), la réponse est dévoilée au défi suivant.' }),
       toggle('Activer le défi du jour', null, actif, (v) => { actif = v; }),
       h('div', { class: 'row' }, field('Salon', ch), field('Heure (heure française)', heure)),
-      field('Rôle à mentionner', role)),
+      field('Rôle à mentionner', role),
+      h('div', { class: 'apercu-label' }, h('span', { class: 'live-dot' }), 'Exemple de défi publié'), ap.box),
     saveButton(() => ({ defi: { actif, channelId: ch.value || null, heure: Number(heure.value), roleId: role.value || null } })),
   ];
 }
@@ -324,12 +467,15 @@ function tabWelcome() {
     '{serveur}': { text: data.guild.name },
     '{nombre}': { text: String(data.guild.memberCount + 1) },
   };
-  const ed = messageEditor(c.welcomeMessage, data.defaults.welcomeMessage, vars, 1000);
+  const ed = messageEditor(c.welcomeMessage, data.defaults.welcomeMessage, vars, 1000, (texte) => discordMsg({
+    content: h('span', { class: 'mention', text: `@${me.user.globalName || me.user.username}` }),
+    embed: { title: '👋 Nouveau membre', desc: texte, thumb: avatarMoi(), fields: [['Compte créé', 'il y a 3 ans']], footer: `ID : ${me.user.id}` },
+  }));
   return [
     ...header('Bienvenue', 'Accueille les nouveaux membres avec un message personnalisé.'),
     h('div', { class: 'card' },
       field('Salon de bienvenue (et des départs)', ch),
-      field('Message', ed.node, 'Clique sur une variable pour l\'insérer. Laisse vide pour le message par défaut. **gras** et *italique* fonctionnent.')),
+      field('Message', ed.node, 'Clique sur une variable pour l\'insérer. Laisse vide pour le message par défaut. Mise en forme : **gras**, *italique*, __souligné__, ~~barré~~, `code`.')),
     saveButton(() => ({ welcomeChannelId: ch.value || null, welcomeMessage: ed.ta.value.trim() || null })),
   ];
 }
@@ -341,34 +487,55 @@ function tabAutomod() {
 
   const wordChips = h('div', { class: 'chips' });
   const drawWords = () => wordChips.replaceChildren(...[...words].map((w) => h('span', { class: 'chip' }, w,
-    h('button', { title: 'Retirer', text: '×', onclick: () => { words.delete(w); drawWords(); } }))));
+    h('button', { title: 'Retirer', text: '×', onclick: () => { words.delete(w); drawWords(); marquerModifie(); simuler(); } }))));
   const wordInput = h('input', { type: 'text', placeholder: 'Ajouter un mot puis Entrée', maxLength: 50 });
-  const addWord = () => { const v = wordInput.value.trim().toLowerCase(); if (v) { words.add(v); wordInput.value = ''; drawWords(); } };
+  const addWord = () => { const v = wordInput.value.trim().toLowerCase(); if (v) { words.add(v); wordInput.value = ''; drawWords(); marquerModifie(); simuler(); } };
   wordInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addWord(); } });
 
   const roleChips = h('div', { class: 'chips' });
   const drawRoles = () => roleChips.replaceChildren(...[...exempt].map((id) => {
     const r = data.roles.find((x) => x.id === id);
     return h('span', { class: 'chip' }, `@${r?.name ?? 'rôle supprimé'}`,
-      h('button', { title: 'Retirer', text: '×', onclick: () => { exempt.delete(id); drawRoles(); } }));
+      h('button', { title: 'Retirer', text: '×', onclick: () => { exempt.delete(id); drawRoles(); marquerModifie(); } }));
   }));
   const roleAdd = roleSelect('', { none: '— Ajouter un rôle —' });
-  roleAdd.addEventListener('change', () => { if (roleAdd.value) { exempt.add(roleAdd.value); roleAdd.value = ''; drawRoles(); } });
+  roleAdd.addEventListener('change', () => { if (roleAdd.value) { exempt.add(roleAdd.value); roleAdd.value = ''; drawRoles(); marquerModifie(); } });
 
   const maxMentions = h('input', { type: 'number', min: 2, max: 50, value: a.maxMentions });
   const timeoutAfter = h('input', { type: 'number', min: 1, max: 10, value: a.timeoutAfter });
-  drawWords(); drawRoles();
+  // Simulateur : mêmes règles que le bot (sauf l'anti-spam, qui dépend du rythme des messages)
+  const essai = h('textarea', { placeholder: 'Tape un message pour voir comment l\'automod réagit…', maxLength: 500 });
+  const verdict = h('div', { class: 'verdict' });
+  function simuler() {
+    const t = essai.value;
+    if (!t.trim()) { verdict.className = 'verdict'; verdict.textContent = 'Le résultat s\'affiche ici.'; return; }
+    let raison = null;
+    const mentions = (t.match(/@\S+/g) || []).length;
+    const lettres = t.replace(/[^a-zà-ÿ]/gi, '');
+    if (!a.enabled) raison = null;
+    else if (a.invites && /(discord\.gg|discord(app)?\.com\/invite)\/\w+/i.test(t)) raison = 'Invitation Discord interdite';
+    else if (a.links && /https?:\/\/\S+/i.test(t)) raison = 'Liens interdits';
+    else if (a.mentions && mentions >= Number(maxMentions.value)) raison = 'Mentions de masse';
+    else if ([...words].some((w) => new RegExp(`(^|\\W)${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}($|\\W)`, 'i').test(t.toLowerCase()))) raison = 'Mot interdit';
+    else if (a.caps && t.length >= 12 && lettres.length >= 10 && lettres.replace(/[^A-ZÀ-Þ]/g, '').length / lettres.length > 0.7) raison = 'Trop de majuscules';
+    if (!a.enabled) { verdict.className = 'verdict neutre'; verdict.textContent = '⏸️ L\'automod est désactivé : le message passerait.'; }
+    else if (raison) { verdict.className = 'verdict bloque'; verdict.textContent = `⛔ Message supprimé : ${raison.toLowerCase()}.`; }
+    else { verdict.className = 'verdict passe'; verdict.textContent = '✅ Message autorisé.'; }
+  }
+  essai.addEventListener('input', simuler);
+  maxMentions.addEventListener('input', simuler);
+  drawWords(); drawRoles(); simuler();
 
   return [
     ...header('Automod', 'Cyber supprime automatiquement les messages interdits. Le staff (Gérer les messages) est toujours ignoré.'),
     h('div', { class: 'card' },
-      toggle('Activer l\'automod', 'Interrupteur général de la modération automatique.', a.enabled, (v) => { a.enabled = v; })),
+      toggle('Activer l\'automod', 'Interrupteur général de la modération automatique.', a.enabled, (v) => { a.enabled = v; simuler(); })),
     h('div', { class: 'card' }, h('h3', { text: 'Filtres' }),
-      toggle('Invitations Discord', 'Bloque les liens discord.gg vers d\'autres serveurs.', a.invites, (v) => { a.invites = v; }),
-      toggle('Liens', 'Bloque tous les liens http(s).', a.links, (v) => { a.links = v; }),
-      toggle('Spam', '6 messages ou plus en 5 secondes.', a.spam, (v) => { a.spam = v; }),
-      toggle('Majuscules', 'Messages écrits à plus de 70 % en majuscules.', a.caps, (v) => { a.caps = v; }),
-      toggle('Mentions de masse', 'Trop de mentions dans un seul message.', a.mentions, (v) => { a.mentions = v; })),
+      toggle('Invitations Discord', 'Bloque les liens discord.gg vers d\'autres serveurs.', a.invites, (v) => { a.invites = v; simuler(); }),
+      toggle('Liens', 'Bloque tous les liens http(s).', a.links, (v) => { a.links = v; simuler(); }),
+      toggle('Spam', '6 messages ou plus en 5 secondes.', a.spam, (v) => { a.spam = v; simuler(); }),
+      toggle('Majuscules', 'Messages écrits à plus de 70 % en majuscules.', a.caps, (v) => { a.caps = v; simuler(); }),
+      toggle('Mentions de masse', 'Trop de mentions dans un seul message.', a.mentions, (v) => { a.mentions = v; simuler(); })),
     h('div', { class: 'card' }, h('h3', { text: 'Réglages' }),
       h('div', { class: 'row' },
         field('Mentions maximum par message', maxMentions),
@@ -377,6 +544,8 @@ function tabAutomod() {
       h('div', { class: 'inline' }, wordInput, h('button', { class: 'btn ghost', text: 'Ajouter', onclick: addWord })), wordChips),
     h('div', { class: 'card' }, h('h3', { text: '✅ Rôles ignorés' }), h('p', { class: 'hint', text: 'Les membres avec ces rôles ne sont pas filtrés.' }),
       roleAdd, roleChips),
+    h('div', { class: 'card simu' }, h('h3', { text: '🧪 Simulateur' }), h('p', { class: 'hint', text: 'Teste tes réglages avant de les enregistrer. Les membres du staff ne sont jamais filtrés.' }),
+      essai, verdict),
     saveButton(() => ({ automod: {
       enabled: a.enabled, invites: a.invites, links: a.links, spam: a.spam, caps: a.caps, mentions: a.mentions,
       maxMentions: Number(maxMentions.value), timeoutAfter: Number(timeoutAfter.value), words: [...words], exemptRoles: [...exempt],
@@ -390,7 +559,7 @@ function tabLevels() {
   const rewards = { ...c.levelRewards };
   const ch = channelSelect(data.channels.text, c.levelChannelId, '#', '— Salon où le membre a écrit —');
   const vars = { '{membre}': { text: `@${me.user.globalName || me.user.username}`, mention: true }, '{niveau}': { text: '5' } };
-  const ed = messageEditor(c.levelMessage, data.defaults.levelMessage, vars, 500);
+  const ed = messageEditor(c.levelMessage, data.defaults.levelMessage, vars, 500, (texte) => discordMsg({ content: texte }));
 
   const list = h('ul', { class: 'rewards' });
   const drawRewards = () => {
@@ -400,7 +569,7 @@ function tabLevels() {
       const dot = h('span', { class: 'dot' });
       dot.style.background = r?.color && r.color !== '#000000' ? r.color : '#9d98a6';
       return h('li', {}, h('span', { class: 'lv', text: `Niveau ${lvl}` }), dot, h('span', { class: 'rl', text: `@${r?.name ?? 'rôle supprimé'}` }),
-        h('button', { class: 'btn ghost small', text: 'Retirer', onclick: () => { delete rewards[lvl]; drawRewards(); } }));
+        h('button', { class: 'btn ghost small', text: 'Retirer', onclick: () => { delete rewards[lvl]; drawRewards(); marquerModifie(); } }));
     }) : [h('li', { class: 'empty', text: 'Aucune récompense.' })]));
   };
   const lvlInput = h('input', { type: 'number', min: 1, max: 500, placeholder: 'Niveau' });
@@ -409,7 +578,7 @@ function tabLevels() {
     const n = Number(lvlInput.value);
     if (!Number.isInteger(n) || n < 1 || n > 500) return toast('❌ Niveau entre 1 et 500', false);
     if (!roleIn.value) return toast('❌ Choisis un rôle', false);
-    rewards[n] = roleIn.value; lvlInput.value = ''; roleIn.value = ''; drawRewards();
+    rewards[n] = roleIn.value; lvlInput.value = ''; roleIn.value = ''; drawRewards(); marquerModifie();
   };
   drawRewards();
 
@@ -427,9 +596,12 @@ function tabLevels() {
   ];
 }
 
-function publishCard(title, hint, type, extra) {
+function publishCard(title, hint, type, extra, apercu) {
   const ch = channelSelect(data.channels.text, '', '#', '— Choisis un salon —');
   const msg = h('textarea', { maxLength: 1000, placeholder: 'Texte du panneau (facultatif)' });
+  const ap = apercuBox(() => apercu(msg.value.trim()));
+  msg.addEventListener('input', ap.maj);
+  ap.maj();
   const btn = h('button', { class: 'btn', text: 'Publier le panneau' });
   btn.addEventListener('click', async () => {
     btn.disabled = true;
@@ -439,7 +611,9 @@ function publishCard(title, hint, type, extra) {
     } catch (err) { toast(`❌ ${err.message}`, false); } finally { btn.disabled = false; }
   });
   return h('div', { class: 'card' }, h('h3', { text: title }), h('p', { class: 'hint', text: hint }),
-    h('div', { class: 'row' }, field('Salon', ch), extra ? extra.node : null), field('Message', msg), h('div', { class: 'actions' }, btn));
+    h('div', { class: 'row' }, field('Salon', ch), extra ? extra.node : null), field('Message', msg),
+    h('div', { class: 'apercu-label' }, h('span', { class: 'live-dot' }), 'Aperçu du panneau'), ap.box,
+    h('div', { class: 'actions' }, btn));
 }
 
 function tabTickets() {
@@ -452,9 +626,11 @@ function tabTickets() {
     h('div', { class: 'card' }, h('h3', { text: '🎫 Réglages des tickets' }),
       h('div', { class: 'row' }, field('Rôle staff (voit les tickets)', staff), field('Catégorie des tickets', cat)),
       saveButton(() => ({ ticketStaffRoleId: staff.value || null, ticketCategoryId: cat.value || null }))),
-    publishCard('📤 Publier le panneau de tickets', 'Envoie le bouton « Ouvrir un ticket » dans un salon. Enregistre le rôle staff avant.', 'ticket'),
+    publishCard('📤 Publier le panneau de tickets', 'Envoie le bouton « Ouvrir un ticket » dans un salon. Enregistre le rôle staff avant.', 'ticket', null,
+      (t) => discordMsg({ embed: { title: '🎫 Support', desc: md(t || 'Besoin d\'aide ? Clique sur le bouton pour ouvrir un ticket privé avec l\'équipe.') }, buttons: [{ label: 'Ouvrir un ticket', emoji: '🎫', style: 'red' }] })),
     publishCard('🛡️ Publier le panneau de vérification', 'Bouton « Je ne suis pas un robot » qui donne un rôle. Les comptes de moins de 24 h sont refusés.', 'verification',
-      { node: field('Rôle donné', verifRole), get: () => ({ roleId: verifRole.value }) }),
+      { node: field('Rôle donné', verifRole), get: () => ({ roleId: verifRole.value }) },
+      (t) => discordMsg({ embed: { title: '🛡️ Vérification', desc: md(t || 'Clique sur le bouton pour accéder au serveur.') }, buttons: [{ label: 'Je ne suis pas un robot', emoji: '✅', style: 'green' }] })),
   ];
 }
 
@@ -477,7 +653,7 @@ async function render() {
   if (parts[0] === 'g' && parts[1]) {
     const [, id, tab = 'apercu'] = parts;
     if (currentGuild !== id || !data) {
-      $app.replaceChildren(h('div', { class: 'loading', text: 'Chargement du serveur…' }));
+      $app.replaceChildren(squelette());
       try {
         data = await api('GET', `/guilds/${id}`);
         currentGuild = id;
@@ -486,8 +662,11 @@ async function render() {
         return;
       }
     }
+    remettreAZero();
+    if (!data.config.modulesChoisis) { $app.replaceChildren(choixModules()); return; }
     $app.replaceChildren(guildPage(tab));
-    window.scrollTo({ top: 0 });
+    animerNombres($app);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
   data = null; currentGuild = null;
