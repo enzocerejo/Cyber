@@ -3,35 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src https://discord.com; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Cyber · Bot Discord de modération, niveaux et tickets</title>
   <meta name="description" content="Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.">
   <meta name="theme-color" content="#ff3d5a">
-  <meta property="og:title" content="Cyber · Bot Discord">
-  <meta property="og:description" content="Modération, automod, niveaux, tickets, giveaways et outils réseau. 100 % gratuit.">
-  <meta property="og:image" content="assets/banniere.jpg">
+  <meta property="og:title" content="Cyber · Bot Discord de modération, niveaux et tickets">
+  <meta property="og:description" content="Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.">
+  <meta property="og:image" content="https://enzocerejo.github.io/cyber/assets/banniere.jpg">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
   <div class="bg" aria-hidden="true"></div>
 
   <header class="nav">
-    <a class="brand" href="#haut"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
     <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
-    <nav class="links">
-      <a href="#fonctions">Fonctions</a>
-      <a href="#commandes">Commandes</a>
-      <a href="#tableau">Tableau de bord</a>
-      <a href="#faq">FAQ</a>
+    <nav class="links" aria-label="Navigation principale">
+      <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#commandes">Commandes</a>
+      <a href="demarrer.html">Démarrer</a>
+      <a href="nouveautes.html">Nouveautés</a>
+      <span class="pill" data-statut title="Statut de Cyber"><span class="dot-status"></span><span class="pill-txt">Statut</span></span>
       <a class="btn small" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter Cyber</a>
     </nav>
   </header>
 
-  <main id="haut">
+  <main id="contenu">
     <!-- Accueil -->
     <section class="hero">
       <img class="hero-banner" src="assets/banniere.jpg" alt="Cyber" width="1600" height="533">
@@ -56,7 +58,7 @@
       <div class="grid">
         <article class="card"><span class="ico">🛡️</span><h3>Modération</h3><p>Kick, ban, mute, avertissements, nettoyage de messages, verrouillage de salons. Chaque sanction est envoyée en MP et enregistrée dans les logs.</p></article>
         <article class="card"><span class="ico">🤖</span><h3>Automod</h3><p>Anti-spam, anti-invitations, anti-liens, mots interdits, majuscules et mentions de masse. Mute automatique après plusieurs infractions.</p></article>
-        <article class="card"><span class="ico">📈</span><h3>Niveaux & XP</h3><p>Les membres gagnent de l'XP en discutant. Classement, carte de rang et rôles récompenses donnés automatiquement.</p></article>
+        <article class="card"><span class="ico">📈</span><h3>Niveaux & XP</h3><p>Les membres gagnent de l'XP en discutant. Classement, fiche de rang et rôles récompenses donnés automatiquement.</p></article>
         <article class="card"><span class="ico">🎫</span><h3>Tickets</h3><p>Un bouton ouvre un salon privé avec ton équipe. À la fermeture, la conversation est sauvegardée dans les logs.</p></article>
         <article class="card"><span class="ico">🎉</span><h3>Giveaways</h3><p>Concours avec bouton de participation, tirage automatique et relance du tirage. Rien n'est perdu si le bot redémarre.</p></article>
         <article class="card"><span class="ico">✅</span><h3>Vérification</h3><p>Bouton anti-robot qui donne l'accès au serveur. Les comptes de moins de 24 h sont bloqués pour éviter les raids.</p></article>
@@ -113,10 +115,29 @@
   </main>
 
   <footer class="footer">
-    <p>© <span id="annee">2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a></p>
-    <p class="muted">Cyber n'est pas affilié à Discord Inc.</p>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="34" height="34" loading="lazy"><span>CYBER</span></a>
+        <p>Protège et anime ton serveur Discord. 100 % gratuit.</p>
+      </div>
+      <div>
+        <h3>Cyber</h3>
+        <a href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter à Discord</a>
+        <a href="demarrer.html">Bien démarrer</a>
+        <a href="index.html#commandes">Commandes</a>
+        <a href="nouveautes.html">Nouveautés et statut</a>
+      </div>
+      <div>
+        <h3>Légal</h3>
+        <a href="conditions.html">Conditions d'utilisation</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="mailto:enzo.cerejo@proton.me">Contact</a>
+      </div>
+    </div>
+    <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>
   </footer>
 
+  <script src="config.js"></script>
   <script src="commandes.js"></script>
   <script src="script.js"></script>
 </body>

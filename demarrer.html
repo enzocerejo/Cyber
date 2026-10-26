@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src https://discord.com; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Bien démarrer · Cyber</title>
+  <meta name="description" content="Guide pas à pas pour installer et configurer Cyber sur ton serveur Discord.">
+  <meta name="theme-color" content="#ff3d5a">
+  <meta property="og:title" content="Bien démarrer · Cyber">
+  <meta property="og:description" content="Guide pas à pas pour installer et configurer Cyber sur ton serveur Discord.">
+  <meta property="og:image" content="https://enzocerejo.github.io/cyber/assets/banniere.jpg">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
+    <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="links" aria-label="Navigation principale">
+      <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#commandes">Commandes</a>
+      <a href="demarrer.html" aria-current="page">Démarrer</a>
+      <a href="nouveautes.html">Nouveautés</a>
+      <span class="pill" data-statut title="Statut de Cyber"><span class="dot-status"></span><span class="pill-txt">Statut</span></span>
+      <a class="btn small" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter Cyber</a>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <section class="page-hero">
+      <span class="badge">Guide</span>
+      <h1>Bien démarrer avec Cyber</h1>
+      <p class="lead">De l'invitation à un serveur entièrement protégé, en 10 minutes. Clique sur une commande pour la copier.</p>
+    </section>
+
+    <section class="section narrow">
+      <ol class="steps">
+        <li class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h2>Inviter Cyber</h2>
+            <p>Clique sur le bouton ci-dessous, choisis ton serveur et valide. Il faut avoir la permission <b>« Gérer le serveur »</b>.</p>
+            <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter Cyber à mon serveur</a>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h2>Placer le rôle de Cyber</h2>
+            <p>Discord ne laisse un bot gérer que les rôles placés <b>en dessous</b> du sien. Va dans <b>Paramètres du serveur → Rôles</b> et fais glisser le rôle <b>Cyber</b> juste sous ton rôle d'administrateur.</p>
+            <div class="mock-roles" aria-hidden="true">
+              <span class="r r-admin">@Admin</span>
+              <span class="r r-cyber">@Cyber <em>← ici</em></span>
+              <span class="r">@Staff</span>
+              <span class="r">@Membre</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h2>Activer les logs</h2>
+            <p>Crée un salon privé <b>#logs</b> pour le staff. Cyber y enverra les sanctions, les messages supprimés ou modifiés, l'automod et les tickets fermés.</p>
+            <button class="cmd-copy" data-copy="/config logs salon:#logs"><code>/config logs salon:#logs</code></button>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h2>Accueillir les nouveaux</h2>
+            <p>Un message de bienvenue et un rôle donné automatiquement à l'arrivée. Variables disponibles : <code>{membre}</code> <code>{nom}</code> <code>{serveur}</code> <code>{nombre}</code>.</p>
+            <button class="cmd-copy" data-copy="/config bienvenue salon:#bienvenue message:Bienvenue {membre} sur {serveur} !"><code>/config bienvenue salon:#bienvenue message:Bienvenue {membre} sur {serveur} !</code></button>
+            <button class="cmd-copy" data-copy="/config autorole role:@Membre"><code>/config autorole role:@Membre</code></button>
+            <div class="discord-msg" aria-hidden="true">
+              <img src="assets/logo.png" alt="" width="40" height="40">
+              <div>
+                <div class="dm-head"><b>Cyber</b><span class="bot-tag">APP</span><span class="dm-time">Aujourd'hui à 14:02</span></div>
+                <div class="dm-embed">
+                  <b>👋 Nouveau membre</b>
+                  <p>Bienvenue <span class="mention">@Enzo</span> sur <b>Mon serveur</b> ! Tu es notre 42ᵉ membre 🎉</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h2>Protéger le serveur</h2>
+            <p>Active la modération automatique, puis publie le panneau de vérification dans un salon comme <b>#vérification</b>. Les comptes de moins de 24 h seront bloqués.</p>
+            <button class="cmd-copy" data-copy="/automod activer etat:True"><code>/automod activer etat:True</code></button>
+            <button class="cmd-copy" data-copy="/automod mot action:ajouter mot:"><code>/automod mot action:ajouter mot:…</code></button>
+            <button class="cmd-copy" data-copy="/verification role:@Membre"><code>/verification role:@Membre</code></button>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h2>Ouvrir le support</h2>
+            <p>Dans un salon <b>#support</b>, publie le bouton « Ouvrir un ticket ». Chaque ticket est un salon privé entre le membre et ton équipe.</p>
+            <button class="cmd-copy" data-copy="/ticket panel staff:@Staff"><code>/ticket panel staff:@Staff</code></button>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <h2>Niveaux et récompenses</h2>
+            <p>Les membres gagnent de l'XP en discutant. Choisis où annoncer les passages de niveau et quels rôles offrir.</p>
+            <button class="cmd-copy" data-copy="/config niveaux actif:True salon:#niveaux"><code>/config niveaux actif:True salon:#niveaux</code></button>
+            <button class="cmd-copy" data-copy="/recompense ajouter niveau:5 role:@Actif"><code>/recompense ajouter niveau:5 role:@Actif</code></button>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">8</div>
+          <div class="step-body">
+            <h2>Les petits plus</h2>
+            <p>Salons vocaux temporaires, rôles à choisir avec des boutons et salon de suggestions.</p>
+            <button class="cmd-copy" data-copy="/config vocal salon:➕ Créer un vocal"><code>/config vocal salon:➕ Créer un vocal</code></button>
+            <button class="cmd-copy" data-copy="/panelroles titre:Choisis tes rôles role1:@Gamer"><code>/panelroles titre:Choisis tes rôles role1:@Gamer</code></button>
+            <button class="cmd-copy" data-copy="/config suggestions salon:#suggestions"><code>/config suggestions salon:#suggestions</code></button>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <h2>Vérifier</h2>
+            <p>Affiche toute ta configuration, puis découvre toutes les commandes avec <code>/aide</code>.</p>
+            <button class="cmd-copy" data-copy="/config voir"><code>/config voir</code></button>
+            <button class="cmd-copy" data-copy="/aide"><code>/aide</code></button>
+          </div>
+        </li>
+      </ol>
+
+      <div class="note">
+        <b>💡 Bientôt :</b> tout cela se fera aussi en quelques clics depuis le tableau de bord en ligne, sans taper de commande.
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="34" height="34" loading="lazy"><span>CYBER</span></a>
+        <p>Protège et anime ton serveur Discord. 100 % gratuit.</p>
+      </div>
+      <div>
+        <h3>Cyber</h3>
+        <a href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter à Discord</a>
+        <a href="demarrer.html">Bien démarrer</a>
+        <a href="index.html#commandes">Commandes</a>
+        <a href="nouveautes.html">Nouveautés et statut</a>
+      </div>
+      <div>
+        <h3>Légal</h3>
+        <a href="conditions.html">Conditions d'utilisation</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="mailto:enzo.cerejo@proton.me">Contact</a>
+      </div>
+    </div>
+    <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

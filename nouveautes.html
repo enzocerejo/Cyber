@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src https://discord.com; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Nouveautés et statut · Cyber</title>
+  <meta name="description" content="Statut en direct de Cyber et historique de ses mises à jour.">
+  <meta name="theme-color" content="#ff3d5a">
+  <meta property="og:title" content="Nouveautés et statut · Cyber">
+  <meta property="og:description" content="Statut en direct de Cyber et historique de ses mises à jour.">
+  <meta property="og:image" content="https://enzocerejo.github.io/cyber/assets/banniere.jpg">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
+    <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="links" aria-label="Navigation principale">
+      <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#commandes">Commandes</a>
+      <a href="demarrer.html">Démarrer</a>
+      <a href="nouveautes.html" aria-current="page">Nouveautés</a>
+      <span class="pill" data-statut title="Statut de Cyber"><span class="dot-status"></span><span class="pill-txt">Statut</span></span>
+      <a class="btn small" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter Cyber</a>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <section class="page-hero">
+      <span class="badge">Journal</span>
+      <h1>Nouveautés</h1>
+      <p class="lead">L'état de Cyber en direct et l'historique de ses mises à jour.</p>
+    </section>
+
+    <section class="section narrow">
+      <div class="status-card" id="statut-carte">
+        <div class="status-main">
+          <span class="dot-status" id="statut-point"></span>
+          <div>
+            <b id="statut-titre">Vérification du statut…</b>
+            <p id="statut-detail">Connexion à Discord en cours.</p>
+          </div>
+        </div>
+        <span class="status-time" id="statut-heure"></span>
+      </div>
+
+      <div class="timeline">
+        <article class="release">
+          <div class="rel-head"><span class="version">v1.2</span><time datetime="2026-10-26">26 octobre 2026</time><span class="rel-tag new">Dernière</span></div>
+          <h2>Tableau de bord et nouvelle identité</h2>
+          <ul>
+            <li><b>Tableau de bord</b> façon MEE6 : connexion avec Discord, réglages en quelques clics, aperçu des messages en direct.</li>
+            <li><b>Nouveau logo et nouvelle bannière.</b></li>
+            <li><code>/userinfo</code> beaucoup plus complet : badges, âge du compte, position d'arrivée, permissions clés, niveau et activité.</li>
+            <li><code>/blague</code> : 79 blagues et devinettes, avec choix de la catégorie.</li>
+            <li>Statut qui change toutes les 20 secondes.</li>
+            <li>Suppression de <code>/8ball</code> et <code>/dire</code>.</li>
+            <li>Lancement de ce site.</li>
+          </ul>
+        </article>
+
+        <article class="release">
+          <div class="rel-head"><span class="version">v1.1</span><time datetime="2026-10-25">25 octobre 2026</time></div>
+          <h2>De quoi remplacer tous les autres bots</h2>
+          <ul>
+            <li><b>Niveaux et XP</b> : <code>/rang</code>, <code>/classement</code>, rôles récompenses.</li>
+            <li><b>Automod</b> : spam, invitations, liens, majuscules, mentions de masse, mots interdits.</li>
+            <li><b>Tickets</b>, <b>giveaways</b>, <b>vérification anti-raid</b>, <b>suggestions</b>, <b>tags</b>.</li>
+            <li><b>Vocaux temporaires</b>, <code>/rappel</code>, <code>/afk</code>, <code>/snipe</code>, <code>/calcul</code>.</li>
+            <li><b>Outils réseau</b> : <code>/sousreseau</code>, <code>/dns</code>, <code>/convertir</code>.</li>
+            <li>Menu <code>/aide</code> classé par catégories.</li>
+          </ul>
+        </article>
+
+        <article class="release">
+          <div class="rel-head"><span class="version">v1.0</span><time datetime="2026-10-25">25 octobre 2026</time></div>
+          <h2>Naissance de Cyber</h2>
+          <ul>
+            <li>20 premières commandes : modération, informations, rôles, sondages et embeds.</li>
+            <li>Messages de bienvenue, rôle automatique et salon de logs.</li>
+            <li><code>/pingip</code> sécurisé : seules les adresses publiques sont acceptées.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="34" height="34" loading="lazy"><span>CYBER</span></a>
+        <p>Protège et anime ton serveur Discord. 100 % gratuit.</p>
+      </div>
+      <div>
+        <h3>Cyber</h3>
+        <a href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=8&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter à Discord</a>
+        <a href="demarrer.html">Bien démarrer</a>
+        <a href="index.html#commandes">Commandes</a>
+        <a href="nouveautes.html">Nouveautés et statut</a>
+      </div>
+      <div>
+        <h3>Légal</h3>
+        <a href="conditions.html">Conditions d'utilisation</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="mailto:enzo.cerejo@proton.me">Contact</a>
+      </div>
+    </div>
+    <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
