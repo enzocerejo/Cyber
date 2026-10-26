@@ -108,6 +108,7 @@ function saveButton(getPatch, label = 'Enregistrer') {
       const res = await api('PUT', `/guilds/${currentGuild}/config`, patch);
       for (const [k, v] of Object.entries(patch)) {
         if (k === 'automod') Object.assign(data.automod, v);
+        else if (k === 'defi' || k === 'modules') data.config[k] = { ...(data.config[k] || {}), ...v };
         else data.config[k] = v;
       }
       toast(res?.message || '✅ Modifications enregistrées');
@@ -213,11 +214,12 @@ const TABS = [
   ['niveaux', '📈', 'Niveaux'],
   ['tickets', '🎫', 'Tickets & vérification'],
   ['vocaux', '🔊', 'Vocaux temporaires'],
+  ['academie', '🎓', 'Académie'],
 ];
 
 function guildPage(tab) {
   const panel = h('div', { class: 'panel' });
-  const views = { apercu: tabOverview, general: tabGeneral, bienvenue: tabWelcome, automod: tabAutomod, niveaux: tabLevels, tickets: tabTickets, vocaux: tabVoice };
+  const views = { apercu: tabOverview, general: tabGeneral, bienvenue: tabWelcome, automod: tabAutomod, niveaux: tabLevels, tickets: tabTickets, vocaux: tabVoice, academie: tabAcademie };
   panel.append(...(views[tab] || tabOverview)());
   return h('div', { class: 'layout' },
     h('aside', { class: 'sidebar' },
@@ -251,7 +253,8 @@ function tabOverview() {
       h('div', { class: 'modules' },
         mod('Logs', !!c.logChannelId), mod('Bienvenue', !!c.welcomeChannelId), mod('Rôle automatique', !!c.autoRoleId),
         mod('Automod', a.enabled), mod('Niveaux', c.levelsEnabled, `${Object.keys(c.levelRewards).length} récompense(s)`),
-        mod('Tickets', !!c.ticketStaffRoleId), mod('Vocaux temporaires', !!c.tempVoiceId), mod('Suggestions', !!c.suggestionChannelId))),
+        mod('Tickets', !!c.ticketStaffRoleId), mod('Vocaux temporaires', !!c.tempVoiceId), mod('Suggestions', !!c.suggestionChannelId),
+        mod('Module Académie', c.modules?.academie !== false), mod('Défi du jour', !!c.defi?.channelId && c.defi?.actif !== false))),
     leaderboardCard(),
   ];
 }
@@ -272,8 +275,13 @@ function tabGeneral() {
   const logs = channelSelect(data.channels.text, c.logChannelId);
   const auto = roleSelect(c.autoRoleId, { onlyAssignable: true, none: '— Désactivé —' });
   const sugg = channelSelect(data.channels.text, c.suggestionChannelId);
+  const mods = { communaute: c.modules?.communaute !== false, academie: c.modules?.academie !== false };
   return [
     ...header('Général', 'Les réglages de base de Cyber.'),
+    h('div', { class: 'card' },
+      h('h3', { text: '🧩 Modules' }), h('p', { class: 'hint', text: 'Active les parties de Cyber dont ton serveur a besoin. Les commandes d\'un module désactivé sont masquées.' }),
+      toggle('🛡️ Communauté', 'Modération, automod, niveaux, tickets, giveaways, rôles, bienvenue, fun.', mods.communaute, (v) => { mods.communaute = v; }),
+      toggle('🎓 Académie', 'Cours réseau et cybersécurité (CCNA), quiz, défi du jour, outils réseau, IA.', mods.academie, (v) => { mods.academie = v; })),
     h('div', { class: 'card' },
       h('h3', { text: '📜 Logs' }), h('p', { class: 'hint', text: 'Sanctions, messages supprimés ou modifiés, tickets fermés, automod…' }),
       field('Salon des logs', logs)),
@@ -283,7 +291,27 @@ function tabGeneral() {
     h('div', { class: 'card' },
       h('h3', { text: '💡 Suggestions' }), h('p', { class: 'hint', text: 'Salon où arrivent les idées envoyées avec /suggestion.' }),
       field('Salon des suggestions', sugg)),
-    saveButton(() => ({ logChannelId: logs.value || null, autoRoleId: auto.value || null, suggestionChannelId: sugg.value || null })),
+    saveButton(() => ({ modules: { ...mods }, logChannelId: logs.value || null, autoRoleId: auto.value || null, suggestionChannelId: sugg.value || null })),
+  ];
+}
+
+function tabAcademie() {
+  const d = data.config.defi || {};
+  let actif = d.actif !== false && !!d.channelId;
+  const ch = channelSelect(data.channels.text, d.channelId, '#', '— Choisis un salon —');
+  const heure = h('select', {}, Array.from({ length: 24 }, (_, i) => h('option', { value: String(i), text: `${String(i).padStart(2, '0')} h 00` })));
+  heure.value = String(d.heure ?? 18);
+  const role = roleSelect(d.roleId, { none: '— Aucune mention —' });
+  const off = data.config.modules?.academie === false;
+  return [
+    ...header('Académie', 'Cours réseau et cybersécurité niveau CCNA : /apprendre, /glossaire, /quiz, /osi, /port, /cisco, /ia.'),
+    off ? h('div', { class: 'card' }, h('p', { class: 'hint', text: '⚠️ Le module Académie est désactivé. Active-le dans l\'onglet Général.' })) : null,
+    h('div', { class: 'card' },
+      h('h3', { text: '🧠 Défi du jour' }), h('p', { class: 'hint', text: 'Une question est publiée chaque jour. Chacun répond une seule fois (+15 points), la réponse est dévoilée au défi suivant.' }),
+      toggle('Activer le défi du jour', null, actif, (v) => { actif = v; }),
+      h('div', { class: 'row' }, field('Salon', ch), field('Heure (heure française)', heure)),
+      field('Rôle à mentionner', role)),
+    saveButton(() => ({ defi: { actif, channelId: ch.value || null, heure: Number(heure.value), roleId: role.value || null } })),
   ];
 }
 

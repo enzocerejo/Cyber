@@ -98,6 +98,118 @@ window.CYBER_COMMANDES = [
   ]
  },
  {
+  "id": "academie",
+  "emoji": "🎓",
+  "label": "Académie",
+  "commands": [
+   {
+    "name": "apprendre",
+    "desc": "Fiche de cours réseau / cybersécurité (niveau CCNA)",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "cisco",
+    "desc": "Mémo des commandes Cisco IOS",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "defi",
+    "desc": "Défi du jour : une question réseau / cyber chaque jour",
+    "subs": [
+     {
+      "name": "activer",
+      "desc": "Publier un défi chaque jour dans un salon"
+     },
+     {
+      "name": "desactiver",
+      "desc": "Arrêter le défi du jour"
+     },
+     {
+      "name": "maintenant",
+      "desc": "Publier un défi tout de suite"
+     }
+    ],
+    "staff": true
+   },
+   {
+    "name": "glossaire",
+    "desc": "Définition rapide d'un terme réseau / cybersécurité",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "ia",
+    "desc": "Pose une question d'informatique à l'IA de Cyber",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "osi",
+    "desc": "Le modèle OSI, couche par couche",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "port",
+    "desc": "Quel service utilise ce port ? (ou l'inverse)",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "quiz",
+    "desc": "Quiz réseau / cybersécurité niveau CCNA",
+    "subs": [
+     {
+      "name": "jouer",
+      "desc": "Une question au hasard"
+     },
+     {
+      "name": "classement",
+      "desc": "Les meilleurs du serveur"
+     },
+     {
+      "name": "stats",
+      "desc": "Tes statistiques (ou celles d'un membre)"
+     }
+    ],
+    "staff": false
+   }
+  ]
+ },
+ {
+  "id": "reseau",
+  "emoji": "🌐",
+  "label": "Outils réseau",
+  "commands": [
+   {
+    "name": "convertir",
+    "desc": "Convertit un nombre (décimal, binaire, hexa, octal)",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "dns",
+    "desc": "Interroge le DNS d'un nom de domaine public",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "pingip",
+    "desc": "Ping une adresse IP publique ou un nom de domaine",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "sousreseau",
+    "desc": "Calculateur de sous-réseau IPv4",
+    "subs": [],
+    "staff": false
+   }
+  ]
+ },
+ {
   "id": "niveaux",
   "emoji": "📈",
   "label": "Niveaux",
@@ -434,37 +546,6 @@ window.CYBER_COMMANDES = [
   ]
  },
  {
-  "id": "reseau",
-  "emoji": "🌐",
-  "label": "Réseau",
-  "commands": [
-   {
-    "name": "convertir",
-    "desc": "Convertit un nombre (décimal, binaire, hexa, octal)",
-    "subs": [],
-    "staff": false
-   },
-   {
-    "name": "dns",
-    "desc": "Interroge le DNS d'un nom de domaine public",
-    "subs": [],
-    "staff": false
-   },
-   {
-    "name": "pingip",
-    "desc": "Ping une adresse IP publique ou un nom de domaine",
-    "subs": [],
-    "staff": false
-   },
-   {
-    "name": "sousreseau",
-    "desc": "Calculateur de sous-réseau IPv4",
-    "subs": [],
-    "staff": false
-   }
-  ]
- },
- {
   "id": "admin",
   "emoji": "🔧",
   "label": "Admin",
@@ -507,6 +588,12 @@ window.CYBER_COMMANDES = [
    {
     "name": "embed",
     "desc": "Crée un message embed personnalisé (annonce, règlement…)",
+    "subs": [],
+    "staff": true
+   },
+   {
+    "name": "modules",
+    "desc": "Activer ou désactiver les modules de Cyber sur ce serveur",
     "subs": [],
     "staff": true
    }

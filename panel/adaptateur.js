@@ -81,6 +81,8 @@
         tempVoiceId: null, ticketCategoryId: null, autoRoleId: null, ticketStaffRoleId: null,
         welcomeMessage: null, levelMessage: null, levelsEnabled: true, levelRewards: {},
         ...cfg, automod: undefined,
+        modules: { communaute: true, academie: true, ...(cfg.modules || {}) },
+        defi: { actif: false, channelId: null, heure: 18, roleId: null, ...(cfg.defi || {}) },
       },
       defaults: DEFAULTS,
       automod: { ...AUTOMOD, ...(cfg.automod || {}) },
@@ -179,7 +181,10 @@
       if (method === 'PUT' && m[2] === '/config') {
         const cfg = lireConfig(g.id);
         if (body.automod) cfg.automod = { ...(cfg.automod || {}), ...body.automod };
-        for (const [k, v] of Object.entries(body)) if (k !== 'automod') cfg[k] = v;
+        for (const [k, v] of Object.entries(body)) {
+          if (k === 'automod') continue;
+          cfg[k] = (k === 'modules' || k === 'defi') ? { ...(cfg[k] || {}), ...v } : v;
+        }
         ecrireConfig(g.id, cfg);
         return { ok: true, message: '✅ Enregistré dans ce navigateur (aperçu)' };
       }
