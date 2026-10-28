@@ -579,6 +579,10 @@ window.CYBER_COMMANDES = [
       "desc": "Salon où arrivent les /suggestion"
      },
      {
+      "name": "giveaways",
+      "desc": "Combien de temps garder un giveaway terminé (pour /giveaway reroll)"
+     },
+     {
       "name": "voir",
       "desc": "Affiche la configuration actuelle"
      }
