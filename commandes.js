@@ -131,11 +131,11 @@ window.CYBER_COMMANDES = [
    },
    {
     "name": "defi",
-    "desc": "Défi du jour : une question réseau / cyber chaque jour",
+    "desc": "Défi du jour : un quiz réseau / cyber chaque jour, avec classement",
     "subs": [
      {
       "name": "activer",
-      "desc": "Publier un défi chaque jour dans un salon"
+      "desc": "Publier un quiz chaque jour (salon créé automatiquement si besoin)"
      },
      {
       "name": "desactiver",
@@ -143,7 +143,7 @@ window.CYBER_COMMANDES = [
      },
      {
       "name": "maintenant",
-      "desc": "Publier un défi tout de suite"
+      "desc": "Clôturer le quiz en cours et en publier un nouveau tout de suite"
      }
     ],
     "staff": true
@@ -303,6 +303,10 @@ window.CYBER_COMMANDES = [
       "desc": "Ajoute ou retire un mot interdit"
      },
      {
+      "name": "autoriser",
+      "desc": "Ajoute ou retire un mot toujours autorisé (même s'il est dans la bibliothèque)"
+     },
+     {
       "name": "exempter",
       "desc": "Ajoute ou retire un rôle ignoré par l'automod"
      },
@@ -393,6 +397,29 @@ window.CYBER_COMMANDES = [
     "desc": "Panneau de vérification anti-bots (bouton qui donne un rôle)",
     "subs": [],
     "staff": true
+   },
+   {
+    "name": "vocal",
+    "desc": "Règle ton salon vocal temporaire",
+    "subs": [
+     {
+      "name": "renommer",
+      "desc": "Change le nom de ton vocal"
+     },
+     {
+      "name": "limite",
+      "desc": "Nombre maximum de personnes (0 = illimité)"
+     },
+     {
+      "name": "statut",
+      "desc": "Texte affiché sous le nom du salon"
+     },
+     {
+      "name": "panneau",
+      "desc": "Renvoie le panneau de contrôle dans le chat du vocal"
+     }
+    ],
+    "staff": false
    }
   ]
  },

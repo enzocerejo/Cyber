@@ -50,7 +50,12 @@
   };
   const AUTOMOD = {
     enabled: false, links: false, invites: true, spam: true, caps: false, mentions: true,
-    maxMentions: 5, words: [], exemptRoles: [], timeoutAfter: 3,
+    maxMentions: 5, words: [], exemptRoles: [], timeoutAfter: 3, bibliotheque: {}, autorises: [],
+  };
+  const CONTROLES = ['renommer', 'limite', 'verrou', 'masquer', 'statut', 'expulser', 'inviter', 'transferer'];
+  const VOCAUX = {
+    categorieId: null, nom: '🔊 Salon de {membre}', limite: 0, verrouille: false, masque: false, panneau: true, gestionDiscord: false,
+    controles: Object.fromEntries(CONTROLES.map((c) => [c, true])),
   };
 
   // Petit générateur pseudo-aléatoire stable (mêmes chiffres pour un même serveur)
@@ -62,6 +67,23 @@
   const xpPourNiveau = (n) => 5 * n * n + 50 * n + 100;
   function niveau(xp) { let l = 0; while (xp >= xpPourNiveau(l)) { xp -= xpPourNiveau(l); l++; } return l; }
 
+  // Salons d'exemple + ceux « créés » par le panel en mode aperçu
+  function salons(cfg) {
+    const crees = cfg.salonsCrees || { text: [], voice: [], categories: [] };
+    return {
+      text: [...TEXT.map(([id, name, parent]) => ({ id, name, parent })), ...crees.text],
+      voice: [...VOICE.map(([id, name, parent]) => ({ id, name, parent })), ...crees.voice],
+      categories: [...CATS.map(([id, name]) => ({ id, name, parent: null })), ...crees.categories],
+    };
+  }
+  const nomCategorie = (cfg, id) => salons(cfg).categories.find((c) => c.id === id)?.name ?? null;
+  function creerSalon(cfg, type, name, parentId = null) {
+    cfg.salonsCrees ??= { text: [], voice: [], categories: [] };
+    const id = `n${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
+    cfg.salonsCrees[type].push({ id, name, parent: parentId ? nomCategorie(cfg, parentId) : null });
+    return id;
+  }
+
   function donneesServeur(g) {
     const rnd = graine(g.id);
     const membres = g.memberCount || 20 + Math.floor(rnd() * 400);
@@ -70,19 +92,18 @@
       .sort((a, b) => b.xp - a.xp).map((u) => ({ ...u, level: niveau(u.xp) }));
     return {
       guild: { id: g.id, name: g.name, icon: g.icon ? `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png?size=128` : null, memberCount: membres },
-      channels: {
-        text: TEXT.map(([id, name, parent]) => ({ id, name, parent })),
-        voice: VOICE.map(([id, name, parent]) => ({ id, name, parent })),
-        categories: CATS.map(([id, name]) => ({ id, name, parent: null })),
-      },
+      channels: salons(cfg),
       roles: ROLES.map(([id, name, color, assignable]) => ({ id, name, color, assignable })),
       config: {
         logChannelId: null, welcomeChannelId: null, suggestionChannelId: null, levelChannelId: null,
         tempVoiceId: null, ticketCategoryId: null, autoRoleId: null, ticketStaffRoleId: null,
         welcomeMessage: null, levelMessage: null, levelsEnabled: true, levelRewards: {},
-        ...cfg, automod: undefined,
+        ticketTypes: [],
+        ...cfg, automod: undefined, salonsCrees: undefined,
         modules: { communaute: true, academie: true, ...(cfg.modules || {}) },
-        defi: { actif: false, channelId: null, heure: 18, roleId: null, ...(cfg.defi || {}) },
+        defi: { actif: false, channelId: null, heure: 18, roleId: null, categorieId: null, questions: 5, top: 10, ...(cfg.defi || {}) },
+        verification: { roleId: null, titre: null, message: null, ageMinHeures: 24, ...(cfg.verification || {}) },
+        vocaux: { ...VOCAUX, ...(cfg.vocaux || {}), controles: { ...VOCAUX.controles, ...(cfg.vocaux?.controles || {}) } },
       },
       defaults: DEFAULTS,
       automod: { ...AUTOMOD, ...(cfg.automod || {}) },
@@ -170,7 +191,7 @@
         throw Object.assign(new Error('Non connecté'), { status: 401 });
       }
 
-      const m = /^\/guilds\/([^/]+)(\/config|\/publish)?$/.exec(url);
+      const m = /^\/guilds\/([^/]+)(\/config|\/publish|\/vocaux\/installer)?$/.exec(url);
       if (!m) throw new Error('Action inconnue');
       const me = cache || await this.request('GET', '/me');
       const g = me.guilds.find((x) => x.id === m[1]);
@@ -183,10 +204,29 @@
         if (body.automod) cfg.automod = { ...(cfg.automod || {}), ...body.automod };
         for (const [k, v] of Object.entries(body)) {
           if (k === 'automod') continue;
-          cfg[k] = (k === 'modules' || k === 'defi') ? { ...(cfg[k] || {}), ...v } : v;
+          cfg[k] = ['modules', 'defi', 'verification', 'vocaux'].includes(k) ? { ...(cfg[k] || {}), ...v } : v;
+        }
+        // Défi activé sans salon : comme le vrai bot, un salon est « créé »
+        let message = '✅ Enregistré dans ce navigateur (aperçu)';
+        let cree = false;
+        if (cfg.defi?.actif && !salons(cfg).text.some((c) => c.id === cfg.defi.channelId)) {
+          cfg.defi.channelId = creerSalon(cfg, 'text', '🧠・défi-du-jour', cfg.defi.categorieId);
+          message = '✅ Enregistré · salon #🧠・défi-du-jour créé (aperçu)';
+          cree = true;
         }
         ecrireConfig(g.id, cfg);
-        return { ok: true, message: '✅ Enregistré dans ce navigateur (aperçu)' };
+        return { ok: true, message, config: cree ? { defi: cfg.defi } : null, channels: cree ? salons(cfg) : null };
+      }
+
+      if (method === 'POST' && m[2] === '/vocaux/installer') {
+        const cfg = lireConfig(g.id);
+        let cat = body.categorieId || null;
+        if (!cat && body.categorieNom?.trim()) cat = creerSalon(cfg, 'categories', body.categorieNom.trim().slice(0, 100));
+        const id = creerSalon(cfg, 'voice', (body.salonNom || '➕ Créer un vocal').slice(0, 100), cat);
+        cfg.tempVoiceId = id;
+        cfg.vocaux = { ...(cfg.vocaux || {}), categorieId: cat };
+        ecrireConfig(g.id, cfg);
+        return { ok: true, tempVoiceId: id, categorieId: cat, channels: salons(cfg) };
       }
 
       if (method === 'POST' && m[2] === '/publish') {
