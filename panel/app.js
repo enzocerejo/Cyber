@@ -54,6 +54,62 @@ async function api(method, url, body) {
   return json;
 }
 
+// ---------- Icônes (traits SVG, sans fichier externe) ----------
+const ICONES = {
+  grid: 'M3 3h7v7H3z M14 3h7v7h-7z M14 14h7v7h-7z M3 14h7v7H3z',
+  sliders: 'M4 21v-7 M4 10V3 M12 21v-9 M12 8V3 M20 21v-5 M20 12V3 M1 14h6 M9 8h6 M17 16h6',
+  userPlus: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M19 8v6 M22 11h-6',
+  shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  trend: 'M23 6l-9.5 9.5-5-5L1 18 M17 6h6v6',
+  ticket: 'M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4z M13 5v2 M13 11v2 M13 17v2',
+  volume: 'M11 5L6 9H2v6h4l5 4V5z M15.5 8.5a5 5 0 0 1 0 7 M19 5a10 10 0 0 1 0 14',
+  cap: 'M22 10L12 5 2 10l10 5 10-5z M6 12v5c3 3 9 3 12 0v-5',
+  users: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75',
+  bot: 'M4 8h16v12H4z M12 8V4 M9 4h6 M9 13v2 M15 13v2',
+  hash: 'M4 9h16 M4 15h16 M10 3L8 21 M16 3l-2 18',
+  at: 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.9 7.9',
+  alert: 'M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z M12 9v4 M12 17h.01',
+  tag: 'M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z M7 7h.01',
+  trophy: 'M8 21h8 M12 17v4 M7 4h10v5a5 5 0 0 1-10 0z M17 5h3v2a3 3 0 0 1-3 3 M7 5H4v2a3 3 0 0 0 3 3',
+  list: 'M8 6h13 M8 12h13 M8 18h13 M3 6h.01 M3 12h.01 M3 18h.01',
+  layers: 'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5',
+  bulb: 'M9 18h6 M10 22h4 M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z',
+  megaphone: 'M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z M17 9a4 4 0 0 1 0 6 M20 6a8 8 0 0 1 0 12',
+  gift: 'M20 12v10H4V12 M2 7h20v5H2z M12 22V7 M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z',
+  ban: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M4.9 4.9l14.2 14.2',
+  check: 'M22 11.1V12a10 10 0 1 1-5.9-9.1 M22 4L12 14l-3-3',
+  flask: 'M9 2h6 M10 2v6L4 19a2 2 0 0 0 1.8 3h12.4a2 2 0 0 0 1.8-3L14 8V2 M7 15h10',
+  send: 'M22 2L11 13 M22 2l-7 20-4-9-9-4 20-7z',
+  zap: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+  back: 'M19 12H5 M12 19l-7-7 7-7',
+  logout: 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9',
+  server: 'M2 3h20v8H2z M2 13h20v8H2z M6 7h.01 M6 17h.01',
+  plus: 'M12 5v14 M5 12h14',
+  sparkles: 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z M19 17l.7 1.8 1.8.7-1.8.7L19 22l-.7-1.8-1.8-.7 1.8-.7z',
+  message: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+  chevron: 'M9 18l6-6-6-6',
+};
+function icon(nom, cls = 'ico') {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('class', cls);
+  svg.setAttribute('aria-hidden', 'true');
+  const p = document.createElementNS(NS, 'path');
+  p.setAttribute('d', ICONES[nom] || ICONES.grid);
+  svg.append(p);
+  return svg;
+}
+
+// Carte avec en-tête (icône + titre + explication)
+function carte(ico, titre, hint, ...enfants) {
+  return h('div', { class: 'card' },
+    titre ? h('div', { class: 'card-head' },
+      ico ? h('span', { class: 'card-ico' }, icon(ico)) : null,
+      h('div', {}, h('h3', { text: titre }), hint ? h('p', { class: 'hint', text: hint }) : null)) : null,
+    ...enfants);
+}
+
 function guildIcon(g, cls = 'gicon') {
   const initials = g.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 3);
   const url = g.icon && (g.icon.startsWith('http') ? g.icon : `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png?size=128`);
@@ -243,26 +299,30 @@ function renderAccount() {
   $account.replaceChildren();
   if (!me) return;
   const u = me.user;
+  const nom = u.globalName || u.username;
   const avatar = u.avatar ? `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64` : 'https://cdn.discordapp.com/embed/avatars/0.png';
+  const lettre = h('span', { class: 'av-lettre', text: nom.slice(0, 1).toUpperCase() });
+  const img = h('img', { src: avatar, alt: '' });
+  img.addEventListener('error', () => img.replaceWith(lettre));
   $account.append(
-    h('img', { src: avatar, alt: '' }),
-    h('span', { class: 'name', text: u.globalName || u.username }),
+    h('div', { class: 'moi' }, img, h('span', { class: 'name', text: nom })),
     h('button', {
-      class: 'btn ghost small', text: 'Déconnexion',
+      class: 'btn ghost small', title: 'Déconnexion', 'aria-label': 'Déconnexion',
       onclick: async () => {
         if (ADAPTER) ADAPTER.logout(); else await fetch('/logout', { method: 'POST' }).catch(() => {});
         me = null; data = null; currentGuild = null; location.hash = '#/'; render();
       },
-    }),
+    }, icon('logout'), h('span', { class: 'lbl', text: 'Déconnexion' })),
   );
 }
 
 function landing() {
   const err = new URLSearchParams(location.search).get('erreur') || ADAPTER?.error;
-  return h('section', {},
+  return h('section', { class: 'landing' },
     err ? h('div', { class: 'error-banner', text: 'La connexion avec Discord a échoué. Réessaie.' }) : null,
     h('div', { class: 'hero' },
-      h('img', { src: LOGO, alt: 'Logo de Cyber' }),
+      h('div', { class: 'hero-logo' }, h('img', { src: LOGO, alt: 'Logo de Cyber' })),
+      h('span', { class: 'kicker', text: 'Tableau de bord' }),
       h('h1', { text: 'CYBER' }),
       h('p', { text: 'Configure Cyber en quelques clics : modération, automod, niveaux, tickets, bienvenue et bien plus. Sans taper une seule commande.' }),
       ADAPTER
@@ -270,67 +330,90 @@ function landing() {
           h('button', { class: 'btn big', text: 'Se connecter avec Discord', onclick: () => ADAPTER.login() }),
           ADAPTER.startDemo ? h('button', { class: 'btn big ghost', text: 'Essayer sans compte', onclick: async () => { ADAPTER.startDemo(); await boot(); } }) : null)
         : h('a', { class: 'btn big', href: '/login', text: 'Se connecter avec Discord' })),
-    h('div', { class: 'features' },
-      [['🤖 Automod', 'Anti-spam, anti-liens, mots interdits, sanctions automatiques.'],
-        ['📈 Niveaux', 'XP, classement et rôles récompenses.'],
-        ['🎫 Tickets', 'Support privé avec ton équipe en un clic.'],
-        ['👋 Bienvenue', 'Messages personnalisés et rôle automatique.'],
-        ['🔊 Vocaux temporaires', 'Chaque membre crée son propre salon.'],
-        ['🛡️ Vérification', 'Bloque les comptes suspects et les raids.']]
-        .map(([t, d]) => h('div', { class: 'feature' }, h('b', { text: t }), h('span', { text: d })))));
+    h('div', { class: 'features' }, cascade(
+      [['shield', 'Automod', 'Anti-spam, anti-liens, mots interdits, sanctions automatiques.'],
+        ['trend', 'Niveaux', 'XP, classement et rôles récompenses.'],
+        ['ticket', 'Tickets', 'Support privé avec ton équipe en un clic.'],
+        ['userPlus', 'Bienvenue', 'Messages personnalisés et rôle automatique.'],
+        ['volume', 'Vocaux temporaires', 'Chaque membre crée son propre salon.'],
+        ['cap', 'Académie', 'Cours réseau CCNA, quiz et défi du jour.']]
+        .map(([i, t, d]) => h('div', { class: 'feature' }, h('span', { class: 'card-ico' }, icon(i)), h('b', { text: t }), h('span', { text: d }))))));
 }
 
 function serverList() {
   const withBot = me.guilds.filter((g) => g.botIn);
   return h('section', {},
-    h('h1', { class: 'page-title', text: 'Tes serveurs' }),
-    h('p', { class: 'page-sub', text: `Serveurs où tu as la permission « Gérer le serveur » · Cyber est présent sur ${withBot.length} d'entre eux.` }),
+    h('div', { class: 'page-head' },
+      h('span', { class: 'kicker', text: 'Tes serveurs' }),
+      h('h1', { class: 'page-title', text: 'Choisis un serveur' }),
+      h('p', { class: 'page-sub', text: `Serveurs où tu as la permission « Gérer le serveur » · Cyber est présent sur ${withBot.length} d'entre eux.` })),
     me.guilds.length
       ? h('div', { class: 'guilds' }, cascade(me.guilds.map((g) => h('div', { class: `guild-card${g.botIn ? '' : ' off'}` },
-        guildIcon(g),
+        h('div', { class: 'guild-top' }, guildIcon(g)),
         h('div', { class: 'gname', text: g.name }),
+        h('span', { class: `pill ${g.botIn ? 'on' : ''}`, text: g.botIn ? 'Cyber actif' : 'Pas encore invité' }),
         g.botIn
-          ? h('a', { class: 'btn', href: `#/g/${g.id}/apercu`, text: 'Configurer' })
-          : h('a', { class: 'btn ghost', href: g.invite, target: '_blank', rel: 'noopener', text: 'Inviter Cyber' })))))
+          ? h('a', { class: 'btn', href: `#/g/${g.id}/apercu` }, 'Configurer', icon('chevron'))
+          : h('a', { class: 'btn ghost', href: g.invite, target: '_blank', rel: 'noopener' }, icon('plus'), 'Inviter Cyber')))))
       : h('p', { class: 'empty', text: 'Aucun serveur que tu peux gérer.' }));
 }
 
+// [id, icône, nom, module, réglage actif ?]
 const TABS = [
-  ['apercu', '📊', 'Aperçu'],
-  ['general', '⚙️', 'Général'],
-  ['bienvenue', '👋', 'Bienvenue'],
-  ['automod', '🤖', 'Automod'],
-  ['niveaux', '📈', 'Niveaux'],
-  ['tickets', '🎫', 'Tickets & vérification'],
-  ['vocaux', '🔊', 'Vocaux temporaires'],
-  ['academie', '🎓', 'Académie'],
+  ['apercu', 'grid', 'Aperçu', null, null],
+  ['general', 'sliders', 'Général', null, null],
+  ['bienvenue', 'userPlus', 'Bienvenue', 'communaute', (c) => !!c.welcomeChannelId],
+  ['automod', 'shield', 'Automod', 'communaute', () => !!data.automod.enabled],
+  ['niveaux', 'trend', 'Niveaux', 'communaute', (c) => !!c.levelsEnabled],
+  ['tickets', 'ticket', 'Tickets & vérification', 'communaute', (c) => !!c.ticketStaffRoleId],
+  ['vocaux', 'volume', 'Vocaux temporaires', 'communaute', (c) => !!c.tempVoiceId],
+  ['academie', 'cap', 'Académie', 'academie', (c) => !!c.defi?.channelId && c.defi?.actif !== false],
 ];
+const GROUPES = { null: 'Serveur', communaute: 'Communauté', academie: 'Académie' };
+let ongletActuel = 'apercu';
 
 function guildPage(tab) {
+  ongletActuel = TABS.some((t) => t[0] === tab) ? tab : 'apercu';
   const panel = h('div', { class: 'panel' });
   const views = { apercu: tabOverview, general: tabGeneral, bienvenue: tabWelcome, automod: tabAutomod, niveaux: tabLevels, tickets: tabTickets, vocaux: tabVoice, academie: tabAcademie };
-  panel.append(...cascade((views[tab] || tabOverview)().filter(Boolean)));
+  panel.append(...cascade(views[ongletActuel]().filter(Boolean)));
   panel.addEventListener('input', (e) => { if (!e.target.closest('.simu')) marquerModifie(); });
   panel.addEventListener('change', (e) => { if (!e.target.closest('.simu')) marquerModifie(); });
+
+  const c = data.config;
+  const nav = h('nav', { class: 'tabs', 'aria-label': 'Sections' });
+  let groupe;
+  for (const [id, ico, label, module, actif] of TABS) {
+    const moduleOff = module && c.modules?.[module] === false;
+    if (module !== groupe) {
+      groupe = module;
+      nav.append(h('div', { class: 'tab-group' }, h('span', { text: GROUPES[module] }), moduleOff ? h('span', { class: 'mini off', text: 'off' }) : null));
+    }
+    const on = actif ? actif(c) : null;
+    nav.append(h('button', {
+      class: `tab${id === ongletActuel ? ' active' : ''}${moduleOff ? ' dim' : ''}`,
+      'aria-current': id === ongletActuel ? 'page' : null,
+      onclick: () => { if (id !== ongletActuel) quitterSiPossible(() => { location.hash = `#/g/${currentGuild}/${id}`; }); },
+    }, icon(ico), h('span', { class: 'tab-txt', text: label }), on === null ? null : h('span', { class: `etat${on ? ' on' : ''}`, title: on ? 'Activé' : 'Pas configuré' })));
+  }
+
   return h('div', { class: 'layout' },
     h('aside', { class: 'sidebar' },
-      h('div', { class: 'side-head' }, guildIcon(data.guild), h('b', { text: data.guild.name })),
-      h('nav', { class: 'tabs' }, TABS.map(([id, ico, label]) => h('button', {
-        class: `tab${id === tab ? ' active' : ''}`,
-        onclick: () => { if (id !== tab) quitterSiPossible(() => { location.hash = `#/g/${currentGuild}/${id}`; }); },
-      }, h('span', { text: ico }), h('span', { text: label })))),
-      h('a', { class: 'back', href: '#/serveurs', text: '← Tous mes serveurs', onclick: (e) => { e.preventDefault(); quitterSiPossible(() => { location.hash = '#/serveurs'; }); } })),
+      h('div', { class: 'side-head' }, guildIcon(data.guild),
+        h('div', { class: 'side-name' }, h('b', { text: data.guild.name }), h('small', { text: `${data.guild.memberCount} membres` }))),
+      nav,
+      h('a', { class: 'back', href: '#/serveurs', onclick: (e) => { e.preventDefault(); quitterSiPossible(() => { location.hash = '#/serveurs'; }); } }, icon('back'), 'Tous mes serveurs')),
     panel);
 }
 
 function choixModules() {
   const options = [
-    ['communaute', '🛡️', 'Communauté', 'Modération, automod, niveaux et XP, tickets, giveaways, rôles à boutons, bienvenue, vocaux temporaires, jeux.'],
-    ['academie', '🎓', 'Académie', 'Cours réseau et cybersécurité niveau CCNA, glossaire, quiz avec classement, défi du jour, outils réseau, IA.'],
-    ['tous', '✨', 'Les deux', 'Tout Cyber : protège ta communauté et apprends le réseau et la cybersécurité.'],
+    ['communaute', 'shield', 'Communauté', 'Modération, automod, niveaux et XP, tickets, giveaways, rôles à boutons, bienvenue, vocaux temporaires, jeux.'],
+    ['academie', 'cap', 'Académie', 'Cours réseau et cybersécurité niveau CCNA, glossaire, quiz avec classement, défi du jour, outils réseau, IA.'],
+    ['tous', 'sparkles', 'Les deux', 'Tout Cyber : protège ta communauté et apprends le réseau et la cybersécurité.'],
   ];
-  const choisir = async (id, carte) => {
-    carte.classList.add('choisie');
+  const choisir = async (id, carteEl) => {
+    carteEl.classList.add('choisie');
     const modules = { communaute: id !== 'academie', academie: id !== 'communaute' };
     try {
       await api('PUT', `/guilds/${currentGuild}/config`, { modules, modulesChoisis: true });
@@ -338,19 +421,20 @@ function choixModules() {
       data.config.modulesChoisis = true;
       toast('✅ Modules enregistrés. Tu pourras changer dans l\'onglet Général.');
       setTimeout(render, 450);
-    } catch (err) { carte.classList.remove('choisie'); toast(`❌ ${err.message}`, false); }
+    } catch (err) { carteEl.classList.remove('choisie'); toast(`❌ ${err.message}`, false); }
   };
   return h('section', { class: 'onboarding' },
     ...cascade([
       guildIcon(data.guild, 'gicon big'),
+      h('span', { class: 'kicker', text: 'Première configuration' }),
       h('h1', { class: 'page-title', text: `Bienvenue sur ${data.guild.name} !` }),
       h('p', { class: 'page-sub', text: 'Que doit faire Cyber sur ce serveur ? Tu pourras changer à tout moment.' }),
       h('div', { class: 'choix' }, options.map(([id, ico, titre, desc]) => {
-        const carte = h('button', { class: `choix-carte${id === 'tous' ? ' reco' : ''}`, type: 'button' },
+        const carteEl = h('button', { class: `choix-carte${id === 'tous' ? ' reco' : ''}`, type: 'button' },
           id === 'tous' ? h('span', { class: 'reco-badge', text: 'Recommandé' }) : null,
-          h('span', { class: 'choix-ico', text: ico }), h('b', { text: titre }), h('span', { text: desc }));
-        carte.addEventListener('click', () => choisir(id, carte));
-        return carte;
+          h('span', { class: 'choix-ico' }, icon(ico)), h('b', { text: titre }), h('span', { text: desc }));
+        carteEl.addEventListener('click', () => choisir(id, carteEl));
+        return carteEl;
       })),
     ]));
 }
@@ -363,40 +447,65 @@ function squelette() {
 }
 
 function header(title, desc) {
-  return [h('h2', { text: title }), h('p', { class: 'desc', text: desc })];
+  const t = TABS.find((x) => x[0] === ongletActuel);
+  return [h('div', { class: 'page-head' },
+    h('div', { class: 'crumbs' },
+      h('a', { href: '#/serveurs', text: 'Serveurs', onclick: (e) => { e.preventDefault(); quitterSiPossible(() => { location.hash = '#/serveurs'; }); } }),
+      icon('chevron'), h('span', { text: data.guild.name }), icon('chevron'), h('span', { class: 'ici', text: title })),
+    h('h2', {}, t ? h('span', { class: 'h-ico' }, icon(t[1])) : null, title),
+    h('p', { class: 'desc', text: desc }))];
 }
 
 function tabOverview() {
   const s = data.stats;
   const c = data.config;
   const a = data.automod;
-  const mod = (name, on, detail) => h('div', { class: 'module' },
-    h('span', { class: on ? 'on' : 'off-txt', text: on ? '●' : '○' }),
-    h('span', { text: name }), detail ? h('span', { class: 'off-txt', text: ` · ${detail}` }) : null);
+  const total = Math.max(1, s.humans + s.bots);
+  const pctH = Math.round((s.humans / total) * 100);
+  const barre = h('div', { class: 'meter' }, h('span', { class: 'meter-h' }), h('span', { class: 'meter-b' }));
+  barre.firstChild.style.width = `${pctH}%`;
+  barre.lastChild.style.width = `${100 - pctH}%`;
+  const stat = (ico, v, l) => h('div', { class: 'stat' },
+    h('span', { class: 'stat-ico' }, icon(ico)),
+    h('div', {}, h('div', { class: 'v', 'data-compte': String(v), text: String(v) }), h('div', { class: 'l', text: l })));
+  const aller = (tab) => () => { location.hash = `#/g/${currentGuild}/${tab}`; };
+  const mod = (ico, name, on, tab, detail) => h('button', { class: `module${on ? ' actif' : ''}`, type: 'button', onclick: aller(tab) },
+    h('span', { class: 'm-ico' }, icon(ico)),
+    h('span', { class: 'm-txt' }, h('b', { text: name }), h('small', { text: detail || (on ? 'Activé' : 'Pas configuré') })),
+    h('span', { class: `etat${on ? ' on' : ''}` }));
   return [
-    ...header('Aperçu', `${data.guild.memberCount} membres sur ${data.guild.name}.`),
-    h('div', { class: 'stats' }, [
-      ['👤', s.humans, 'Humains'], ['🤖', s.bots, 'Bots'], ['💬', s.channels, 'Salons'], ['🎭', s.roles, 'Rôles'],
-      ['⚠️', s.warns, 'Avertissements'], ['🎫', s.openTickets, 'Tickets ouverts'], ['📈', s.ranked, 'Membres classés'], ['🏷️', s.tags, 'Tags'],
-    ].map(([i, v, l]) => h('div', { class: 'stat' }, h('div', { class: 'v' }, h('span', { class: 'ico', text: i }), h('span', { 'data-compte': String(v), text: String(v) })), h('div', { class: 'l', text: l })))),
-    h('div', { class: 'card' }, h('h3', { text: 'Modules' }), h('p', { class: 'hint', text: 'Ce qui est actif sur ton serveur.' }),
+    ...header('Aperçu', `Vue d'ensemble de ${data.guild.name}.`),
+    h('div', { class: 'overview' },
+      h('div', { class: 'card hero-stat' },
+        h('span', { class: 'kicker', text: 'Membres' }),
+        h('div', { class: 'big-num', 'data-compte': String(data.guild.memberCount), text: String(data.guild.memberCount) }),
+        barre,
+        h('div', { class: 'legende' },
+          h('span', {}, h('i', { class: 'pt h' }), `${s.humans} humains`),
+          h('span', {}, h('i', { class: 'pt b' }), `${s.bots} bots`))),
+      h('div', { class: 'stats' },
+        stat('hash', s.channels, 'Salons'), stat('at', s.roles, 'Rôles'), stat('alert', s.warns, 'Avertissements'),
+        stat('ticket', s.openTickets, 'Tickets ouverts'), stat('trophy', s.ranked, 'Membres classés'), stat('tag', s.tags, 'Tags'))),
+    carte('layers', 'Modules', 'Ce qui est actif sur ton serveur. Clique pour configurer.',
       h('div', { class: 'modules' },
-        mod('Logs', !!c.logChannelId), mod('Bienvenue', !!c.welcomeChannelId), mod('Rôle automatique', !!c.autoRoleId),
-        mod('Automod', a.enabled), mod('Niveaux', c.levelsEnabled, `${Object.keys(c.levelRewards).length} récompense(s)`),
-        mod('Tickets', !!c.ticketStaffRoleId), mod('Vocaux temporaires', !!c.tempVoiceId), mod('Suggestions', !!c.suggestionChannelId),
-        mod('Module Académie', c.modules?.academie !== false), mod('Défi du jour', !!c.defi?.channelId && c.defi?.actif !== false))),
+        mod('list', 'Logs', !!c.logChannelId, 'general'), mod('userPlus', 'Bienvenue', !!c.welcomeChannelId, 'bienvenue'),
+        mod('at', 'Rôle automatique', !!c.autoRoleId, 'general'), mod('shield', 'Automod', a.enabled, 'automod'),
+        mod('trend', 'Niveaux', c.levelsEnabled, 'niveaux', c.levelsEnabled ? `${Object.keys(c.levelRewards).length} récompense(s)` : null),
+        mod('ticket', 'Tickets', !!c.ticketStaffRoleId, 'tickets'), mod('volume', 'Vocaux temporaires', !!c.tempVoiceId, 'vocaux'),
+        mod('bulb', 'Suggestions', !!c.suggestionChannelId, 'general'), mod('cap', 'Module Académie', c.modules?.academie !== false, 'general'),
+        mod('zap', 'Défi du jour', !!c.defi?.channelId && c.defi?.actif !== false, 'academie'))),
     leaderboardCard(),
   ];
 }
 
 function leaderboardCard() {
-  return h('div', { class: 'card' }, h('h3', { text: '🏆 Classement' }),
+  return carte('trophy', 'Classement', null,
     data.leaderboard.length
-      ? h('ol', { class: 'lb' }, data.leaderboard.map((u, i) => h('li', {},
-        h('span', { class: 'pos', text: ['🥇', '🥈', '🥉'][i] || i + 1 }),
-        u.avatar ? h('img', { src: u.avatar, alt: '' }) : h('span', { class: 'ph' }),
+      ? h('ol', { class: 'lb' }, data.leaderboard.map((u, i) => h('li', { class: i < 3 ? `top top${i + 1}` : '' },
+        h('span', { class: 'pos', text: String(i + 1) }),
+        u.avatar ? h('img', { src: u.avatar, alt: '' }) : h('span', { class: 'ph', text: u.name.slice(0, 1).toUpperCase() }),
         h('span', { class: 'who', text: u.name }),
-        h('span', {}, h('span', { class: 'lvl', text: `Niv. ${u.level}` }), ' ', h('span', { class: 'xp', text: `${u.xp} XP` })))))
+        h('span', { class: 'score' }, h('span', { class: 'lvl', text: `Niv. ${u.level}` }), h('span', { class: 'xp', text: `${u.xp} XP` })))))
       : h('p', { class: 'empty', text: 'Personne n\'a encore gagné d\'XP.' }));
 }
 
@@ -408,19 +517,13 @@ function tabGeneral() {
   const mods = { communaute: c.modules?.communaute !== false, academie: c.modules?.academie !== false };
   return [
     ...header('Général', 'Les réglages de base de Cyber.'),
-    h('div', { class: 'card' },
-      h('h3', { text: '🧩 Modules' }), h('p', { class: 'hint', text: 'Active les parties de Cyber dont ton serveur a besoin. Les commandes d\'un module désactivé sont masquées.' }),
-      toggle('🛡️ Communauté', 'Modération, automod, niveaux, tickets, giveaways, rôles, bienvenue, fun.', mods.communaute, (v) => { mods.communaute = v; }),
-      toggle('🎓 Académie', 'Cours réseau et cybersécurité (CCNA), quiz, défi du jour, outils réseau, IA.', mods.academie, (v) => { mods.academie = v; })),
-    h('div', { class: 'card' },
-      h('h3', { text: '📜 Logs' }), h('p', { class: 'hint', text: 'Sanctions, messages supprimés ou modifiés, tickets fermés, automod…' }),
-      field('Salon des logs', logs)),
-    h('div', { class: 'card' },
-      h('h3', { text: '🎭 Rôle automatique' }), h('p', { class: 'hint', text: 'Donné à chaque nouveau membre dès son arrivée.' }),
-      field('Rôle', auto)),
-    h('div', { class: 'card' },
-      h('h3', { text: '💡 Suggestions' }), h('p', { class: 'hint', text: 'Salon où arrivent les idées envoyées avec /suggestion.' }),
-      field('Salon des suggestions', sugg)),
+    carte('layers', 'Modules', 'Active les parties de Cyber dont ton serveur a besoin. Les commandes d\'un module désactivé sont masquées.',
+      toggle('Communauté', 'Modération, automod, niveaux, tickets, giveaways, rôles, bienvenue, fun.', mods.communaute, (v) => { mods.communaute = v; }),
+      toggle('Académie', 'Cours réseau et cybersécurité (CCNA), quiz, défi du jour, outils réseau, IA.', mods.academie, (v) => { mods.academie = v; })),
+    h('div', { class: 'grid2' },
+      carte('list', 'Logs', 'Sanctions, messages supprimés ou modifiés, tickets fermés, automod…', field('Salon des logs', logs)),
+      carte('at', 'Rôle automatique', 'Donné à chaque nouveau membre dès son arrivée.', field('Rôle', auto))),
+    carte('bulb', 'Suggestions', 'Salon où arrivent les idées envoyées avec /suggestion.', field('Salon des suggestions', sugg)),
     saveButton(() => ({ modules: { ...mods }, logChannelId: logs.value || null, autoRoleId: auto.value || null, suggestionChannelId: sugg.value || null })),
   ];
 }
@@ -447,9 +550,8 @@ function tabAcademie() {
   ap.maj();
   return [
     ...header('Académie', 'Cours réseau et cybersécurité niveau CCNA : /apprendre, /glossaire, /quiz, /osi, /port, /cisco, /ia.'),
-    off ? h('div', { class: 'card' }, h('p', { class: 'hint', text: '⚠️ Le module Académie est désactivé. Active-le dans l\'onglet Général.' })) : null,
-    h('div', { class: 'card' },
-      h('h3', { text: '🧠 Défi du jour' }), h('p', { class: 'hint', text: 'Une question est publiée chaque jour. Chacun répond une seule fois (+15 points), la réponse est dévoilée au défi suivant.' }),
+    off ? h('div', { class: 'note warn' }, icon('alert'), 'Le module Académie est désactivé. Active-le dans l\'onglet Général.') : null,
+    carte('zap', 'Défi du jour', 'Une question est publiée chaque jour. Chacun répond une seule fois (+15 points), la réponse est dévoilée au défi suivant.',
       toggle('Activer le défi du jour', null, actif, (v) => { actif = v; }),
       h('div', { class: 'row' }, field('Salon', ch), field('Heure (heure française)', heure)),
       field('Rôle à mentionner', role),
@@ -473,7 +575,7 @@ function tabWelcome() {
   }));
   return [
     ...header('Bienvenue', 'Accueille les nouveaux membres avec un message personnalisé.'),
-    h('div', { class: 'card' },
+    carte('message', 'Message de bienvenue', null,
       field('Salon de bienvenue (et des départs)', ch),
       field('Message', ed.node, 'Clique sur une variable pour l\'insérer. Laisse vide pour le message par défaut. Mise en forme : **gras**, *italique*, __souligné__, ~~barré~~, `code`.')),
     saveButton(() => ({ welcomeChannelId: ch.value || null, welcomeMessage: ed.ta.value.trim() || null })),
@@ -528,23 +630,25 @@ function tabAutomod() {
 
   return [
     ...header('Automod', 'Cyber supprime automatiquement les messages interdits. Le staff (Gérer les messages) est toujours ignoré.'),
-    h('div', { class: 'card' },
+    h('div', { class: 'card master' },
       toggle('Activer l\'automod', 'Interrupteur général de la modération automatique.', a.enabled, (v) => { a.enabled = v; simuler(); })),
-    h('div', { class: 'card' }, h('h3', { text: 'Filtres' }),
+    carte('shield', 'Filtres', null,
       toggle('Invitations Discord', 'Bloque les liens discord.gg vers d\'autres serveurs.', a.invites, (v) => { a.invites = v; simuler(); }),
       toggle('Liens', 'Bloque tous les liens http(s).', a.links, (v) => { a.links = v; simuler(); }),
       toggle('Spam', '6 messages ou plus en 5 secondes.', a.spam, (v) => { a.spam = v; simuler(); }),
       toggle('Majuscules', 'Messages écrits à plus de 70 % en majuscules.', a.caps, (v) => { a.caps = v; simuler(); }),
       toggle('Mentions de masse', 'Trop de mentions dans un seul message.', a.mentions, (v) => { a.mentions = v; simuler(); })),
-    h('div', { class: 'card' }, h('h3', { text: 'Réglages' }),
+    carte('sliders', 'Réglages', null,
       h('div', { class: 'row' },
         field('Mentions maximum par message', maxMentions),
         field('Infractions avant un mute de 10 min', timeoutAfter))),
-    h('div', { class: 'card' }, h('h3', { text: '🚫 Mots interdits' }),
-      h('div', { class: 'inline' }, wordInput, h('button', { class: 'btn ghost', text: 'Ajouter', onclick: addWord })), wordChips),
-    h('div', { class: 'card' }, h('h3', { text: '✅ Rôles ignorés' }), h('p', { class: 'hint', text: 'Les membres avec ces rôles ne sont pas filtrés.' }),
-      roleAdd, roleChips),
-    h('div', { class: 'card simu' }, h('h3', { text: '🧪 Simulateur' }), h('p', { class: 'hint', text: 'Teste tes réglages avant de les enregistrer. Les membres du staff ne sont jamais filtrés.' }),
+    h('div', { class: 'grid2' },
+      carte('ban', 'Mots interdits', 'Le message est supprimé s\'il contient un de ces mots.',
+        h('div', { class: 'inline' }, wordInput, h('button', { class: 'btn ghost', text: 'Ajouter', onclick: addWord })), wordChips),
+      carte('check', 'Rôles ignorés', 'Les membres avec ces rôles ne sont pas filtrés.', roleAdd, roleChips)),
+    h('div', { class: 'card simu' },
+      h('div', { class: 'card-head' }, h('span', { class: 'card-ico' }, icon('flask')),
+        h('div', {}, h('h3', { text: 'Simulateur' }), h('p', { class: 'hint', text: 'Teste tes réglages avant de les enregistrer. Les membres du staff ne sont jamais filtrés.' }))),
       essai, verdict),
     saveButton(() => ({ automod: {
       enabled: a.enabled, invites: a.invites, links: a.links, spam: a.spam, caps: a.caps, mentions: a.mentions,
@@ -584,11 +688,11 @@ function tabLevels() {
 
   return [
     ...header('Niveaux', 'Les membres gagnent de 15 à 25 XP par minute d\'activité.'),
-    h('div', { class: 'card' }, toggle('Activer les niveaux', 'Gain d\'XP, annonces et récompenses.', enabled, (v) => { enabled = v; })),
-    h('div', { class: 'card' }, h('h3', { text: '📣 Annonce de passage de niveau' }),
+    h('div', { class: 'card master' }, toggle('Activer les niveaux', 'Gain d\'XP, annonces et récompenses.', enabled, (v) => { enabled = v; })),
+    carte('megaphone', 'Annonce de passage de niveau', null,
       field('Salon des annonces', ch),
       field('Message', ed.node, 'Laisse vide pour le message par défaut.')),
-    h('div', { class: 'card' }, h('h3', { text: '🎁 Rôles récompenses' }), h('p', { class: 'hint', text: 'Donnés automatiquement quand un membre atteint le niveau.' }),
+    carte('gift', 'Rôles récompenses', 'Donnés automatiquement quand un membre atteint le niveau.',
       list,
       h('div', { class: 'reward-add' }, roleIn, lvlInput, h('button', { class: 'btn ghost', text: 'Ajouter', onclick: addReward }))),
     saveButton(() => ({ levelsEnabled: enabled, levelChannelId: ch.value || null, levelMessage: ed.ta.value.trim() || null, levelRewards: rewards })),
@@ -596,13 +700,13 @@ function tabLevels() {
   ];
 }
 
-function publishCard(title, hint, type, extra, apercu) {
+function publishCard(ico, title, hint, type, extra, apercu) {
   const ch = channelSelect(data.channels.text, '', '#', '— Choisis un salon —');
   const msg = h('textarea', { maxLength: 1000, placeholder: 'Texte du panneau (facultatif)' });
   const ap = apercuBox(() => apercu(msg.value.trim()));
   msg.addEventListener('input', ap.maj);
   ap.maj();
-  const btn = h('button', { class: 'btn', text: 'Publier le panneau' });
+  const btn = h('button', { class: 'btn' }, icon('send'), 'Publier le panneau');
   btn.addEventListener('click', async () => {
     btn.disabled = true;
     try {
@@ -610,7 +714,7 @@ function publishCard(title, hint, type, extra, apercu) {
       toast(res?.message || '✅ Panneau publié sur Discord');
     } catch (err) { toast(`❌ ${err.message}`, false); } finally { btn.disabled = false; }
   });
-  return h('div', { class: 'card' }, h('h3', { text: title }), h('p', { class: 'hint', text: hint }),
+  return carte(ico, title, hint,
     h('div', { class: 'row' }, field('Salon', ch), extra ? extra.node : null), field('Message', msg),
     h('div', { class: 'apercu-label' }, h('span', { class: 'live-dot' }), 'Aperçu du panneau'), ap.box,
     h('div', { class: 'actions' }, btn));
@@ -623,12 +727,12 @@ function tabTickets() {
   const verifRole = roleSelect('', { onlyAssignable: true, none: '— Rôle à donner —' });
   return [
     ...header('Tickets & vérification', 'Support privé et protection contre les comptes suspects.'),
-    h('div', { class: 'card' }, h('h3', { text: '🎫 Réglages des tickets' }),
+    carte('ticket', 'Réglages des tickets', null,
       h('div', { class: 'row' }, field('Rôle staff (voit les tickets)', staff), field('Catégorie des tickets', cat)),
       saveButton(() => ({ ticketStaffRoleId: staff.value || null, ticketCategoryId: cat.value || null }))),
-    publishCard('📤 Publier le panneau de tickets', 'Envoie le bouton « Ouvrir un ticket » dans un salon. Enregistre le rôle staff avant.', 'ticket', null,
+    publishCard('send', 'Publier le panneau de tickets', 'Envoie le bouton « Ouvrir un ticket » dans un salon. Enregistre le rôle staff avant.', 'ticket', null,
       (t) => discordMsg({ embed: { title: '🎫 Support', desc: md(t || 'Besoin d\'aide ? Clique sur le bouton pour ouvrir un ticket privé avec l\'équipe.') }, buttons: [{ label: 'Ouvrir un ticket', emoji: '🎫', style: 'red' }] })),
-    publishCard('🛡️ Publier le panneau de vérification', 'Bouton « Je ne suis pas un robot » qui donne un rôle. Les comptes de moins de 24 h sont refusés.', 'verification',
+    publishCard('shield', 'Publier le panneau de vérification', 'Bouton « Je ne suis pas un robot » qui donne un rôle. Les comptes de moins de 24 h sont refusés.', 'verification',
       { node: field('Rôle donné', verifRole), get: () => ({ roleId: verifRole.value }) },
       (t) => discordMsg({ embed: { title: '🛡️ Vérification', desc: md(t || 'Clique sur le bouton pour accéder au serveur.') }, buttons: [{ label: 'Je ne suis pas un robot', emoji: '✅', style: 'green' }] })),
   ];
@@ -638,7 +742,7 @@ function tabVoice() {
   const ch = channelSelect(data.channels.voice, data.config.tempVoiceId, '🔊 ');
   return [
     ...header('Vocaux temporaires', 'Quand un membre rejoint le salon créateur, Cyber lui crée son propre salon vocal, supprimé dès qu\'il est vide.'),
-    h('div', { class: 'card' },
+    carte('volume', 'Salon créateur', null,
       field('Salon vocal créateur', ch, 'Crée d\'abord un salon vocal nommé par exemple « ➕ Créer un vocal ».')),
     saveButton(() => ({ tempVoiceId: ch.value || null })),
   ];
@@ -666,6 +770,9 @@ async function render() {
     if (!data.config.modulesChoisis) { $app.replaceChildren(choixModules()); return; }
     $app.replaceChildren(guildPage(tab));
     animerNombres($app);
+    // Sur téléphone, les onglets défilent : on montre celui qui est ouvert
+    const actif = $app.querySelector('.tabs .active');
+    if (actif) actif.parentElement.scrollLeft = actif.offsetLeft - actif.parentElement.offsetLeft - 12;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
