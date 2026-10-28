@@ -1,0 +1,13 @@
+# Ne jamais publier ces fichiers sur le site public
+.env
+.env.*
+*.zip
+*.log
+*.bak
+*.tmp
+
+# Fichiers systeme
+Thumbs.db
+Desktop.ini
+desktop.ini
+.DS_Store
