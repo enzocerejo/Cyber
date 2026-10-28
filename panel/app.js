@@ -289,7 +289,12 @@ function md(text, vars = {}) {
     .replace(/__(.+?)__/g, '<u>$1</u>')
     .replace(/~~(.+?)~~/g, '<s>$1</s>')
     .replace(/(^|[^*])\*(?!\*)(.+?)\*/g, '$1<i>$2</i>')
-    .replace(/\n/g, '<br>');
+    .replace(/\[([^\]\n]+)\]\((https?:[^)\s]+)\)/g, '<span class="md-lien">$1</span>')
+    .replace(/\{#([^}\s]{1,50})\}/g, '<span class="mention">#$1</span>')
+    .replace(/^(#{1,3}) (.+)$/gm, (_, n, t) => `<span class="md-h${n.length}">${t}</span>`)
+    .replace(/^-# (.+)$/gm, '<span class="md-petit">$1</span>')
+    .replace(/\n/g, '<br>')
+    .replace(/(<span class="md-(?:h\d|petit)">.*?<\/span>)<br>/g, '$1');
   const span = h('span', { class: 'md' });
   span.innerHTML = html;
   return span;
@@ -456,7 +461,7 @@ const TABS = [
   ['tickets', 'ticket', 'Tickets', 'communaute', 'communaute', (c) => !!c.ticketStaffRoleId],
   ['vocaux', 'volume', 'Vocaux temporaires', 'communaute', 'communaute', (c) => !!c.tempVoiceId],
   ['automod', 'shield', 'Automod', 'securite', 'communaute', () => !!BA().enabled],
-  ['verification', 'key', 'Vérification', 'securite', 'communaute', (c) => !!c.verification?.roleId],
+  ['verification', 'key', 'Vérification', 'securite', 'communaute', (c) => c.verification?.actif !== false && !!c.verification?.roleId],
   ['academie', 'cap', 'Défi du jour', 'academie', 'academie', (c) => !!c.defi?.actif],
   ['modules', 'puzzle', 'Modules publics', 'modules', null, null],
 ];
@@ -598,7 +603,7 @@ function tabOverview() {
         mod('at', 'Rôle automatique', !!c.autoRoleId, 'general'), mod('shield', 'Automod', a.enabled, 'automod'),
         mod('trend', 'Niveaux', c.levelsEnabled, 'niveaux', c.levelsEnabled ? `${Object.keys(c.levelRewards).length} récompense(s)` : null),
         mod('ticket', 'Tickets', !!c.ticketStaffRoleId, 'tickets', c.ticketTypes?.length ? `${c.ticketTypes.length} type(s)` : null),
-        mod('key', 'Vérification', !!c.verification?.roleId, 'verification'),
+        mod('key', 'Vérification', c.verification?.actif !== false && !!c.verification?.roleId, 'verification'),
         mod('volume', 'Vocaux temporaires', !!c.tempVoiceId, 'vocaux'),
         mod('bulb', 'Suggestions', !!c.suggestionChannelId, 'general'),
         mod('zap', 'Défi du jour', !!c.defi?.actif, 'academie'),
@@ -977,24 +982,157 @@ function tabTickets() {
 }
 
 // ---------- Vérification ----------
+// ---------- Vérification : rôles « non vérifié » → « vérifié » et message de règlement ----------
+const VERIF_TITRE = '🛡️ Vérification';
+const VERIF_MESSAGE = 'Clique sur le bouton pour accéder au serveur.';
+const VERIF_BOUTON = 'Je ne suis pas un robot';
+const VERIF_PIED = '-# En cliquant sur le bouton, tu confirmes avoir lu et accepté ces règles.';
+
+function apercuReglement(v) {
+  const texte = `# ${v.titre || VERIF_TITRE}\n${v.message || VERIF_MESSAGE}\n\n${VERIF_PIED}`;
+  return discordMsg({
+    embed: { desc: md(texte, { '{serveur}': { text: data.guild.name } }) },
+    buttons: [{ label: v.bouton || VERIF_BOUTON, emoji: '✅', style: 'green' }],
+  });
+}
+
+// Choisir un rôle existant, ou le créer sur Discord en un clic (sans aucune permission)
+function roleOuCreation(v, cle, type, nomDefaut, apres) {
+  const nom = h('input', { type: 'text', maxLength: 100, value: nomDefaut });
+  const btn = h('button', { class: 'btn ghost', type: 'button' }, icon('plus'), 'Créer le rôle');
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    try {
+      const res = await api('POST', `/guilds/${currentGuild}/verification/role`, { type, nom: nom.value });
+      if (res.roles) data.roles = res.roles;
+      v[cle] = res.roleId;
+      changer();
+      toast(`✅ Rôle « ${nom.value.trim() || nomDefaut} » créé. Enregistre pour l'utiliser.`);
+      redessiner();
+    } catch (err) { toast(`❌ ${err.message}`, false); } finally { btn.disabled = false; }
+  });
+  return h('div', { class: 'role-creation' },
+    choixRole(v, cle, { onlyAssignable: true, none: '— Choisis un rôle —' }, apres),
+    v[cle] ? null : h('div', { class: 'row bas' }, field('… ou crée-le', nom), btn));
+}
+
+function ouvrirReglements(v, apres) {
+  const R = window.CYBER_REGLEMENTS;
+  if (!R) return toast('❌ Modèles introuvables', false);
+  let cat = null;
+  let choisi = R.MODELES[0];
+  const grille = h('div', { class: 'galerie-grille' });
+  const filtres = h('div', { class: 'chips' });
+  const apercu = apercuBox(() => h('div', {}, h('div', { class: 'apercu-label', text: `Aperçu : ${choisi.emoji} ${choisi.nom}` }), apercuReglement(choisi)));
+  const utiliser = (m) => {
+    if (v.message && v.message !== m.message && !confirm('Remplacer ton texte actuel par ce modèle ?')) return;
+    v.titre = m.titre; v.message = m.message; v.bouton = m.bouton;
+    changer(); fermer(); apres();
+    toast(`✅ Modèle « ${m.nom} » appliqué : modifie-le à ta guise puis enregistre`);
+  };
+  const dessiner = () => {
+    filtres.replaceChildren(...[{ nom: null, nombre: R.MODELES.length }, ...R.CATEGORIES].map((c) => h('button', {
+      type: 'button', class: `chip filtre${cat === c.nom ? ' on' : ''}`, text: `${c.nom ?? '✨ Tous'} · ${c.nombre}`,
+      onclick: () => { cat = c.nom; dessiner(); },
+    })));
+    grille.replaceChildren(...R.MODELES.filter((m) => !cat || m.cat === cat).map((m) => h('div', { class: `modele${m === choisi ? ' choisi' : ''}` },
+      h('div', { class: 'modele-tete' }, h('span', { class: 'modele-emoji', text: m.emoji }), h('div', {}, h('b', { text: m.nom }), h('small', { text: m.cat }))),
+      h('p', { text: m.desc }),
+      h('div', { class: 'inline' },
+        h('button', { class: 'btn small ghost', type: 'button', text: 'Aperçu', onclick: () => { choisi = m; dessiner(); apercu.maj(); } }),
+        h('button', { class: 'btn small', type: 'button', text: 'Utiliser', onclick: () => utiliser(m) })))));
+  };
+  const fermer = () => { fond.remove(); document.removeEventListener('keydown', echap); };
+  const echap = (e) => { if (e.key === 'Escape') fermer(); };
+  const fond = h('div', { class: 'fenetre-fond', onclick: (e) => { if (e.target === fond) fermer(); } },
+    h('div', { class: 'fenetre', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Modèles de règlement' },
+      h('div', { class: 'fenetre-tete' },
+        h('div', {}, h('h3', { text: `📜 Modèles de règlement (${R.MODELES.length})` }), h('p', { class: 'hint', text: 'Clique sur « Aperçu » pour le voir comme dans Discord, puis « Utiliser » : le texte est copié et tu peux tout modifier.' })),
+        h('button', { class: 'btn ghost small', type: 'button', title: 'Fermer', onclick: fermer }, icon('x'))),
+      filtres,
+      h('div', { class: 'galerie-reglements' }, grille, h('div', { class: 'apercu-colle' }, apercu.box))));
+  document.addEventListener('keydown', echap);
+  document.body.append(fond);
+  dessiner();
+  apercu.maj();
+  return null;
+}
+
 function tabVerification() {
   const c = B();
-  c.verification ??= { roleId: null, titre: null, message: null, ageMinHeures: 24 };
+  c.verification ??= { actif: true, roleId: null, nonVerifieId: null, salonId: null, titre: null, message: null, bouton: null, ageMinHeures: 24 };
   const v = c.verification;
   const AGES = [[0, 'Aucun minimum'], [1, '1 heure'], [24, '24 heures (conseillé)'], [72, '3 jours'], [168, '7 jours'], [720, '30 jours']];
+  const ap = apercuBox(() => apercuReglement(v));
+  const maj = () => ap.maj();
+
+  // Texte du règlement
+  const zone = h('textarea', { maxLength: 3500, placeholder: VERIF_MESSAGE, rows: 14 });
+  zone.value = v.message || '';
+  const compteur = h('span', { class: 'compteur' });
+  const majTexte = () => { v.message = zone.value.trim() ? zone.value : null; compteur.textContent = `${zone.value.length} / 3500`; changer(); maj(); };
+  zone.addEventListener('input', majTexte);
+  compteur.textContent = `${zone.value.length} / 3500`;
+  const inserer = (k) => {
+    const st = zone.selectionStart ?? zone.value.length;
+    zone.value = zone.value.slice(0, st) + k + zone.value.slice(zone.selectionEnd ?? st);
+    zone.focus(); majTexte();
+  };
+  const chips = h('div', { class: 'chips' },
+    [['{serveur}', 'Nom du serveur'], ['{#regles}', 'Lien vers un salon (remplace « regles » par un mot du nom du salon)'], ['### ', 'Titre de section'], ['**gras**', 'Gras'], ['-# ', 'Petit texte gris']]
+      .map(([k, t]) => h('button', { type: 'button', class: 'chip var', text: k.trim(), title: t, onclick: () => inserer(k) })), compteur);
+
+  // Publication
+  const publier = h('button', { class: 'btn', type: 'button' }, icon('send'), 'Publier ou mettre à jour');
+  publier.addEventListener('click', async () => {
+    if (aDesModifs()) return toast('⚠️ Enregistre d\'abord tes modifications (barre en bas), puis publie.', false);
+    if (!v.salonId) return toast('❌ Choisis le salon du règlement', false);
+    publier.disabled = true;
+    try {
+      const res = await api('POST', `/guilds/${currentGuild}/publish`, { type: 'verification', channelId: v.salonId });
+      toast(res?.message || '✅ Règlement publié sur Discord');
+    } catch (err) { toast(`❌ ${err.message}`, false); } finally { publier.disabled = false; }
+    return null;
+  });
+  const cacher = h('button', { class: 'btn ghost', type: 'button' }, icon('key'), 'Cacher les autres salons aux non-vérifiés');
+  cacher.addEventListener('click', async () => {
+    if (aDesModifs()) return toast('⚠️ Enregistre d\'abord tes modifications (barre en bas).', false);
+    if (!confirm('Cyber va retirer « Voir le salon » au rôle « non vérifié » sur toutes les catégories et tous les salons, sauf le salon du règlement (lecture seule). Continuer ?')) return null;
+    cacher.disabled = true;
+    try {
+      const res = await api('POST', `/guilds/${currentGuild}/verification/salons`, {});
+      toast(res?.message || '✅ Salons cachés aux non-vérifiés');
+    } catch (err) { toast(`❌ ${err.message}`, false); } finally { cacher.disabled = false; }
+    return null;
+  });
+
+  ap.maj();
   return [
-    ...header('Vérification', 'Protège le serveur des robots et des comptes de raid : les nouveaux cliquent sur un bouton pour recevoir leur rôle.'),
+    ...header('Vérification', 'Les nouveaux arrivent avec le rôle « non vérifié », lisent le règlement et cliquent sur le bouton : Cyber leur donne le rôle « vérifié » et retire l\'autre.'),
     noteModuleOff('communaute', 'Communauté'),
-    carte('key', 'Réglages de la vérification', null,
+    carte('key', '1 · Rôles', null,
+      toggle('Vérification activée', 'Désactivée, Cyber ne donne plus le rôle « non vérifié » aux nouveaux.', v.actif !== false, (x) => { v.actif = x; redessiner(); }),
+      v.actif === false ? null : h('div', {},
+        h('div', { class: 'row' },
+          field('Rôle « non vérifié » (donné à l\'arrivée)', roleOuCreation(v, 'nonVerifieId', 'nonverifie', '⏳ Non vérifié', redessiner)),
+          field('Rôle « vérifié » (donné par le bouton)', roleOuCreation(v, 'roleId', 'membre', '✅ Membre', redessiner))),
+        field('Âge minimum du compte Discord', liste(AGES, v.ageMinHeures ?? 24, v, 'ageMinHeures'), 'Les comptes plus récents sont refusés (souvent des comptes de raid).'),
+        v.nonVerifieId && v.nonVerifieId === c.autoRoleId ? h('div', { class: 'note' }, icon('bulb'), 'Le rôle « non vérifié » est aussi ton rôle automatique (onglet Général) : ça marche, mais tu peux retirer le rôle automatique, Cyber le donne déjà ici.') : null)),
+    carte('book', '2 · Message du règlement', 'Affiché au-dessus du bouton, au format Embeds V2.',
+      h('div', { class: 'actions gauche' },
+        h('button', { class: 'btn', type: 'button', onclick: () => ouvrirReglements(v, redessiner) }, icon('book'), `Voir les modèles de règlement (${window.CYBER_REGLEMENTS?.MODELES.length ?? 0})`)),
       h('div', { class: 'row' },
-        field('Rôle donné après vérification', choixRole(v, 'roleId', { onlyAssignable: true, none: '— Choisis le rôle —' })),
-        field('Âge minimum du compte Discord', liste(AGES, v.ageMinHeures ?? 24, v, 'ageMinHeures'), 'Les comptes plus récents sont refusés (souvent des comptes de raid).')),
-      field('Titre du panneau', texte(v, 'titre', 200, '🛡️ Vérification')),
-      field('Message du panneau', texte(v, 'message', 1000, 'Clique sur le bouton pour accéder au serveur.', null, true))),
-    h('div', { class: 'note' }, icon('bulb'), 'Astuce : retire la permission « Voir les salons » à @everyone et donne-la au rôle vérifié. Les nouveaux ne verront que le salon de vérification.'),
-    publishCard('shield', 'Publier le panneau de vérification', 'Bouton « Je ne suis pas un robot ». Enregistre tes réglages avant.', 'verification', null,
-      (titre, t) => discordMsg({ embed: { title: titre || v.titre || '🛡️ Vérification', desc: md(t || v.message || 'Clique sur le bouton pour accéder au serveur.') }, buttons: [{ label: 'Je ne suis pas un robot', emoji: '✅', style: 'green' }] }),
-      v.titre || '🛡️ Vérification'),
+        field('Titre', texte(v, 'titre', 200, VERIF_TITRE, maj)),
+        field('Texte du bouton', texte(v, 'bouton', 80, VERIF_BOUTON, maj))),
+      field('Règlement', h('div', {}, zone, chips)),
+      etiquetteApercu(), ap.box),
+    carte('send', '3 · Salon et publication', null,
+      field('Salon du règlement', choixSalon(data.channels.text, v, 'salonId', '#', '— Choisis un salon —')),
+      h('div', { class: 'actions gauche' }, publier, v.nonVerifieId ? cacher : null),
+      h('p', { class: 'hint', text: 'Republier modifie le message déjà posté dans ce salon au lieu d\'en créer un nouveau.' }),
+      h('div', { class: 'note' }, icon('bulb'), v.nonVerifieId
+        ? 'Pour que les non-vérifiés ne voient que le règlement, clique sur « Cacher les autres salons ». Le rôle « vérifié » n\'a besoin d\'aucune permission spéciale.'
+        : 'Sans rôle « non vérifié » : retire « Voir les salons » à @everyone et donne-le au rôle vérifié, pour que les nouveaux ne voient que le règlement.')),
   ];
 }
 

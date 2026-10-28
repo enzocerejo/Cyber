@@ -84,6 +84,11 @@
     return id;
   }
 
+  const roles = (cfg) => [
+    ...ROLES.map(([id, name, color, assignable]) => ({ id, name, color, assignable })),
+    ...(cfg.rolesCrees || []).map((r) => ({ ...r, assignable: true })),
+  ];
+
   function donneesServeur(g) {
     const rnd = graine(g.id);
     const membres = g.memberCount || 20 + Math.floor(rnd() * 400);
@@ -93,16 +98,18 @@
     return {
       guild: { id: g.id, name: g.name, icon: g.icon ? `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png?size=128` : null, memberCount: membres },
       channels: salons(cfg),
-      roles: ROLES.map(([id, name, color, assignable]) => ({ id, name, color, assignable })),
+      roles: roles(cfg),
       config: {
         logChannelId: null, welcomeChannelId: null, suggestionChannelId: null, levelChannelId: null,
         tempVoiceId: null, ticketCategoryId: null, autoRoleId: null, ticketStaffRoleId: null,
         welcomeMessage: null, levelMessage: null, levelsEnabled: true, levelRewards: {},
         ticketTypes: [],
-        ...cfg, automod: undefined, salonsCrees: undefined,
+        ...cfg, automod: undefined, salonsCrees: undefined, rolesCrees: undefined,
         modules: { communaute: true, academie: true, ...(cfg.modules || {}) },
         defi: { actif: false, channelId: null, heure: 18, roleId: null, categorieId: null, questions: 5, top: 10, ...(cfg.defi || {}) },
-        verification: { roleId: null, titre: null, message: null, ageMinHeures: 24, ...(cfg.verification || {}) },
+        verification: {
+          actif: true, roleId: null, nonVerifieId: null, salonId: null, titre: null, message: null, bouton: null, ageMinHeures: 24, ...(cfg.verification || {}),
+        },
         vocaux: { ...VOCAUX, ...(cfg.vocaux || {}), controles: { ...VOCAUX.controles, ...(cfg.vocaux?.controles || {}) } },
       },
       defaults: DEFAULTS,
@@ -191,7 +198,7 @@
         throw Object.assign(new Error('Non connecté'), { status: 401 });
       }
 
-      const m = /^\/guilds\/([^/]+)(\/config|\/publish|\/vocaux\/installer)?$/.exec(url);
+      const m = /^\/guilds\/([^/]+)(\/config|\/publish|\/vocaux\/installer|\/verification\/role|\/verification\/salons)?$/.exec(url);
       if (!m) throw new Error('Action inconnue');
       const me = cache || await this.request('GET', '/me');
       const g = me.guilds.find((x) => x.id === m[1]);
@@ -227,6 +234,23 @@
         cfg.vocaux = { ...(cfg.vocaux || {}), categorieId: cat };
         ecrireConfig(g.id, cfg);
         return { ok: true, tempVoiceId: id, categorieId: cat, channels: salons(cfg) };
+      }
+
+      if (method === 'POST' && m[2] === '/verification/role') {
+        const cfg = lireConfig(g.id);
+        const membre = body.type === 'membre';
+        const id = `n${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
+        const name = (body.nom?.trim() || (membre ? '✅ Membre' : '⏳ Non vérifié')).slice(0, 100);
+        cfg.rolesCrees = [...(cfg.rolesCrees || []), { id, name, color: membre ? '#3ba55d' : '#8e9297' }];
+        ecrireConfig(g.id, cfg);
+        return { ok: true, roleId: id, roles: roles(cfg) };
+      }
+
+      if (method === 'POST' && m[2] === '/verification/salons') {
+        const v = lireConfig(g.id).verification || {};
+        if (!v.nonVerifieId) throw new Error('Choisis et enregistre d\'abord le rôle « non vérifié »');
+        if (!v.salonId) throw new Error('Choisis et enregistre d\'abord le salon du règlement');
+        return { ok: true, message: `✅ ${CATS.length + TEXT.length + VOICE.length - 1} salons cachés aux non-vérifiés (aperçu : rien n'est modifié sur Discord)` };
       }
 
       if (method === 'POST' && m[2] === '/publish') {
