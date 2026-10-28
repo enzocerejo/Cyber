@@ -10,16 +10,67 @@ Ce chapitre est le compte rendu chronologique du projet : ce qui a été fait, *
 
 ## Jours 1 et 2 · 25 et 26 octobre : naissance de Cyber
 
-Le bot est né dans une première conversation avec Claude, intitulée « Bot Discord personnalisé ». En deux jours, il passe de la v1.0 à la v1.5 :
+Tout commence dans une première conversation avec Claude, intitulée « Bot Discord personnalisé ». Ma première phrase : « Tu peux m'aider à créer mon propre bot Discord ? Le code et tout ? », pour le tester sur un serveur où je suis administrateur.
+
+### Le cahier des charges
+
+- 🛠️ Mes premières réponses fixent le cap : des commandes utiles, de la modération, l'accueil et les rôles, des embeds, des infos sur les comptes, et, en clin d'œil au homelab, **un ping d'IP qui ne donne aucune information sensible**. Pour le langage : « choisis le plus performant pour beaucoup d'utilisation » (ce sera **Node.js avec discord.js**).
+- 💡 Très vite, l'ambition grandit : « J'aimerais remplacer toutes les commandes de tous les autres bots », « je veux un max de commandes, vraiment beaucoup ». C'est la naissance de l'objectif « un seul bot à la place de MEE6, Carl-bot, Dyno et Ticket Tool ».
+
+### Le logo
+
+- ⚠️ *Problème humain* : je demande un logo « rouge vif pastel qui fait peur, comme le dragon de Kali Linux mais sans lui ressembler », puis « plus comme un dragon ». Claude ne génère pas d'images.
+- 💡 Solution : « au pire, crée-moi un prompt et j'irai le demander à une IA spécialisée ». C'est la méthode qui servira pour tous les visuels (chapitre 10). Le logo final sera finalement un **masque de démon rouge**, que j'ai fait générer moi-même.
+
+### Étape par étape dans le portail Discord
+
+- ⚠️ « J'ai déjà ajouté l'app au serveur mais elle n'est pas affichée en tant que BOT. » 💡 L'application avait été invitée sans la portée `bot` : il faut générer le lien d'invitation avec les bonnes portées (`bot` et `applications.commands`).
+- ⚠️ *Problème humain* : « Tu veux que j'aille sur CSC et que je te donne l'accès ? Comment faire ? Serveur MPC ? » Je ne savais pas comment laisser Claude travailler sur mon PC. 💡 Claude a écrit les fichiers lui-même dans un dossier de mon PC, puis m'a donné un seul script à lancer : **`DEMARRER.bat`**.
+- ⚠️ *Problème humain et de sécurité* : j'ai collé le **token du bot** directement dans la conversation, puis refusé de le changer (« personne n'aura la conversation »). 🧠 J'ai compris plus tard qu'un secret qui a circulé doit être considéré comme compromis : tous les secrets ont été **régénérés le 28 octobre** (chapitre 8). C'est aussi de là que vient la règle n°1 du projet : le `.env` n'est jamais lu, affiché ni publié.
+
+### Les premières versions (v1.0 et v1.1)
 
 - 🛠️ **v1.0** : 20 commandes (modération, informations, rôles, sondages, embeds), bienvenue, rôle automatique, salon de logs. Dès le début, `/pingip` refuse les adresses privées pour ne pas pouvoir scanner mon propre réseau.
-- 🛠️ **v1.1** : l'objectif « remplacer tous les autres bots » prend forme avec les niveaux, l'automod, les tickets, les giveaways, la vérification, les vocaux temporaires et les outils réseau.
-- 🛠️ **v1.2** : le tableau de bord avec connexion Discord, le logo, et le site vitrine sur GitHub Pages.
-- 🛠️ **v1.3 à v1.5** : les modules Communauté et Académie, puis une Académie beaucoup plus riche (47 fiches, 498 questions, 92 termes de glossaire).
-- ⚠️ **Réponses en double** : certaines commandes répondaient deux fois. 💡 Plusieurs copies du bot tournaient en même temps sans que je le voie. Le bot réserve maintenant un port local (instance unique) et `DEMARRER.bat` ferme les anciennes copies.
-- 🛠️ Pour ne rien perdre d'une conversation à l'autre, un fichier **`CONTEXTE-CLAUDE.md`** résume tout le projet (règles, structure, recettes). Il suffit de le faire lire au début d'une nouvelle session.
+- 🛠️ **v1.1** : niveaux, automod, tickets, giveaways, vérification, vocaux temporaires, outils réseau. Je demande aussi « où se trouve précisément le dossier du bot, comment je le lance, et la liste de toutes les commandes avec ce qu'elles font ».
+- ⚠️ Discord refuse `/panelroles` : une option obligatoire était placée après une option facultative. 💡 Ordre corrigé, et le script de vérification `check.js` contrôle désormais cette règle pour toutes les commandes. « Ça marche ! »
+- 💡 Mes retours de testeur : je supprime `/8ball` et `/dire` (« j'aime pas »), je demande beaucoup plus de blagues et un `/userinfo` plus complet.
+- ⚠️ Sur la page *Verification Qualifications* du portail, je découvre qu'il faut des conditions d'utilisation et une politique de confidentialité. 💡 On remet ça à plus tard : la vérification n'est obligatoire qu'à partir de 75 serveurs (elle sera préparée le 28, chapitre 9).
 
-🧠 Un bon fichier de contexte vaut de l'or : sans lui, il faudrait tout réexpliquer à chaque fois.
+### Héberger le bot et créer le site (v1.2)
+
+- ⚠️ *Idée reçue* : « Est-ce que je peux héberger le bot sur GitHub, comme mon portfolio ? » 💡 Non : **GitHub Pages ne sert que des pages statiques**. Il est parfait pour le site, mais le bot doit tourner sur une machine allumée en continu. Plan retenu : le site sur GitHub Pages (gratuit et sécurisé), le bot sur mon PC pour l'instant, puis sur ma propre machine plus tard.
+- 🛠️ Le site vitrine voit le jour, d'abord sur `enzocerejo.github.io/cyber`, avec le logo, la bannière et le fond que j'avais préparés.
+- ⚠️ Les images ne s'affichaient pas en ligne : le dossier `assets` n'avait jamais été envoyé sur GitHub, et je devais tout recopier à la main à chaque modification. 💡 Création de **`PUBLIER.bat`**, qui publie tout le dossier avec Git en un double-clic.
+- ⚠️ Après une mise à jour, le navigateur affichait le nouveau HTML avec l'ancien CSS. 💡 Numéros de version « anti-cache » ajoutés automatiquement à chaque fichier.
+- 🛠️ Refonte visuelle à ma demande : plus de bannière ni d'image de fond (« laisse parler ton imagination »), fond de réseau animé, titre « glitch », démonstration Discord animée. J'enlève aussi mon email du site : un contact viendra avec un nom de domaine.
+- ⚠️ « Pas bien fait ici, refais bien » : une partie du site n'était qu'à moitié stylée. Puis « bug logo modo » : l'icône bouclier de la carte Modération sautait sur le bord au survol. 💡 Les deux corrigés (l'icône prenait toute la largeur de la carte).
+- 💡 Ma question : pourquoi ne pas faire dès maintenant **le panel sans le serveur**, juste pour avoir le visuel prêt avant Noël ? Résultat : un **panel d'aperçu** sur le site, avec la vraie connexion Discord, des salons fictifs et un mode démo sans compte.
+- ⚠️ « redirect_uri OAuth2 non valide » en cliquant sur « Se connecter avec Discord ». 💡 Deux causes : `index.html` dans l'adresse, et « Cyber » contre « cyber » (GitHub respecte les majuscules, Discord compare caractère par caractère). L'adresse est maintenant normalisée.
+- 🧠 Une question honnête que j'ai posée ce soir-là : « Un bot entièrement codé par une IA peut-il vraiment être utilisé sans crainte ? » La réponse : oui, **s'il est bien suivi** : tests, audits, aucune donnée sensible, et quelqu'un qui comprend ce qui est livré. C'est ce qui a guidé la suite du projet.
+- 💡 Côté matériel, je parle déjà du futur hébergement : mon père me propose d'échanger son kit Raspberry Pi 5 8 Go contre un Pi 5 2 Go. Je garde l'idée pour Noël (chapitre 7).
+
+### Les deux modules (v1.3)
+
+- 💡 Mon idée : « deux parties qui peuvent se cumuler ou marcher indépendamment », la partie communauté (modération, tickets…) et une partie cyber qui explique « ce que sont les pare-feu, les routeurs… vraiment très complète ». Le choix doit être « une simple case à cocher ou une commande ». Le niveau : **CCNA**, avec les trois modules du cursus (ITN, SRWE, ENSA), et une IA qui répond aux questions **tant que ça reste de l'informatique**.
+- 🛠️ Résultat : les modules **Communauté** et **Académie**, 47 fiches de cours, `/quiz`, `/glossaire`, `/port`, `/osi`, `/cisco`, le défi du jour et `/ia` (limitée à 5 questions par heure et par personne).
+- ⚠️ Les commandes n'apparaissaient que sur un seul serveur : elles étaient enregistrées sur un identifiant de serveur fixe. 💡 Enregistrement **automatique sur tous les serveurs** du bot, et dès qu'il en rejoint un nouveau.
+- 🧠 « C'est optimisé si un jour il est sur 150 000 serveurs ? » Réponse honnête : c'est la bonne méthode pour développer, mais en production il faudra des commandes **globales**, puis le **sharding** obligatoire à partir de 2 500 serveurs et une vraie base de données (chapitre 12).
+
+### Le choix à l'arrivée et le panel animé (v1.4)
+
+**Dimanche 26 octobre, 22 h 52** · 🛠️ Une fonction dont on avait parlé n'existait pas encore : le **choix des modules à la première invitation**. Il est créé à deux endroits : un message de bienvenue dans Discord avec trois boutons (Communauté, Académie, Les deux, réservés à ceux qui gèrent le serveur), et un écran d'accueil dans le panel. Le panel reçoit aussi des **aperçus fidèles à Discord**, un **simulateur d'automod**, des animations et une alerte en cas de modifications non enregistrées. Le **serveur de support** est relié partout (`/aide`, site, pages légales).
+
+### Mes retours de testeur et le fichier de contexte (v1.5)
+
+**23 h 17** · ⚠️ Je teste et je liste ce qui ne va pas : pas assez de questions dans le quiz, `/rappel` envoie **plusieurs** MP au lieu d'un, la réponse `/afk` se multiplie, et les explications (DDoS par exemple) sont trop courtes.
+
+**23 h 19** · 💡 Le diagnostic surprend : ce n'était pas un bug des commandes. **Trois copies de Cyber tournaient en même temps** sur mon PC, parce que je relançais `DEMARRER.bat` sans fermer l'ancienne fenêtre. Chacune répondait. Le bot réserve maintenant un port local (instance unique) et `DEMARRER.bat` ferme les anciennes copies.
+
+**23 h 48** · 🛠️ **v1.5** : 498 questions au lieu de 75 (au moins 10 par fiche), séries de 5 questions par sujet avec bilan, 47 fiches réécrites 3 à 5 fois plus détaillées, 92 termes de glossaire (DDoS détaille maintenant le botnet, les types d'attaque, l'amplification et les défenses).
+
+- ⚠️ *Problème humain* : la conversation devenait trop longue et les réponses ralentissaient. Je demande si je peux l'exporter et la renvoyer dans une nouvelle conversation. 💡 Ça n'irait pas plus vite. La bonne solution : un fichier **`CONTEXTE-CLAUDE.md`** qui résume tout le projet (règles de sécurité, structure, recettes de publication, reste à faire), plus les outils de génération du site copiés dans le dossier du bot. Il suffit d'écrire « lis CONTEXTE-CLAUDE.md et on continue ».
+
+🧠 Un bon fichier de contexte vaut de l'or : sans lui, il faudrait tout réexpliquer à chaque fois. Et un bug « qui se répète » n'est pas forcément dans le code : il faut d'abord vérifier combien de fois le programme tourne.
 
 ---
 

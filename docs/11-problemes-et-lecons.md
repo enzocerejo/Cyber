@@ -6,6 +6,11 @@ Le carnet de bord (chapitre 2) raconte les problèmes dans l'ordre où ils sont 
 
 | Problème | Cause | Solution | Leçon |
 |---|---|---|---|
+| Commande `/panelroles` refusée par Discord | Option obligatoire placée après une option facultative | Ordre corrigé, règle vérifiée par `check.js` | Automatiser les vérifications qu'on a déjà ratées une fois |
+| Commandes visibles sur un seul serveur | Enregistrement sur un identifiant de serveur fixe | Enregistrement automatique sur tous les serveurs du bot | Ce qui marche en test ne passe pas forcément à l'échelle |
+| Images du site absentes en ligne | Dossier `assets` jamais envoyé sur GitHub | `PUBLIER.bat` publie tout le dossier avec Git | Publier avec un outil, pas à la main |
+| Nouveau HTML avec l'ancien CSS | Cache du navigateur | Versions « anti-cache » ajoutées automatiquement | Penser au cache dès qu'une mise à jour « ne marche pas » |
+| `redirect_uri` OAuth2 non valide | `index.html` dans l'adresse et « Cyber » contre « cyber » | Adresse normalisée | Une URL de redirection doit correspondre au caractère près |
 | Chaque commande répondait deux fois | Plusieurs copies du bot tournaient (PC + hébergeur, ou anciennes fenêtres) | Instance unique par port local, fermeture des anciennes copies au démarrage | Un service doit savoir qu'il est seul |
 | Panel injoignable chez l'hébergeur | Nom passant par Cloudflare, puis **aucun port entrant** sur la machine | Tunnel Cloudflare sortant | Une connexion sortante passe là où l'entrante est bloquée |
 | Mélange HTTPS / HTTP | Site en HTTPS, panel en HTTP | Domaine + tunnel = panel en HTTPS | Le navigateur bloque le « contenu mixte » |
@@ -25,6 +30,10 @@ Ce projet a aussi été une découverte : je ne code pas, et j'ai dû apprendre 
 
 | Situation | Ce qui s'est passé | Ce que j'en retiens |
 |---|---|---|
+| Images et IA | Je demandais un logo à une IA qui ne génère pas d'images | Lui faire écrire un prompt pour une IA d'images : chaque outil a sa spécialité |
+| Token collé dans la conversation | « Personne n'aura la conversation », donc je ne l'ai pas changé | Un secret qui a circulé est compromis : tout a été régénéré le 28 octobre |
+| Idée reçue sur GitHub | Je pensais héberger le bot sur GitHub comme mon portfolio | GitHub Pages ne sert que des pages statiques : le bot a besoin d'une machine allumée |
+| Conversation trop longue | Je voulais l'exporter pour aller plus vite | Un résumé à jour (`CONTEXTE-CLAUDE.md`) vaut mieux que tout l'historique |
 | Vocabulaire nouveau | Token du bot ou jeton GitHub ? PR, merge, branche, ruleset, CNAME, TOTP… | Demander sans gêne « c'est quoi ? » : chaque réponse m'a fait progresser |
 | Où mettre les secrets | J'ai demandé où mettre le token sur GitHub | Un secret ne va **jamais** dans un dépôt, même privé |
 | Trop de validations | Me demander « ok » à chaque étape ralentissait tout | Fixer une règle claire : réversible = on fait, irréversible = on me demande |
