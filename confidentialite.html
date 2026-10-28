@@ -44,55 +44,108 @@
 
     <section class="section narrow legal">
       <article>
-        <h2>1. Responsable</h2>
-        <p>Cyber est développé et hébergé par Enzo Cerejo (France). Contact : <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">serveur de support Discord</a>.</p>
+        <h2>En bref</h2>
+        <ul>
+          <li>Cyber garde le strict nécessaire pour fonctionner : des identifiants Discord, ton XP, les réglages des serveurs. <strong>Jamais le contenu de tes messages</strong>.</li>
+          <li>Rien n'est vendu, partagé à des fins publicitaires ni utilisé pour entraîner une IA.</li>
+          <li>Tu peux voir et effacer tes données toi-même, à tout moment, avec <code>/mesdonnees</code>.</li>
+          <li>Quand Cyber est retiré d'un serveur, toutes les données de ce serveur sont effacées au bout de 30 jours.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h2>1. Responsable du traitement</h2>
+        <p>Cyber est un projet personnel et non commercial, développé et hébergé par Enzo Cerejo, en France (« le développeur »). Contact : <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">serveur de support Discord</a>. Voir aussi les <a href="mentions-legales.html">mentions légales</a>.</p>
+        <p>Les administrateurs de chaque serveur choisissent les fonctions activées (salon de logs, modération automatique, tickets…) et doivent en informer leurs membres, par exemple dans le règlement du serveur.</p>
       </article>
 
       <article>
         <h2>2. Données enregistrées par le bot</h2>
-        <p>Cyber n'enregistre que ce qui est nécessaire à ses fonctions :</p>
         <ul>
-          <li><b>Identifiants Discord</b> des serveurs, salons, rôles et utilisateurs ;</li>
-          <li><b>Niveaux</b> : XP et nombre de messages par membre (jamais le contenu des messages) ;</li>
-          <li><b>Modération</b> : avertissements (raison, modérateur, date) ;</li>
-          <li><b>Configuration du serveur</b> : salons, rôles, réglages de l'automod, mots interdits, tags ;</li>
-          <li><b>Fonctions utilisées volontairement</b> : statut AFK, rappels (texte et date), participations aux giveaways, tickets ouverts.</li>
+          <li><strong>Identifiants Discord</strong> (des numéros) des serveurs, salons, rôles et utilisateurs concernés ;</li>
+          <li><strong>Niveaux</strong> : XP, nombre de messages et heure du dernier message pris en compte, par membre et par serveur ;</li>
+          <li><strong>Académie</strong> : points, bonnes réponses et séries aux quiz, réponse au défi du jour en cours ;</li>
+          <li><strong>Modération</strong> : avertissements (raison, modérateur, date) ;</li>
+          <li><strong>Configuration du serveur</strong> : salons, rôles, réglages de l'automod, mots interdits, tags (texte, auteur) ;</li>
+          <li><strong>Fonctions que tu utilises volontairement</strong> : statut AFK (raison, date), rappels (texte, date, salon), participations aux giveaways, tickets et salons vocaux temporaires ouverts.</li>
         </ul>
       </article>
 
       <article>
         <h2>3. Contenu des messages</h2>
-        <p>Cyber lit le contenu des messages pour la modération automatique et le calcul de l'XP, sans le conserver. Si un administrateur a configuré un salon de logs, le contenu des messages <b>supprimés ou modifiés</b> y est publié, et la transcription d'un ticket y est envoyée à sa fermeture. Le dernier message supprimé de chaque salon est gardé en mémoire vive pour la commande <code>/snipe</code> et disparaît au redémarrage du bot.</p>
+        <p>Cyber lit les messages des serveurs où il est installé (autorisation « Message Content » de Discord) uniquement pour la modération automatique (liens, mots interdits, spam, majuscules) et pour attribuer de l'XP. Ce contenu n'est <strong>jamais enregistré</strong> par Cyber.</p>
+        <p>Si un administrateur a configuré un salon de logs, le contenu des messages supprimés ou modifiés y est publié, et la transcription d'un ticket y est envoyée à sa fermeture : ces messages restent alors sur Discord, sous le contrôle des administrateurs du serveur. Le dernier message supprimé de chaque salon est gardé en mémoire vive pour la commande <code>/snipe</code> et disparaît au redémarrage du bot.</p>
       </article>
 
       <article>
-        <h2>4. Tableau de bord</h2>
-        <p>La connexion se fait avec Discord (OAuth2), avec les seules autorisations « identify » et « guilds ». Cyber reçoit ton identifiant, ton pseudo, ton avatar et la liste de tes serveurs, uniquement pour afficher ceux que tu peux gérer. Ces informations sont gardées en mémoire pendant ta session (7 jours au maximum) et ne sont jamais écrites sur disque. Un seul cookie technique est utilisé pour te garder connecté ; il n'y a aucun cookie publicitaire ni de mesure d'audience.</p>
+        <h2>4. Assistant IA (<code>/ia</code>)</h2>
+        <p>Quand tu utilises <code>/ia</code>, seul le texte de ta question est envoyé à l'API d'<a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic</a> (États-Unis), qui génère la réponse. Ni ton pseudo ni ton identifiant ne sont transmis. La question et la réponse sont publiées dans le salon. Cyber ne les enregistre pas ; il garde seulement en mémoire vive l'heure de tes questions pour appliquer les limites (5 par heure), pendant 24 heures au plus.</p>
+        <p>Anthropic n'utilise pas ces échanges pour entraîner ses modèles et les supprime sous 30 jours, sauf s'ils enfreignent sa politique d'utilisation (jusqu'à 2 ans). <strong>N'écris pas d'informations personnelles dans tes questions.</strong> Les réponses sont générées automatiquement et peuvent contenir des erreurs.</p>
       </article>
 
       <article>
-        <h2>5. Ce site</h2>
-        <p>Ce site est hébergé par GitHub Pages, qui peut enregistrer des données techniques de connexion (comme l'adresse IP) pour des raisons de sécurité. Les polices sont hébergées sur le site lui-même : aucune donnée n'est envoyée à un service tiers de polices ou de publicité. L'indicateur de statut interroge l'API publique de Discord.</p>
+        <h2>5. Tableau de bord</h2>
+        <p>La connexion se fait avec Discord (OAuth2), avec les seules autorisations « identify » et « guilds ». Cyber reçoit ton identifiant, ton pseudo, ton avatar et la liste de tes serveurs, uniquement pour afficher ceux que tu peux gérer. Ces informations restent en mémoire vive pendant ta session (7 jours au maximum) et ne sont jamais écrites sur disque. Un seul cookie technique, indispensable à la connexion, est utilisé : il n'y a ni cookie publicitaire ni mesure d'audience, donc pas de bandeau cookies.</p>
+        <p>Le tableau de bord en ligne passe par un tunnel <a href="https://www.cloudflare.com/fr-fr/privacypolicy/" target="_blank" rel="noopener">Cloudflare</a>, qui traite les données techniques de connexion (adresse IP) pour l'acheminement et la sécurité. L'aperçu du tableau de bord sur ce site garde ses réglages uniquement dans ton navigateur.</p>
       </article>
 
       <article>
-        <h2>6. Utilisation et partage</h2>
-        <p>Ces données servent uniquement au fonctionnement de Cyber. Elles ne sont ni vendues, ni partagées avec des tiers, ni utilisées à des fins publicitaires. Elles transitent par Discord, soumis à sa propre <a href="https://discord.com/privacy" target="_blank" rel="noopener">politique de confidentialité</a>.</p>
+        <h2>6. Ce site</h2>
+        <p>Ce site est hébergé par GitHub Pages (GitHub, Inc.), qui peut enregistrer des données techniques de connexion (comme l'adresse IP) pour des raisons de sécurité. Les polices sont hébergées sur le site lui-même : aucune donnée n'est envoyée à un service de polices, de publicité ou de statistiques. L'indicateur de statut interroge l'API publique de Discord.</p>
       </article>
 
       <article>
-        <h2>7. Stockage et durée</h2>
-        <p>Les données du bot sont stockées sur le serveur personnel du développeur, en France. Elles sont conservées tant que Cyber est présent sur le serveur concerné, ou jusqu'à une demande de suppression.</p>
+        <h2>7. Pourquoi (bases légales)</h2>
+        <ul>
+          <li><strong>Fournir le service que tu utilises</strong> (rappels, AFK, quiz, <code>/ia</code>, tableau de bord) : exécution du service demandé (art. 6.1.b du RGPD) ;</li>
+          <li><strong>Faire fonctionner les serveurs</strong> (niveaux, modération, logs, sécurité anti-raid) : intérêt légitime des administrateurs et du développeur à proposer une communauté sûre et animée (art. 6.1.f du RGPD).</li>
+        </ul>
+        <p>Les données servent uniquement au fonctionnement de Cyber. Elles ne sont ni vendues, ni louées, ni transmises à des courtiers en données ou des régies publicitaires, ni utilisées pour du profilage ou pour entraîner un modèle d'IA.</p>
       </article>
 
       <article>
-        <h2>8. Tes droits</h2>
-        <p>Conformément au RGPD, tu peux demander l'accès, la rectification ou la suppression de tes données en contactant le développeur sur le <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">serveur de support Discord</a>, avec ton identifiant Discord. Les administrateurs peuvent aussi effacer certaines données directement (<code>/warn effacer</code>, <code>/xp reset</code>). Tu peux également saisir la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
+        <h2>8. Qui reçoit les données</h2>
+        <ul>
+          <li><a href="https://discord.com/privacy" target="_blank" rel="noopener">Discord</a>, la plateforme sur laquelle fonctionne Cyber ;</li>
+          <li>Anthropic, seulement pour les questions posées à <code>/ia</code> ;</li>
+          <li>Cloudflare et GitHub, pour l'acheminement du tableau de bord et l'hébergement de ce site.</li>
+        </ul>
+        <p>Ces prestataires sont situés aux États-Unis. Les transferts hors de l'Union européenne sont encadrés par les garanties prévues par le RGPD (clauses contractuelles types de la Commission européenne ou Data Privacy Framework UE–États-Unis).</p>
       </article>
 
       <article>
-        <h2>9. Modifications</h2>
-        <p>Cette politique peut évoluer ; la date en haut de page indique la dernière version.</p>
+        <h2>9. Stockage, sécurité et durée de conservation</h2>
+        <p>Les données du bot sont stockées sur une machine personnelle du développeur, en France, accessible à lui seul. Le tableau de bord n'est jamais exposé sans chiffrement (HTTPS) et vérifie en direct que tu as la permission « Gérer le serveur ».</p>
+        <ul>
+          <li><strong>Configuration, niveaux, scores, avertissements, tags</strong> : tant que Cyber est sur le serveur. Effacés automatiquement <strong>30 jours après le retrait</strong> du bot (délai qui permet de le réinviter sans tout perdre) ;</li>
+          <li><strong>Statut AFK</strong> : jusqu'à ton prochain message ;</li>
+          <li><strong>Rappels</strong> : jusqu'à leur envoi ;</li>
+          <li><strong>Giveaways</strong> : 30 jours après leur fin (réglable par le serveur de 1 à 365 jours) ;</li>
+          <li><strong>Tickets et vocaux temporaires</strong> : jusqu'à leur fermeture ;</li>
+          <li><strong>Sauvegardes de sécurité</strong> : une copie par jour, conservée <strong>7 jours</strong> puis supprimée. Une donnée effacée disparaît donc aussi des sauvegardes sous 7 jours.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h2>10. Tes droits</h2>
+        <p>Conformément au RGPD, tu peux accéder à tes données, les faire rectifier ou effacer, t'opposer à leur traitement, en demander la limitation ou les récupérer dans un format lisible.</p>
+        <ul>
+          <li><code>/mesdonnees voir</code> : reçois en privé un fichier avec tout ce que Cyber garde sur toi ;</li>
+          <li><code>/mesdonnees effacer</code> : efface immédiatement tes niveaux, scores, statut AFK, rappels et participations aux giveaways, sur tous les serveurs ;</li>
+          <li>les avertissements relèvent des modérateurs de chaque serveur (<code>/warn effacer</code>) ; les administrateurs peuvent aussi remettre l'XP à zéro (<code>/xp reset</code>) ou effacer toutes les données d'un serveur en retirant Cyber ;</li>
+          <li>pour toute autre demande, contacte le développeur sur le <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">serveur de support</a> avec ton identifiant Discord. Une réponse t'est apportée sous un mois au plus.</li>
+        </ul>
+        <p>Si tu estimes que tes droits ne sont pas respectés, tu peux adresser une réclamation à la <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener">CNIL</a>.</p>
+      </article>
+
+      <article>
+        <h2>11. Âge minimum</h2>
+        <p>Cyber s'adresse aux personnes qui ont l'âge requis pour utiliser Discord dans leur pays (13 ans au minimum). Il ne contient aucun contenu réservé aux adultes.</p>
+      </article>
+
+      <article>
+        <h2>12. Modifications</h2>
+        <p>Cette politique peut évoluer ; la date en haut de page indique la dernière version. En cas de changement important, il sera annoncé sur le serveur de support et sur la page <a href="nouveautes.html">Nouveautés</a>.</p>
       </article>
     </section>
   </main>
@@ -117,6 +170,7 @@
         <h3>Légal</h3>
         <a href="conditions.html">Conditions d'utilisation</a>
         <a href="confidentialite.html">Confidentialité</a>
+        <a href="mentions-legales.html">Mentions légales</a>
       </div>
     </div>
     <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>
