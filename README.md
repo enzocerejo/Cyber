@@ -1,6 +1,6 @@
 # Cyber · site vitrine
 
-Site du bot Discord **Cyber**, hébergé avec GitHub Pages : https://enzocerejo.github.io/cyber/
+Site du bot Discord **Cyber**, hébergé avec GitHub Pages : https://cyberbot.fr
 
 ## Pages
 - `index.html` : accueil, fonctions, liste des commandes, FAQ
