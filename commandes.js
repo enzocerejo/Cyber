@@ -54,6 +54,21 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
+    "name": "mesdonnees",
+    "desc": "Voir ou effacer les données que Cyber garde sur toi",
+    "subs": [
+     {
+      "name": "voir",
+      "desc": "Reçois en privé une copie de tes données (fichier JSON)"
+     },
+     {
+      "name": "effacer",
+      "desc": "Efface tes données (niveaux, scores, AFK, rappels…) sur tous les serveurs"
+     }
+    ],
+    "staff": false
+   },
+   {
     "name": "ping",
     "desc": "Latence du bot",
     "subs": [],
