@@ -1,5 +1,7 @@
 # Cyber · site vitrine
 
+> 📘 **Documentation complète du projet** (carnet de bord, choix techniques, sécurité, audits) : [docs/](docs/README.md)
+
 Site du bot Discord **Cyber**, hébergé avec GitHub Pages : https://cyberbot.fr
 
 ## Pages
