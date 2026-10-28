@@ -1,0 +1,37 @@
+# Chapitre 12 · La suite du projet
+
+## Court terme
+
+- Terminer les visuels (reprise au prompt 19) et les installer dans le bot et sur le site.
+- Construire le serveur Discord de support à partir du modèle.
+- Faire la double authentification et la vérification d'identité pour préparer la vérification Discord.
+- Faire connaître Cyber pour atteindre les **75 serveurs** nécessaires à la demande de vérification.
+
+## Noël 2026 : le homelab
+
+- Achat d'un **mini PC reconditionné** (i5 8ᵉ/9ᵉ génération, 16 Go de RAM visés).
+- Installation de **Proxmox** ou Debian, puis **Docker**.
+- Bot dans un conteneur, sans aucun port exposé, avec le **tunnel Cloudflare** déjà prêt (route vers `127.0.0.1:<port>`, empreinte `cloudflared` de la bonne architecture).
+- Panel d'aperçu du site relié au vrai bot (connexion côté serveur au lieu du flux OAuth « implicite »).
+- Rappels programmés du 26 décembre au 3 janvier pour ne rien oublier.
+- La même machine servira de laboratoire pour le BTS CIEL et le CCNA (VM pfSense, Windows Server, Linux).
+
+## Les modules sur mesure (« cassettes »)
+
+Le grand projet : permettre à un serveur de recevoir un module développé pour lui.
+
+1. Le serveur demande un module.
+2. Enzo le développe.
+3. Il génère un **identifiant secret lié à ce serveur** (inutilisable ailleurs).
+4. L'administrateur le saisit dans l'onglet « Modules publics » du panel (« Ajouter un module »).
+5. Cyber reconnaît le module et l'installe.
+
+Points de conception déjà identifiés : identifiants non devinables et liés à un seul serveur, modules isolés du reste du bot, données déclarées dans la politique de confidentialité.
+
+## Quand le bot grandira
+
+- Option `COMMANDES=global` pour enregistrer les commandes une seule fois pour tous les serveurs.
+- Widget de statut sur le site.
+- Base de données à la place des fichiers JSON.
+- **Sharding** obligatoire à partir de 2 500 serveurs.
+- Intents privilégiés justifiés auprès de Discord.
