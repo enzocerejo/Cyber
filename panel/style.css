@@ -436,7 +436,7 @@ body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-
 .brand span, .hero h1, .page-title, .panel h2 { font-family: "Orbitron", system-ui, sans-serif; }
 .brand span { letter-spacing: 4px; }
 .hero h1 { letter-spacing: 10px; }
-.back-site { color: var(--mut); font-size: .88rem; margin-right: 4px; }
+.back-site { color: var(--mut); font-size: .9rem; margin-right: 6px; }
 .back-site:hover { color: var(--txt); }
 .account-wrap { display: flex; align-items: center; gap: 12px; }
 @media (max-width: 600px) { .back-site { display: none; } }
