@@ -97,7 +97,7 @@
 
       <article>
         <h2>5. Tableau de bord</h2>
-        <p>La connexion se fait avec Discord (OAuth2), avec les seules autorisations « identify » et « guilds ». Cyber reçoit ton identifiant, ton pseudo, ton avatar et la liste de tes serveurs, uniquement pour afficher ceux que tu peux gérer. Ces informations restent en mémoire vive pendant ta session (7 jours au maximum) et ne sont jamais écrites sur disque. Un seul cookie technique, indispensable à la connexion, est utilisé : il n'y a ni cookie publicitaire ni mesure d'audience, donc pas de bandeau cookies.</p>
+        <p>La connexion se fait avec Discord (OAuth2), avec les seules autorisations « identify » et « guilds ». Cyber reçoit ton identifiant, ton pseudo, ton avatar et la liste de tes serveurs, uniquement pour afficher ceux que tu peux gérer. Ces informations sont gardées le temps de ta session (7 jours au maximum), pour que tu restes connecté même si Cyber redémarre, puis effacées. Le cookie de connexion n'est enregistré que sous forme d'empreinte (illisible) et aucun jeton Discord n'est conservé. Tu peux te déconnecter à tout moment, et <code>/mesdonnees effacer</code> ferme aussi tes sessions. Un seul cookie technique, indispensable à la connexion, est utilisé : il n'y a ni cookie publicitaire ni mesure d'audience, donc pas de bandeau cookies.</p>
         <p>Le tableau de bord en ligne passe par un tunnel <a href="https://www.cloudflare.com/fr-fr/privacypolicy/" target="_blank" rel="noopener">Cloudflare</a>, qui traite les données techniques de connexion (adresse IP) pour l'acheminement et la sécurité.</p>
       </article>
 

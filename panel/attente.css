@@ -1,0 +1,8 @@
+/* Page d'attente de cyberbot.fr/panel/ : mini-jeu du robot Cyber */
+.jeu { margin: 22px 0 18px; }
+.jeu canvas {
+  display: block; width: 100%; height: auto; aspect-ratio: 720 / 200;
+  background: var(--card-solid); border: 1px solid var(--line); border-radius: var(--radius);
+  cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;
+}
+.jeu-aide { color: var(--mut); font-size: .92rem; margin-top: 8px; }

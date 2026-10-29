@@ -3,24 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
-  <meta http-equiv="refresh" content="1; url=https://panel.cyberbot.fr/">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'self'; script-src 'self'; connect-src https://panel.cyberbot.fr/en-ligne; base-uri 'none'; form-action 'none'">
+  <noscript><meta http-equiv="refresh" content="1; url=https://panel.cyberbot.fr/"></noscript>
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noindex">
   <title>Tableau de bord · Cyber</title>
   <meta name="theme-color" content="#ff3d5a">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
   <link rel="stylesheet" href="../style.css?v=43cbfa9c">
+  <link rel="stylesheet" href="attente.css?v=b1dd2906">
 </head>
 <body>
   <main id="contenu">
     <section class="section narrow legal">
       <h1>Tableau de bord</h1>
-      <p>Redirection vers le tableau de bord de Cyber…</p>
+      <p id="etat" role="status" aria-live="polite">Ouverture du tableau de bord de Cyber…</p>
       <p><a class="btn" href="https://panel.cyberbot.fr/">Ouvrir le tableau de bord →</a></p>
-      <p>Si la page ne s'ouvre pas, Cyber est momentanément hors ligne : réessaie un peu plus tard. Tu peux aussi tout régler avec les commandes <code>/config</code>, <code>/automod</code> et <code>/modules</code> sur ton serveur.</p>
+      <div id="jeu" class="jeu" hidden>
+        <canvas id="jeu-canvas" width="720" height="200" role="img" aria-label="Mini-jeu : le petit robot Cyber saute par-dessus les bugs"></canvas>
+        <p class="jeu-aide">En attendant : Espace, flèche ↑ ou toucher l'écran pour sauter par-dessus les bugs.</p>
+      </div>
+      <p>Tu peux aussi tout régler avec les commandes <code>/config</code>, <code>/automod</code> et <code>/modules</code> sur ton serveur.</p>
       <p><a href="../index.html">← Retour au site</a></p>
     </section>
   </main>
+  <script src="attente.js?v=583e1d4a"></script>
 </body>
 </html>
