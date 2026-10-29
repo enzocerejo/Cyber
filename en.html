@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src https://discord.com; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Cyber · Free Discord bot for moderation, levels and tickets</title>
+  <meta name="description" content="Cyber protects and brings your Discord server to life: moderation, automod, levels, tickets, giveaways, verification and a networking academy. 100% free.">
+  <meta name="theme-color" content="#ff3d5a">
+  <link rel="canonical" href="https://cyberbot.fr/en.html">
+  <link rel="alternate" hreflang="fr" href="https://cyberbot.fr/">
+  <link rel="alternate" hreflang="en" href="https://cyberbot.fr/en.html">
+  <link rel="alternate" hreflang="x-default" href="https://cyberbot.fr/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cyber">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://cyberbot.fr/en.html">
+  <meta property="og:title" content="Cyber · Free Discord bot for moderation, levels and tickets">
+  <meta property="og:description" content="Cyber protects and brings your Discord server to life: moderation, automod, levels, tickets, giveaways, verification and a networking academy. 100% free.">
+  <meta property="og:image" content="https://cyberbot.fr/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cyber, bot Discord">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css?v=43cbfa9c">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Cyber", "applicationCategory": "CommunicationApplication", "operatingSystem": "Discord", "url": "https://cyberbot.fr/", "image": "https://cyberbot.fr/assets/og-image.jpg", "description": "Cyber protects and brings your Discord server to life: moderation, automod, levels, tickets, giveaways, verification and a networking academy. 100% free.", "inLanguage": "en", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Enzo Cerejo"}}</script>
+</head>
+<body>
+  <a class="skip" href="#contenu">Skip to content</a>
+  <canvas id="reseau" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="en.html"><img src="assets/logo.webp" alt="" width="38" height="38"><span>CYBER</span></a>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+    <nav class="links" aria-label="Main navigation">
+      <a href="en.html#features">Features</a>
+      <a href="en.html#dashboard">Dashboard</a>
+      <a href="docs/">Docs</a>
+      <a class="lang" href="index.html" hreflang="fr" lang="fr" title="Version française">FR</a>
+      <span class="pill" data-statut title="Cyber status"><span class="dot-status"></span><span class="pill-txt">Statut</span></span>
+      <a class="btn small" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Add Cyber</a>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <section class="hero">
+      <div class="hero-text">
+        <span class="badge"><span class="dot-status on"></span> Discord bot · 100% free</span>
+        <h1 class="glitch" data-text="CYBER">CYBER</h1>
+        <p class="hero-sub">The guardian of your Discord server.</p>
+        <p class="tagline">Moderation, automod, levels, tickets and giveaways, plus a networking and cybersecurity academy (CCNA level).<br>Turn on only what your server needs.</p>
+        <div class="cta">
+          <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Add to Discord</a>
+          <a class="btn big ghost" href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">Support server →</a>
+        </div>
+        <ul class="counters">
+          <li><b>60</b><span>commands</span></li>
+          <li><b>2</b><span>modules</span></li>
+          <li><b>0 €</b><span>forever</span></li>
+          <li data-support hidden><b data-support-membres>–</b><span>support members</span></li>
+        </ul>
+        <p class="muted-s note-langue">🇫🇷 Cyber currently speaks French on Discord. An English version of its messages is planned.</p>
+      </div>
+      <div class="browser">
+        <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">cyber · dashboard</span></div>
+        <img src="assets/tableau-de-bord.webp" width="1280" height="800" alt="Cyber's dashboard">
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <span class="kicker">// FEATURES</span>
+      <h2>Everything your server needs</h2>
+      <p class="lead">Two modules to switch on: <b>Community</b> (to replace MEE6, Carl-bot, Dyno and Ticket Tool) and <b>Academy</b> (to learn networking and cybersecurity).</p>
+      <div class="grid">
+        <article class="card"><span class="ico">🛡️</span><h3>Full moderation</h3><p>Kick, ban, timed mute, warnings, message purge and channel lock. Every sanction is sent to the member by DM and logged, with role hierarchy checks.</p></article>
+        <article class="card"><span class="ico">🤖</span><h3>Automod</h3><p>Automatically removes spam, invites, links, bad words (even disguised ones), excessive caps and mass mentions.</p></article>
+        <article class="card"><span class="ico">📈</span><h3>Levels & XP</h3><p>XP for chatting, a leaderboard and automatic reward roles.</p></article>
+        <article class="card"><span class="ico">🎫</span><h3>Tickets</h3><p>One button opens a private channel with your team. 123 ready-made ticket types, transcript saved on close.</p></article>
+        <article class="card"><span class="ico">🎉</span><h3>Giveaways</h3><p>Join button, automatic draw and reroll.</p></article>
+        <article class="card"><span class="ico">✅</span><h3>Anti-raid</h3><p>Button verification. Accounts younger than 24 hours are blocked.</p></article>
+        <article class="card"><span class="ico">👋</span><h3>Welcome & roles</h3><p>Custom welcome messages, auto-role, button roles and temporary voice channels.</p></article>
+        <article class="card"><span class="ico">🎓</span><h3>Networking academy</h3><p>47 CCNA-level lessons, nearly 500 quiz questions with a leaderboard, a daily challenge and an AI that answers IT questions.</p></article>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section split">
+      <div>
+        <span class="kicker">// DASHBOARD</span>
+        <h2>Set everything up in a few clicks</h2>
+        <p class="lead left">Log in with Discord, pick your server and change every setting without typing a single command. Like MEE6, but free.</p>
+        <ul class="checks">
+          <li>Logs, welcome messages and auto-role</li>
+          <li>Automod: filters, banned words, sanctions</li>
+          <li>Levels and reward roles</li>
+          <li>Tickets, verification and temporary voice channels</li>
+          <li>Live preview of every message</li>
+        </ul>
+        <div class="cta"><a class="btn" href="panel/">Open the dashboard →</a></div>
+      </div>
+      <figure class="browser capture">
+        <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">cyber · tickets</span></div>
+        <img src="assets/captures/tickets.webp" width="1280" height="800" alt="Ticket settings in Cyber's dashboard" loading="lazy">
+      </figure>
+    </section>
+
+    <section id="faq" class="section">
+      <span class="kicker">// FAQ</span>
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>Is Cyber really free?</summary><p>Yes, every feature is free. No subscription, no premium tier.</p></details>
+        <details><summary>Which permissions does Cyber need?</summary><p>Only what its features use (manage messages, roles and channels, kick and ban…), <b>never Administrator</b>. You can remove a permission at any time: only the feature that needs it will stop.</p></details>
+        <details><summary>Does Cyber speak English?</summary><p>Not yet: its commands and messages are in French for now. An English version is planned.</p></details>
+        <details><summary>What data does Cyber store?</summary><p>Only what it needs: your server settings, members' XP and warnings. Nothing is sold or shared. Any member can see or delete their data with <code>/mesdonnees</code>. Details are in the <a href="confidentialite.html" hreflang="fr">privacy policy</a> (in French).</p></details>
+        <details><summary>Who made Cyber?</summary><p>Cyber is built by Enzo, a French networking and IT student passionate about cybersecurity.</p></details>
+      </div>
+    </section>
+
+    <section class="section final">
+      <div class="ring">
+        <img src="assets/logo.webp" alt="Cyber logo" width="150" height="150" loading="lazy">
+      </div>
+      <h2>Ready to protect your server?</h2>
+      <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Add Cyber for free</a>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="en.html"><img src="assets/logo.webp" alt="" width="34" height="34" loading="lazy"><span>CYBER</span></a>
+        <p>Protects and brings your Discord server to life. 100% free.</p>
+      </div>
+      <div>
+        <h3>Cyber</h3>
+        <a href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Add to Discord</a>
+        <a href="demarrer.html">Get started (FR)</a>
+        <a href="index.html#commandes">Commands (FR)</a>
+        <a href="nouveautes.html">Changelog and status (FR)</a>
+        <a href="modules.html">Custom modules (FR)</a>
+        <a href="panel/">Dashboard</a>
+        <a href="docs/">Documentation (FR)</a>
+        <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">Support server</a>
+      </div>
+      <div>
+        <h3>Legal</h3>
+        <a href="conditions.html">Terms of service (FR)</a>
+        <a href="confidentialite.html">Privacy policy (FR)</a>
+        <a href="mentions-legales.html">Legal notice (FR)</a>
+        <a href="index.html" hreflang="fr" lang="fr">Version française</a>
+      </div>
+    </div>
+    <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Made by <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber is not affiliated with Discord Inc.</p>
+  </footer>
+
+  <script src="config.js?v=d0782783"></script>
+  <script src="script.js?v=f580ae45"></script>
+</body>
+</html>

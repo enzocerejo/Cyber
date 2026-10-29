@@ -138,7 +138,7 @@
   const DEMO_GUILD = { id: DEMO_ID, name: 'Serveur de démonstration', icon: null, memberCount: 128 };
 
   window.CYBER_PANEL = {
-    logo: '../assets/logo.png',
+    logo: '../assets/logo.webp',
     error: null,
 
     // Au retour de Discord : récupère le jeton dans l'adresse puis l'efface de la barre d'adresse

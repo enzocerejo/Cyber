@@ -424,3 +424,50 @@ body { background: radial-gradient(1200px 700px at 75% -10%, #3a0a1433, transpar
   .step-num { width: 34px; height: 34px; font-size: .85rem; }
   .steps::before { left: 16px; }
 }
+
+/* ---------- Ajouts du 29/10/2026 : langue, captures, modules sur mesure, 404 ---------- */
+.links a.lang { font-family: var(--title); font-size: .78rem; letter-spacing: .08em; border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; }
+.links a.lang:hover { border-color: var(--red); }
+.cta.centre { justify-content: center; margin-top: 26px; }
+.term .ko { color: var(--red2); }
+.note-langue { margin-top: 18px; }
+
+.captures-onglets { margin-top: 6px; }
+.browser.capture { max-width: 1000px; margin: 0 auto; transform: none; }
+.browser.capture img { transition: opacity .25s; }
+.browser.capture img.change { opacity: .25; }
+figure.browser { margin: 0; }
+
+.cassette { justify-self: center; width: min(360px, 100%); animation: float 6s ease-in-out infinite; }
+.cassette-corps {
+  position: relative; aspect-ratio: 1.6; border-radius: 16px; padding: 18px;
+  background: linear-gradient(145deg, #1a1b23, #0d0e13); border: 1px solid #ff3d5a55;
+  box-shadow: 0 20px 60px #000a, 0 0 50px #ff3d5a33, inset 0 0 0 6px #ffffff06;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.cassette-etiquette { align-self: stretch; text-align: center; background: var(--red-soft); border: 1px dashed #ff3d5a88; border-radius: 8px; padding: 8px; font-family: var(--title); font-size: .78rem; letter-spacing: .08em; color: var(--mut); }
+.cassette-etiquette b { color: var(--red2); }
+.cassette-bobines { display: flex; justify-content: center; gap: 26%; }
+.cassette-bobines i { width: 22%; aspect-ratio: 1; border-radius: 50%; border: 3px solid #ff3d5a99; background: radial-gradient(circle, #07080c 0 30%, #ff3d5a33 31% 60%, #07080c 61%); animation: tourne 6s linear infinite; }
+.cassette-fente { margin: 12px auto 0; width: 80%; text-align: center; padding: 6px; border-radius: 8px; background: #07080c; border: 1px solid var(--line); color: var(--mut); font-size: .82rem; font-family: ui-monospace, "Cascadia Code", Consolas, monospace; }
+.cassette.petite { width: min(260px, 100%); margin-top: 16px; animation: none; }
+
+.erreur-404 { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.erreur-404 h1.glitch { font-size: clamp(4rem, 18vw, 8rem); margin: 10px 0; }
+.erreur-404 .term { width: min(420px, 100%); text-align: left; margin-top: 10px; }
+.erreur-404 .muted-s { margin-top: 22px; }
+/* Le menu a plus de liens : il passe en menu ☰ dès 1120 px pour ne jamais couper « Tableau de bord » sur deux lignes */
+.links a { white-space: nowrap; }
+@media (max-width: 1120px) {
+  .menu-btn { display: block; }
+  .links {
+    position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; align-items: stretch;
+    background: #07080cf2; border-bottom: 1px solid var(--line); display: none; padding: 8px 16px 16px;
+  }
+  .links.open { display: flex; }
+  .links a:not(.btn) { padding: 12px 4px; border-bottom: 1px solid var(--line); }
+  .links a.lang { align-self: flex-start; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--line); }
+  .links a[aria-current="page"]::after { display: none; }
+  .links .pill.show { align-self: flex-start; margin-top: 12px; }
+  .links .btn { margin-top: 12px; }
+}
