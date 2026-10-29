@@ -620,6 +620,8 @@ function tabGeneral() {
       carte('list', 'Logs', 'Sanctions, messages supprimés ou modifiés, tickets fermés, automod…', field('Salon des logs', choixSalon(data.channels.text, c, 'logChannelId'))),
       carte('at', 'Rôle automatique', 'Donné à chaque nouveau membre dès son arrivée.', field('Rôle', choixRole(c, 'autoRoleId', { onlyAssignable: true, none: '— Désactivé —' })))),
     carte('bulb', 'Suggestions', 'Salon où arrivent les idées envoyées avec /suggestion.', field('Salon des suggestions', choixSalon(data.channels.text, c, 'suggestionChannelId'))),
+    carte('message', 'Langue de Cyber · Language', 'Langue des messages publics (bienvenue, logs, giveaways…) et des réponses par défaut. Chaque membre peut choisir la sienne avec /langue.',
+      field('Langue du serveur', liste([['fr', '🇫🇷 Français'], ['en', '🇬🇧 English']], c.langue === 'en' ? 'en' : 'fr', c, 'langue'))),
   ];
 }
 

@@ -103,6 +103,7 @@
         logChannelId: null, welcomeChannelId: null, suggestionChannelId: null, levelChannelId: null,
         tempVoiceId: null, ticketCategoryId: null, autoRoleId: null, ticketStaffRoleId: null,
         welcomeMessage: null, levelMessage: null, levelsEnabled: true, levelRewards: {},
+        langue: 'fr',
         ticketTypes: [],
         ...cfg, automod: undefined, salonsCrees: undefined, rolesCrees: undefined,
         modules: { communaute: true, academie: true, ...(cfg.modules || {}) },
