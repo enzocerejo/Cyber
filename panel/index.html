@@ -3,26 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://cdn.discordapp.com data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src https://discord.com; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="refresh" content="1; url=https://panel.cyberbot.fr/">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noindex">
   <title>Tableau de bord · Cyber</title>
   <meta name="theme-color" content="#ff3d5a">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
-  <link rel="stylesheet" href="style.css?v=c33ea48f">
+  <link rel="stylesheet" href="../style.css?v=43cbfa9c">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="../index.html"><img src="../assets/logo.webp" alt=""><span>CYBER</span></a>
-    <div class="account-wrap"><a class="back-site" href="../index.html">← Retour au site</a><div id="account" class="account"></div></div>
-  </header>
-  <div id="bandeau" class="bandeau" role="status" hidden></div>
-  <main id="app" class="app"><div class="loading">Chargement…</div></main>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="adaptateur.js?v=19f07654"></script>
-  <script src="mots.js?v=8ec8d0ed"></script>
-  <script src="modeles-tickets.js?v=b8dab839"></script>
-  <script src="modeles-reglements.js?v=5dec4fee"></script>
-  <script src="app.js?v=3559b385"></script>
+  <main id="contenu">
+    <section class="section narrow legal">
+      <h1>Tableau de bord</h1>
+      <p>Redirection vers le tableau de bord de Cyber…</p>
+      <p><a class="btn" href="https://panel.cyberbot.fr/">Ouvrir le tableau de bord →</a></p>
+      <p>Si la page ne s'ouvre pas, Cyber est momentanément hors ligne : réessaie un peu plus tard. Tu peux aussi tout régler avec les commandes <code>/config</code>, <code>/automod</code> et <code>/modules</code> sur ton serveur.</p>
+      <p><a href="../index.html">← Retour au site</a></p>
+    </section>
+  </main>
 </body>
 </html>

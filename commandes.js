@@ -48,6 +48,12 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
+    "name": "langue",
+    "desc": "Choisis la langue dans laquelle Cyber te répond",
+    "subs": [],
+    "staff": false
+   },
+   {
     "name": "membres",
     "desc": "Statistiques des membres du serveur",
     "subs": [],
@@ -623,6 +629,10 @@ window.CYBER_COMMANDES = [
      {
       "name": "giveaways",
       "desc": "Combien de temps garder un giveaway terminé (pour /giveaway reroll)"
+     },
+     {
+      "name": "langue",
+      "desc": "Langue du bot sur ce serveur"
      },
      {
       "name": "voir",
