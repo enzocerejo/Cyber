@@ -1,7 +1,8 @@
 // Bibliothèque de mots interdits de l'automod + moteur de détection des variantes.
 // Ce fichier est utilisé à la fois par le bot (require) et par le panel (simulateur) : un seul endroit à modifier.
 // Les variantes courantes sont reconnues automatiquement : majuscules, accents, l33t (c0nn4rd), lettres répétées
-// (connnnard), lettres séparées (c.o.n.n.a.r.d / c o n n a r d), pluriels et féminins (connards, connasses).
+// (connnnard), lettres séparées (c.o.n.n.a.r.d / c o n n a r d), pluriels et féminins (connards, connasses),
+// lettres déguisées (alphabet russe ou grec, 𝐠𝐫𝐚𝐬, ⓒⓞⓝ, ｃｏｎ), caractères invisibles et mots coupés (con-nard, con🤡nard).
 (function (racine, fabrique) {
   if (typeof module === 'object' && module.exports) module.exports = fabrique();
   else racine.CYBER_MOTS = fabrique();
@@ -57,12 +58,32 @@
   ];
 
   const LEET = { 0: 'o', 1: 'i', 2: 'z', 3: 'e', 4: 'a', 5: 's', 6: 'g', 7: 't', 8: 'b', 9: 'g', '@': 'a', $: 's', '€': 'e', '!': 'i', '|': 'i', '£': 'l', '+': 't' };
+  // Lettres d'autres alphabets qui ressemblent aux nôtres (« соnnard » avec un о russe) et lettres barrées
+  const SOSIES = {
+    а: 'a', в: 'b', е: 'e', ё: 'e', з: 'z', и: 'u', й: 'u', к: 'k', м: 'm', н: 'h', о: 'o', п: 'n', р: 'p', с: 'c', т: 't',
+    у: 'y', х: 'x', ь: 'b', і: 'i', ї: 'i', ј: 'j', ѕ: 's', ԁ: 'd', ӏ: 'l', ԛ: 'q', ԝ: 'w',
+    α: 'a', β: 'b', γ: 'y', ε: 'e', ζ: 'z', η: 'n', ι: 'i', κ: 'k', μ: 'u', ν: 'v', ο: 'o', ρ: 'p', σ: 'o', ς: 's', τ: 't', υ: 'u', χ: 'x', ω: 'w',
+    ø: 'o', ł: 'l', đ: 'd', ħ: 'h', ı: 'i', ß: 'ss', ŧ: 't', ƀ: 'b', ɑ: 'a', ɡ: 'g', ɩ: 'i', ʀ: 'r', ᴄ: 'c', ᴏ: 'o', ᴜ: 'u', ᴠ: 'v', ᴡ: 'w', ᴢ: 'z',
+  };
+  const SOSIES_RE = new RegExp(`[${Object.keys(SOSIES).join('')}]`, 'g');
+  // Caractères invisibles glissés au milieu d'un mot (espace de largeur nulle, trait d'union conditionnel…)
+  const INVISIBLES = /[\u00AD\u034F\u061C\u115F\u1160\u17B4\u17B5\u180B-\u180F\u200B-\u200F\u202A-\u202E\u2060-\u206F\u3164\uFE00-\uFE0F\uFEFF\uFFA0]/g;
+
+  // Texte -> texte « à plat » : minuscules, sans accents ni lettres déguisées, l33t traduit
+  function aplatir(texte) {
+    return String(texte).replace(INVISIBLES, '')
+      // Lettres-drapeaux 🇨🇴🇳 -> con
+      .replace(/[\u{1F1E6}-\u{1F1FF}]/gu, (c) => String.fromCharCode(c.codePointAt(0) - 0x1F1E6 + 97))
+      // NFKD : 𝐠𝐫𝐚𝐬, ⓒⓞⓝ, ｃｏｎ -> lettres normales ; puis accents retirés
+      .normalize('NFKD').toLowerCase().replace(/[\u0300-\u036f\u0483-\u0489]/g, '')
+      .replace(SOSIES_RE, (c) => SOSIES[c])
+      .replace(/[0-9@$€!|£+]/g, (c) => LEET[c] || c)
+      .replace(/œ/g, 'oe').replace(/æ/g, 'ae');
+  }
 
   // Texte -> liste de « mots » normalisés (minuscules, sans accents, l33t traduit, lettres répétées réduites)
   function decouper(texte) {
-    const t = String(texte).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
-      .replace(/[0-9@$€!|£+]/g, (c) => LEET[c] || c)
-      .replace(/œ/g, 'oe').replace(/æ/g, 'ae');
+    const t = aplatir(texte);
     const bruts = t.split(/[^a-z]+/).filter(Boolean);
     // Lettres séparées (c.o.n.n.a.r.d / c o n n a r d) : on recolle les suites d'au moins 3 lettres seules
     const mots = [];
@@ -77,6 +98,16 @@
     return mots;
   }
   const normaliser = (texte) => decouper(texte).join(' ');
+
+  // Mots coupés par un symbole sans espace (« con-nard », « con*nard », « con🤡nard ») : recollés
+  function recolles(texte) {
+    const res = [];
+    for (const bloc of aplatir(texte).split(/\s+/)) {
+      const lettres = bloc.replace(/[^a-z]+/g, '');
+      if (lettres.length >= 4 && /[a-z][^a-z]+[a-z]/.test(bloc)) res.push(lettres);
+    }
+    return res;
+  }
 
   // Formes possibles d'un mot (pluriel, féminin) : seulement pour les mots d'au moins 4 lettres
   // (évite qu'un mot comme « cône » soit lu comme « con »)
@@ -123,7 +154,8 @@
     if (!liste.length || !texte) return null;
     const p = preparer(liste, autorises);
     const mots = decouper(texte).filter((m) => !p.autorises.has(m) && !p.autorises.has(reduire(m)));
-    for (const m of mots) {
+    const colles = recolles(texte).filter((m) => !p.autorises.has(m) && !p.autorises.has(reduire(m)));
+    for (const m of mots.concat(colles)) {
       const [carte, mot] = etire(m) ? [p.reduits, reduire(m)] : [p.mots, m];
       for (const f of formes(mot)) if (carte.has(f)) return carte.get(f);
     }
@@ -142,6 +174,6 @@
 
   return {
     CATEGORIES: CATEGORIES.map(([id, nom, desc, defaut, mots]) => ({ id, nom, desc, defaut, mots })),
-    normaliser, decouper, listeActive, trouver,
+    normaliser, decouper, aplatir, listeActive, trouver,
   };
 }));

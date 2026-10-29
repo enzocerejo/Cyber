@@ -799,7 +799,7 @@ function tabAutomod() {
       h('div', { class: 'row' },
         field('Mentions maximum par message', nombre(a, 'maxMentions', 2, 50, simuler)),
         field('Infractions avant un mute de 10 min', nombre(a, 'timeoutAfter', 1, 10)))),
-    carte('book', 'Bibliothèque de mots interdits', 'Listes prêtes à l\'emploi. Cyber reconnaît aussi les variantes : majuscules, accents, chiffres à la place des lettres (c0nn4rd), lettres répétées (connnnard) ou séparées (c.o.n.n.a.r.d), pluriels et féminins.', biblio),
+    carte('book', 'Bibliothèque de mots interdits', 'Listes prêtes à l\'emploi. Cyber reconnaît aussi les variantes : majuscules, accents, chiffres à la place des lettres (c0nn4rd), lettres répétées (connnnard) ou séparées (c.o.n.n.a.r.d), lettres d\'autres alphabets (соn), lettres stylisées (𝐜𝐨𝐧), mots coupés (con-nard), pluriels et féminins.', biblio),
     h('div', { class: 'grid2' },
       carte('ban', 'Mots interdits en plus', 'Tes propres mots ou expressions (variantes reconnues aussi). Sépare-les par des virgules.', listeMots(a.words, 'Ajouter un mot puis Entrée', simuler)),
       carte('check', 'Mots autorisés', 'Toujours acceptés, même s\'ils sont dans la bibliothèque (ex : « bite » si on parle anglais, un pseudo…).', listeMots(a.autorises, 'Ajouter un mot autorisé', simuler))),
