@@ -166,7 +166,7 @@ setInterval(verifierStatut, 60_000);
 // ---------- Chiffres en direct : membres du serveur de support (invitation publique Discord) ----------
 const blocSupport = document.querySelectorAll('[data-support]');
 if (blocSupport.length) {
-  fetch('https://discord.com/api/v10/invites/jPACjGPJyv?with_counts=true')
+  fetch('https://discord.com/api/v10/invites/erqHM5s8Vz?with_counts=true')
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
     .then((inv) => {
       const n = inv.approximate_member_count;
