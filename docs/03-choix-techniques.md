@@ -6,12 +6,13 @@
 
 | Brique | Technologie | Pourquoi ce choix |
 |---|---|---|
-| Bot | **Node.js 20+** et **discord.js 14** | Bibliothèque la plus utilisée pour Discord, très documentée, gère les commandes slash, boutons, menus et Components V2 |
+| Bot | **Node.js 24 LTS** (20 au départ) et **discord.js 14** | Bibliothèque la plus utilisée pour Discord, très documentée, gère les commandes slash, boutons, menus et Components V2 |
 | Panel | **Express** (serveur web Node) + HTML/CSS/JS sans framework | Léger, tout dans le même processus que le bot, aucune dépendance lourde |
-| Données | **Fichiers JSON** (dossier `data/`) | Suffisant pour quelques serveurs, lisible, sauvegardable en un fichier ; pas de base SQL à sécuriser |
+| Données | **Fichiers JSON** au départ, puis **SQLite** (`data/cyber.db`) depuis le 29 octobre | Les JSON suffisaient pour quelques serveurs. SQLite résiste mieux à une coupure en pleine écriture, ne réécrit que les lignes modifiées et garde les sessions du panel. Celui qui est intégré à Node.js n'ajoute aucune dépendance à surveiller. |
+| Langues | Dictionnaire maison `src/i18n/` (français → anglais) | Traduction au moment de l'envoi : les commandes existantes n'ont presque pas changé, et `check.js` vérifie qu'aucune traduction ne manque |
 | Site | **HTML/CSS/JS statique** généré par un script Python (`build.py`) | Hébergement gratuit et en HTTPS sur **GitHub Pages** |
 | Domaine | **cyberbot.fr** acheté chez **OVH** | Un `.fr` pour un bot francophone, prix bas, coordonnées masquées dans le Whois pour un particulier |
-| DNS, HTTPS, accès | **Cloudflare** (offre gratuite) | DNS rapide, **tunnel** sortant, **Access** (connexion par code + 2FA) |
+| DNS, HTTPS, accès | **Cloudflare** (offre gratuite) | DNS rapide, **tunnel** sortant, **Access** (connexion par code + 2FA, utilisé pendant la phase de test) |
 | Code source | **GitHub** : dépôt **public** pour le site, dépôt **privé** pour le bot | Le site n'a aucun secret ; le code du bot reste privé |
 | IA (option) | API **Anthropic** (commande `/ia`) | Activée seulement si une clé API est présente, avec des limites d'usage |
 

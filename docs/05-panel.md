@@ -2,7 +2,7 @@
 
 Le panel est un site web intégré au bot qui permet de tout régler sans taper de commande. On s'y connecte avec son compte Discord, puis on choisit un serveur dont on a la permission « Gérer le serveur ».
 
-Une **version de démonstration** est disponible sur le site public : https://cyberbot.fr/panel/ (bouton « Essayer sans compte »). Elle utilise le même code que le vrai panel, mais les réglages restent dans le navigateur et rien n'est envoyé à Discord. Toutes les captures de ce chapitre viennent de ce mode démo.
+Le vrai panel est en ligne sur https://panel.cyberbot.fr, ouvert à tous depuis le 29 octobre. Avant cette date, le site proposait une **version de démonstration** (bouton « Essayer sans compte »), avec le même code mais des réglages gardés dans le navigateur. Toutes les captures de ce chapitre viennent de ce mode démo, donc sans aucune donnée réelle.
 
 ![Liste des serveurs](images/panel-serveurs.jpg)
 
@@ -54,6 +54,26 @@ Après avoir parcouru chaque réglage, Enzo a listé ce qui manquait. Tout a ét
 
 ![Modules publics (les modules sur mesure arrivent « Bientôt »)](images/panel-modules.jpg)
 
+## Étape 4 · Vérification et règlement (nuit du 28 au 29 octobre)
+
+- L'onglet Vérification permet de **choisir ou créer** les rôles « Non vérifié » et « Membre ».
+- Chaque nouveau membre reçoit automatiquement « Non vérifié », sans dépendre du rôle automatique. Le bouton du règlement lui donne « Membre » et retire « Non vérifié ».
+- Un **éditeur de règlement** propose 17 modèles prêts à l'emploi (le premier est celui du serveur de support), avec aperçu et publication en un clic.
+- Option pour cacher tous les autres salons aux non-vérifiés.
+
+## Étape 5 · Le panel ouvert à tous (29 octobre)
+
+Jusque-là, Cloudflare Access ne laissait entrer que moi. Le 29 octobre, je veux que **tout le monde** puisse configurer Cyber, « sans faille de sécurité ni connexion token bizarre ».
+
+1. **Vérification avant ouverture** (audit n°5, chapitre 8) : un seul trou trouvé et corrigé.
+2. **Fin de la « connexion bizarre »** : l'ancien panel d'aperçu de `cyberbot.fr/panel/` mettait un jeton Discord dans l'adresse (flux OAuth « implicite »). Il est remplacé par un simple renvoi vers `panel.cyberbot.fr`, qui utilise la vraie connexion Discord du bot.
+3. **Retrait de Cloudflare Access** et de l'ancienne adresse de redirection dans le portail Discord.
+4. **Sessions durables** : elles sont enregistrées dans SQLite (seulement l'identifiant et le pseudo Discord, la clé de session stockée sous forme d'empreinte). Un redémarrage du bot ne déconnecte plus personne, et la connexion dure 7 jours.
+5. **Page d'attente avec mini-jeu** : si le panel met plus d'une seconde à répondre ou si mon PC est éteint, `cyberbot.fr/panel/` affiche un petit jeu original (le robot Cyber saute par-dessus des bugs) et réessaie toutes les 15 secondes.
+6. **Test final** : un ami s'est connecté avec son propre compte. « Ça marche bien ! »
+
+![Page d'attente du panel avec le mini-jeu](images/site-panel-attente.jpg)
+
 ## Sécurité du panel
 
 Le panel n'a ni mot de passe ni base SQL : **aucune injection SQL n'est possible**. Les protections en place :
@@ -67,4 +87,4 @@ Le panel n'a ni mot de passe ni base SQL : **aucune injection SQL n'est possible
 - **HSTS** dès que le panel est en HTTPS ;
 - le panel n'écoute que sur `127.0.0.1` : il n'est jamais exposé en HTTP simple sur Internet.
 
-Le détail de l'accès par tunnel et de Cloudflare Access est au chapitre 7.
+Depuis le 29 octobre s'ajoutent les sessions enregistrées sous forme d'empreinte et le salon des logs modifiable seulement par un administrateur (audit n°5). Le détail de l'accès par tunnel est au chapitre 7.

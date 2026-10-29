@@ -1,6 +1,6 @@
 # Chapitre 8 · Sécurité et audits
 
-La sécurité a été traitée comme un fil rouge : quatre audits en trois jours, chaque fois avec un rapport classé par priorité, une explication simple de chaque faille, puis les corrections testées.
+La sécurité a été traitée comme un fil rouge : cinq audits en quatre jours, chaque fois avec un rapport classé par priorité, une explication simple de chaque faille, puis les corrections testées.
 
 ![Bilan des audits](images/bilan-audits.jpg)
 
@@ -74,6 +74,35 @@ Aucune faille grave, et les anciennes failles des commandes restent bouchées. *
 7. Avertissement si le salon de logs est public ; `@everyone` refusé pour le défi ; double fermeture de ticket ; doublons dans `/panelroles` ; numérotation de `/warn` ; salons vocaux et tickets orphelins nettoyés au démarrage ; bot qui ne plante plus si le disque est plein ; sauvegardes conservées avec Docker.
 
 Un bug de sauvegarde a aussi été trouvé grâce à un retour d'Enzo : la sauvegarde du jour n'était envoyée sur Discord qu'au moment de sa création. Si elle avait été créée avant la configuration du salon, elle n'était jamais envoyée. Désormais, le bot la renvoie tant qu'elle n'est pas bien arrivée.
+
+## Audit n°5 · Ouvrir le panel à tout le monde (29 octobre)
+
+Question posée : « Entre le site et le panel, c'est sécurisé ? » Avant de retirer Cloudflare Access, le chemin complet a été revérifié point par point :
+
+| Point vérifié | Résultat |
+|---|---|
+| Connexion Discord OAuth2 | Paramètre `state` anti-falsification, retour accepté seulement vers `panel.cyberbot.fr/callback`, nouveau cookie après connexion |
+| Cookies | `HttpOnly`, `Secure`, `SameSite` |
+| Droits | « Gérer le serveur » et présence du bot revérifiés en direct sur Discord à **chaque** requête |
+| CSRF et XSS | En-tête spécial + origine vérifiée, CSP stricte, textes échappés |
+| Abus | Limite de requêtes par personne (vraie IP lue derrière Cloudflare), sessions limitées |
+| Exposition | Le panel n'écoute que sur la machine elle-même : seul le tunnel peut l'atteindre |
+
+**Un seul trou trouvé** : dans le panel, un modérateur avec « Gérer le serveur » pouvait changer le **salon des logs**, alors que la commande `/config logs` le réserve aux administrateurs. Il aurait pu rediriger les messages supprimés et les tickets vers un salon qu'il voit. Corrigé : réservé aux administrateurs et au propriétaire.
+
+Dans la foulée :
+- la **« connexion token bizarre »** de l'ancien panel d'aperçu (jeton Discord dans l'adresse) a été supprimée au profit d'un renvoi vers le vrai panel ;
+- les sessions ont été rangées dans SQLite sous forme d'**empreinte** (jamais le cookie lui-même), exclues des sauvegardes et effacées par `/mesdonnees` ;
+- un **classement mondial** du mini-jeu a été déconseillé : n'importe qui pourrait envoyer un faux score en deux secondes.
+
+Test final avec un autre compte Discord : validé.
+
+## L'automod contre les lettres déguisées (29 octobre)
+
+Ma question : « On pourrait intégrer un peu d'IA dans l'automod, qui peut être contourné avec deux ou trois changements de texte ? » Deux couches ont été proposées :
+
+1. **Gratuite** (installée) : avant de chercher les mots interdits, le texte est « aplati ». Les caractères invisibles sont retirés, les lettres stylisées (𝐜𝐨𝐧, ⓒⓞⓝ), les lettres russes ou grecques qui ressemblent aux nôtres et les lettres-drapeaux sont ramenées à des lettres normales, et les mots coupés par un symbole (« con-nard », « con🤡nard ») sont recollés. Testé sans faux positif sur des phrases normales comme « la mer de glace ».
+2. **IA** (Claude Haiku, environ 5 centimes pour 1 000 messages, avec une clé API séparée de mon abonnement) : elle comprendrait aussi les insultes reformulées. J'ai préféré **ne rien dépenser pour l'instant**. Le code est gardé de côté.
 
 ## Protections du compte et de l'infrastructure
 

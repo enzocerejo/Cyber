@@ -12,6 +12,8 @@
 | v1.5 | 26 octobre | Académie enrichie : 498 questions, séries de 5 par sujet, fiches réécrites, 92 termes de glossaire ; correction des réponses en double. |
 | v1.6 | 27-28 octobre | Hébergement via GitHub privé, audit de sécurité, `/mesdonnees`, effacement automatique 30 jours après le retrait, sauvegardes quotidiennes, pages légales. |
 | v1.7 | 28 octobre | Panel refait (brouillon + Réinitialiser, onglets Sécurité et Modules publics), bibliothèque automod, 123 modèles de tickets, vocaux « Join to Create », défi du jour privé avec classement, messages en **Components V2**. |
+| v1.7+ | 29 octobre (nuit) | Vérification avec rôles « Non vérifié » / « Membre » donnés et retirés automatiquement, éditeur de règlement avec 17 modèles dans le panel. |
+| v1.8 | 29 octobre | **Bot bilingue français / anglais** (`/langue`, `/config langue`, 860 textes traduits, noms anglais des commandes), automod qui démasque les lettres déguisées, **panel ouvert à tous**, stockage **SQLite**, page d'attente avec mini-jeu. |
 
 ## Les deux modules
 
@@ -30,12 +32,24 @@
 
 ![Choix des modules dans le panel](images/panel-premiere-config.jpg)
 
+## Cyber parle français et anglais (v1.8)
+
+Demande du 29 octobre : « que les utilisateurs choisissent la langue du bot, dans toutes les commandes, et n'oublie pas d'actualiser les prochaines commandes en anglais / français ».
+
+- **Langue du serveur** : `/config langue` ou l'onglet Général du panel. Elle sert aux messages publics (bienvenue, logs, tickets…).
+- **Langue de chaque membre** : `/langue`. Les réponses, boutons et formulaires qu'il reçoit suivent son choix.
+- **Noms anglais dans le menu « / »** quand Discord est en anglais (`/help`, `/learn`…).
+- **Fonctionnement** : un dossier `src/i18n/` associe chaque texte français à sa traduction (860 textes). La traduction se fait au moment de l'envoi, juste avant la conversion en Components V2. Le code des commandes n'a donc presque pas changé.
+- **Règle pour la suite** : toute nouvelle commande doit être traduite, et `check.js` bloque la livraison s'il manque un nom ou une description en anglais.
+- Les cours de l'Académie restent en français pour l'instant.
+
 ## Fonctionnement interne
 
 - **Une commande = un fichier** dans `src/commands/<catégorie>/`. Chaque fichier exporte sa définition (`data`), son exécution (`execute`) et, si besoin, la gestion de ses boutons et de son autocomplétion.
 - **Routage des boutons** par préfixe : un bouton dont l'identifiant commence par `ticket:` est envoyé au fichier de la commande `/ticket`.
 - **Planificateur** (`scheduler.js`) : rappels, fin des giveaways, défi du jour, sauvegardes. Un verrou empêche deux exécutions simultanées.
 - **Components V2** : depuis la v1.7, un module convertit automatiquement chaque embed envoyé en conteneur Components V2, le format le plus récent de Discord, avec un repli en embed classique si le message est trop long.
+- **Stockage SQLite** (depuis le 29 octobre) : les données passent de fichiers JSON réécrits en entier toutes les 2 secondes à une base `cyber.db` qui ne modifie que les lignes changées. Elle utilise le SQLite intégré à Node.js (aucun module à télécharger), importe toute seule les anciens JSON au premier démarrage et retombe sur l'ancien stockage si Node.js est trop ancien.
 - **Vérification automatique** : `node src/check.js` contrôle toutes les commandes (noms, options, limites de Discord) avant chaque livraison.
 
 ## Statut et bio automatiques
@@ -45,10 +59,10 @@
 
 ![Profil Discord du bot (illustration)](images/profil-discord.jpg)
 
-## Liste complète des 60 commandes
+## Liste complète des 61 commandes
 
 
-### 🧰 Utilitaires (16)
+### 🧰 Utilitaires (17)
 
 | Commande | Description | Réservée au staff |
 |---|---|---|
@@ -59,6 +73,7 @@
 | `/botinfo` | Informations sur le bot |  |
 | `/calcul` | Calculatrice (+ - * / ^ %, sqrt, sin, cos, log, pi…) |  |
 | `/emoji` | Agrandit un émoji personnalisé |  |
+| `/langue` | Choisis la langue dans laquelle Cyber te répond |  |
 | `/membres` | Statistiques des membres du serveur |  |
 | `/mesdonnees` (voir, effacer) | Voir ou effacer les données que Cyber garde sur toi |  |
 | `/ping` | Latence du bot |  |
@@ -149,6 +164,6 @@
 
 | Commande | Description | Réservée au staff |
 |---|---|---|
-| `/config` (bienvenue, logs, autorole, niveaux, vocal, suggestions, giveaways, voir) | Configuration du bot sur ce serveur | oui |
+| `/config` (bienvenue, logs, autorole, niveaux, vocal, suggestions, giveaways, langue, voir) | Configuration du bot sur ce serveur | oui |
 | `/embed` | Crée un message embed personnalisé (annonce, règlement…) | oui |
 | `/modules` | Activer ou désactiver les modules de Cyber sur ce serveur | oui |

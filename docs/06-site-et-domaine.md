@@ -12,7 +12,10 @@ Le site présente Cyber, liste ses commandes, explique comment démarrer et publ
 | Bien démarrer | Guide pas à pas après l'invitation du bot |
 | Nouveautés | Statut et historique des versions |
 | Conditions, Confidentialité, Mentions légales | Pages légales (voir chapitre 9) |
-| Panel | Démonstration du tableau de bord sans compte |
+| Panel | Renvoi vers le vrai panel `panel.cyberbot.fr`, avec une page d'attente et un mini-jeu s'il ne répond pas (depuis le 29 octobre ; avant, une démonstration sans compte) |
+| English | Accueil en anglais (29 octobre) |
+| Modules sur mesure | Présentation des futures « cassettes », annoncées « Bientôt » |
+| 404 | Page d'erreur aux couleurs de Cyber |
 
 ![Liste des commandes](images/site-commandes.jpg)
 
@@ -28,6 +31,29 @@ Les polices (Orbitron, Inter) sont hébergées sur le site lui-même pour ne rie
 ![Bien démarrer](images/site-demarrer.jpg)
 
 ![Nouveautés](images/site-nouveautes.jpg)
+
+### Les 10 améliorations du 29 octobre
+
+À ma question « qu'est-ce qu'on pourrait modifier sur le site ? », Claude a proposé 10 idées classées par priorité. J'ai répondu « tout » :
+
+1. **Page 404** personnalisée, à la place de la page grise de GitHub.
+2. **robots.txt et sitemap.xml** pour que Google trouve toutes les pages, documentation comprise.
+3. **Images en WebP** : le logo, affiché en 38 pixels, pesait 207 Ko. Il est maintenant environ 26 fois plus léger.
+4. **Aperçu des liens** partagés sur Discord ou X, avec une image dédiée.
+5. Section **« Cyber en images »** avec des captures du panel.
+6. **3 questions de plus dans la FAQ** : gratuit ? permissions ? données ?
+7. **Compteur en direct** des membres du serveur de support.
+8. **Lien « Docs »** vers cette documentation dans le menu.
+9. **Accueil en anglais**, mis à jour le soir même quand le bot est devenu bilingue.
+10. Page **« Modules sur mesure »** avec un bouton « Demander un module ».
+
+![Accueil en anglais](images/site-en.jpg)
+
+![Page Modules sur mesure](images/site-modules.jpg)
+
+![Page 404](images/site-404.jpg)
+
+Le même jour, l'ancien panel de démonstration a laissé la place à un renvoi vers le vrai panel (chapitre 5).
 
 ## Achat du nom de domaine (28 octobre)
 

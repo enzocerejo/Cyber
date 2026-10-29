@@ -72,6 +72,8 @@ Même en HTTPS, une adresse publique peut être visitée par n'importe qui. **Cl
 
 Cloudflare répond de la même façon que l'adresse tapée soit autorisée ou non : personne ne peut deviner laquelle est sur la liste.
 
+> **29 octobre** : ce cadenas a joué son rôle pendant la phase de test. Pour que tout le monde puisse configurer Cyber, l'application Access a été **supprimée** après un audit du panel (chapitre 8, audit n°5). La sécurité repose désormais sur la connexion Discord du panel et sur la permission « Gérer le serveur », revérifiée à chaque requête. L'application peut être recréée en deux minutes si besoin.
+
 ![Les cinq verrous du panel](images/securite-connexion.jpg)
 
 ## Étape 6 · Le tunnel depuis le PC
@@ -90,4 +92,17 @@ Comparaison faite pour un hébergement à la maison :
 | Virtualisation | Très limitée | Proxmox, plusieurs VM (pfSense, Windows Server, labos) |
 | Compatibilité Docker | La plupart des images | Toutes |
 
-Conclusion retenue : un **mini PC reconditionné** (HP EliteDesk 800 G4/G5 Mini, Lenovo ThinkCentre M720q/M920q, Dell OptiPlex 7070 Micro) avec Proxmox ou Debian, Docker et le tunnel Cloudflare déjà prêt. Il servira aussi de laboratoire pour le BTS CIEL et le CCNA. Achat prévu pour Noël.
+Conclusion retenue : un **mini PC reconditionné** (HP EliteDesk 800 G4/G5 Mini, Lenovo ThinkCentre M720q/M920q, Dell OptiPlex 7070 Micro) avec Proxmox ou Debian, Docker et le tunnel Cloudflare déjà prêt. Il servira aussi de laboratoire pour le BTS CIEL et le CCNA. Choix final (29 octobre) : un **HP EliteDesk 800 G5 Mini** d'occasion (i5-9500 6 cœurs, **16 Go** de RAM, SSD 500 Go, Wi-Fi) à **220 €**, préféré à un modèle à 200 € qui n'avait que 12 Go. Mon père l'achète le samedi 31 octobre avec la transaction sécurisée de leboncoin. Prévu ensuite : **Proxmox**, une VM Debian avec Docker pour le bot, le panel et le tunnel, puis des VM de labo (pfSense, Windows Server, Linux) allumées seulement pour réviser.
+
+## Et en attendant ?
+
+Le 29 octobre, j'ai aussi étudié un hébergement payant pour que le panel reste disponible même quand mon PC est éteint :
+
+| Option | Prix | Avis |
+|---|---|---|
+| **Hetzner Cloud CX23** (2 vCPU, 4 Go) | ≈ 4 €/mois, facturé à l'heure | Recommandé : fiable, sans engagement, bots et tunnels autorisés |
+| Oracle Cloud « Always Free » | Gratuit | Offre réduite en 2026, carte bancaire, serveur arrêté sans prévenir s'il travaille peu |
+| OVHcloud VPS-1 | ≈ 7,79 €/mois | Plus confortable mais plus cher pour 2 ou 3 mois |
+| Hébergeurs « gratuits spécial bots » | « Gratuit » | Écartés : c'est le genre qui a supprimé mon serveur |
+
+Décision : rester sur le PC pour l'instant (le panel est disponible quand il est allumé) et décider dans quelques jours. Le tunnel ne changera pas : il suffira de le lancer depuis la nouvelle machine.
