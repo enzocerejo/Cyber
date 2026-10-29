@@ -38,7 +38,7 @@ src/academie/             contenu de l'Académie (fiches, quiz, glossaire) + mot
 src/dashboard/            serveur Express du panel (OAuth2, CSRF, CSP) + interface
 src/check.js              vérifie toutes les commandes avant chaque livraison
 outils/academie/          sources des textes de l'Académie + générateur
-outils/site/              sources du site (*.main.html) + build.py + panel_css.py
+outils/site/              sources du site (*.main.html) + build.py
 ```
 
 ## Les scripts « un double-clic »
@@ -60,4 +60,4 @@ Enzo ne code pas : chaque opération courante tient dans un fichier `.bat` Windo
 - **Instance unique** : le bot réserve un port local. Une nouvelle copie demande à l'ancienne de s'arrêter. Ce choix corrige un vrai bug rencontré : plusieurs copies tournaient en même temps et chaque commande répondait deux fois.
 - **Permissions minimales à l'invitation** : au lieu de demander « Administrateur », l'invitation liste uniquement les permissions utiles.
 - **Pas de mot de passe dans le panel** : la connexion passe par Discord (OAuth2). Il n'y a donc ni mot de passe à stocker, ni base SQL à protéger.
-- **Fichiers partagés bot ↔ site** : le panel de démonstration du site utilise exactement le même `app.js` que le vrai panel, avec un « adaptateur » qui simule l'API dans le navigateur.
+- **Un seul panel** : au début, le site avait un panel de démonstration (le même `app.js` avec un « adaptateur » qui simulait l'API). Depuis le 29/10/2026, `cyberbot.fr/panel/` est une page d'attente qui renvoie vers le vrai panel du bot (`panel.cyberbot.fr`) ; la copie de démonstration a été retirée.
