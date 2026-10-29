@@ -229,6 +229,11 @@ Tout commence dans une première conversation avec Claude, intitulée « Bot Dis
 
 **00 h 24** · Je lance cette documentation. 📘
 
+## Jour 5 · jeudi 29 octobre 2026
+
+**13 h 49** · Je demande ce qu'on pourrait améliorer sur le site. Claude propose 10 idées classées par priorité, je réponds « tout ».
+**14 h 30** · 🛠️ Site amélioré : page 404, plan du site pour Google (sitemap.xml et robots.txt), images en WebP (logo 26 fois plus léger), aperçu des liens partagés, section « Cyber en images », 3 nouvelles questions dans la FAQ, compteur des membres du support en direct, lien vers la documentation, accueil en anglais et page « Modules sur mesure » (annoncée comme « Bientôt »).
+
 ---
 
 ## Bilan du carnet

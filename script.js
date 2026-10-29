@@ -163,6 +163,43 @@ async function verifierStatut() {
 verifierStatut();
 setInterval(verifierStatut, 60_000);
 
+// ---------- Chiffres en direct : membres du serveur de support (invitation publique Discord) ----------
+const blocSupport = document.querySelectorAll('[data-support]');
+if (blocSupport.length) {
+  fetch('https://discord.com/api/v10/invites/jPACjGPJyv?with_counts=true')
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+    .then((inv) => {
+      const n = inv.approximate_member_count;
+      if (!Number.isFinite(n) || n < 1) return;
+      const langue = document.documentElement.lang === 'en' ? 'en-US' : 'fr-FR';
+      blocSupport.forEach((b) => {
+        b.querySelector('[data-support-membres]').textContent = n.toLocaleString(langue);
+        b.hidden = false;
+      });
+    })
+    .catch(() => {}); // Discord injoignable : le compteur reste caché
+}
+
+// ---------- Captures du tableau de bord (onglets) ----------
+const capture = document.querySelector('#capture img');
+document.querySelectorAll('[data-capture]').forEach((btn, i, tous) => {
+  btn.addEventListener('click', () => {
+    tous.forEach((b) => { b.classList.toggle('active', b === btn); b.setAttribute('aria-selected', String(b === btn)); });
+    const src = `assets/captures/${btn.dataset.capture}.webp`;
+    if (capture.getAttribute('src') === src) return;
+    capture.classList.add('change');
+    const img = new Image();
+    img.onload = img.onerror = () => { capture.src = src; capture.alt = btn.dataset.alt; capture.classList.remove('change'); };
+    img.src = src;
+  });
+  // Flèches gauche/droite pour passer d'un onglet à l'autre au clavier
+  btn.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const suivant = tous[(i + (e.key === 'ArrowRight' ? 1 : tous.length - 1)) % tous.length];
+    suivant.focus(); suivant.click();
+  });
+});
+
 // ---------- Fond : réseau de nœuds connectés ----------
 (function reseau() {
   const cv = document.getElementById('reseau');
@@ -241,7 +278,7 @@ setInterval(verifierStatut, 60_000);
   function ajouter(auteur, contenu, opts = {}) {
     const m = el('div', 'msg');
     const av = el('div', 'av');
-    if (auteur === 'Cyber') { const i = el('img'); i.src = 'assets/logo.png'; i.alt = ''; av.append(i); }
+    if (auteur === 'Cyber') { const i = el('img'); i.src = 'assets/logo.webp'; i.alt = ''; av.append(i); }
     else { av.textContent = auteur[0]; av.style.background = COULEURS[auteur] || '#4e5058'; }
     const corps = el('div');
     const who = el('div', 'who', auteur);

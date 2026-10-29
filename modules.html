@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src https://discord.com; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Modules sur mesure · Cyber</title>
+  <meta name="description" content="Une fonction qui manque à ton serveur ? Demande un module sur mesure : il est codé pour toi et s'ajoute à Cyber depuis le tableau de bord.">
+  <meta name="theme-color" content="#ff3d5a">
+  <link rel="canonical" href="https://cyberbot.fr/modules.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cyber">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://cyberbot.fr/modules.html">
+  <meta property="og:title" content="Modules sur mesure · Cyber">
+  <meta property="og:description" content="Une fonction qui manque à ton serveur ? Demande un module sur mesure : il est codé pour toi et s'ajoute à Cyber depuis le tableau de bord.">
+  <meta property="og:image" content="https://cyberbot.fr/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cyber, bot Discord">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css?v=43cbfa9c">
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <canvas id="reseau" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="index.html"><img src="assets/logo.webp" alt="" width="38" height="38"><span>CYBER</span></a>
+    <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="links" aria-label="Navigation principale">
+      <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#commandes">Commandes</a>
+      <a href="demarrer.html">Démarrer</a>
+      <a href="nouveautes.html">Nouveautés</a>
+      <a href="docs/">Docs</a>
+      <a href="panel/">Tableau de bord</a>
+      <a class="lang" href="en.html" hreflang="en" lang="en" title="English version">EN</a>
+      <span class="pill" data-statut title="Statut de Cyber"><span class="dot-status"></span><span class="pill-txt">Statut</span></span>
+      <a class="btn small" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter Cyber</a>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <section class="page-hero">
+      <span class="badge"><span class="dot-status"></span> Bientôt disponible</span>
+      <h1>Modules sur mesure</h1>
+      <p class="lead">Une fonction qui n'existe dans aucun bot ? Elle sera codée exprès pour ton serveur, puis ajoutée à Cyber en saisissant un simple identifiant, comme une cassette qu'on insère.</p>
+    </section>
+
+    <section class="section narrow">
+      <ol class="steps">
+        <li class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h2>Tu décris ton idée</h2>
+            <p>Sur le <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">serveur de support</a>, explique ce dont ton serveur a besoin : un mini-jeu, un système d'économie, une commande propre à ta communauté, un lien avec un autre service…</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h2>Le module est codé pour toi</h2>
+            <p>On valide ensemble ce qu'il doit faire, puis il est développé et testé. Il respecte les mêmes règles que le reste de Cyber : pas de permission inutile et pas de donnée gardée sans raison.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h2>Tu reçois ton identifiant</h2>
+            <p>Un code unique, réservé à ton serveur, du type <code>CYB-7F3A-K9</code>. Il ne fonctionne pas ailleurs.</p>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step-num">✓</div>
+          <div class="step-body">
+            <h2>Tu l'ajoutes en un clic</h2>
+            <p>Dans le <a href="panel/">tableau de bord</a>, ouvre <b>Modules</b> puis <b>« Ajouter un module avec un code »</b>, colle ton identifiant : Cyber installe le module tout seul, sans redémarrage ni nouveau bot à inviter.</p>
+            <div class="cassette petite" aria-hidden="true">
+              <div class="cassette-corps">
+                <span class="cassette-etiquette">MODULE · <b>CYB-7F3A-K9</b></span>
+                <span class="cassette-bobines"><i></i><i></i></span>
+              </div>
+              <div class="cassette-fente">▼ Ajouter un module</div>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="note">
+        <b>🛠️ Pas encore ouvert.</b> Le système de modules sur mesure est en cours de développement. Tu peux déjà proposer ton idée sur le <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">serveur de support</a> : tu seras prévenu dès l'ouverture.
+      </div>
+      <div class="cta centre">
+        <a class="btn big" href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">💡 Demander un module</a>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="index.html"><img src="assets/logo.webp" alt="" width="34" height="34" loading="lazy"><span>CYBER</span></a>
+        <p>Protège et anime ton serveur Discord. 100 % gratuit.</p>
+      </div>
+      <div>
+        <h3>Cyber</h3>
+        <a href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter à Discord</a>
+        <a href="demarrer.html">Bien démarrer</a>
+        <a href="index.html#commandes">Commandes</a>
+        <a href="nouveautes.html">Nouveautés et statut</a>
+        <a href="modules.html">Modules sur mesure</a>
+        <a href="panel/">Tableau de bord</a>
+        <a href="docs/">Documentation</a>
+        <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">Serveur de support</a>
+      </div>
+      <div>
+        <h3>Légal</h3>
+        <a href="conditions.html">Conditions d'utilisation</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="en.html" hreflang="en" lang="en">English version</a>
+      </div>
+    </div>
+    <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>
+  </footer>
+
+  <script src="config.js?v=d0782783"></script>
+  <script src="script.js?v=f580ae45"></script>
+</body>
+</html>

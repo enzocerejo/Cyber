@@ -8,13 +8,27 @@
   <title>Cyber · Bot Discord de modération, niveaux et tickets</title>
   <meta name="description" content="Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.">
   <meta name="theme-color" content="#ff3d5a">
+  <link rel="canonical" href="https://cyberbot.fr/">
+  <link rel="alternate" hreflang="fr" href="https://cyberbot.fr/">
+  <link rel="alternate" hreflang="en" href="https://cyberbot.fr/en.html">
+  <link rel="alternate" hreflang="x-default" href="https://cyberbot.fr/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cyber">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://cyberbot.fr/">
   <meta property="og:title" content="Cyber · Bot Discord de modération, niveaux et tickets">
   <meta property="og:description" content="Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.">
-  <meta property="og:image" content="https://cyberbot.fr/assets/banniere.jpg">
+  <meta property="og:image" content="https://cyberbot.fr/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cyber, bot Discord">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=f9702212">
+  <link rel="stylesheet" href="style.css?v=43cbfa9c">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Cyber", "applicationCategory": "CommunicationApplication", "operatingSystem": "Discord", "url": "https://cyberbot.fr/", "image": "https://cyberbot.fr/assets/og-image.jpg", "description": "Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.", "inLanguage": "fr", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Enzo Cerejo"}}</script>
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
@@ -22,14 +36,16 @@
   <div class="vignette" aria-hidden="true"></div>
 
   <header class="nav">
-    <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="38" height="38"><span>CYBER</span></a>
+    <a class="brand" href="index.html"><img src="assets/logo.webp" alt="" width="38" height="38"><span>CYBER</span></a>
     <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="links" aria-label="Navigation principale">
       <a href="index.html#fonctions">Fonctions</a>
       <a href="index.html#commandes">Commandes</a>
       <a href="demarrer.html">Démarrer</a>
       <a href="nouveautes.html">Nouveautés</a>
+      <a href="docs/">Docs</a>
       <a href="panel/">Tableau de bord</a>
+      <a class="lang" href="en.html" hreflang="en" lang="en" title="English version">EN</a>
       <span class="pill" data-statut title="Statut de Cyber"><span class="dot-status"></span><span class="pill-txt">Statut</span></span>
       <a class="btn small" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">Ajouter Cyber</a>
     </nav>
@@ -48,9 +64,10 @@
           <a class="btn big ghost" href="demarrer.html">Bien démarrer →</a>
         </div>
         <ul class="counters">
-          <li><b id="nb-commandes">49</b><span>commandes</span></li>
+          <li><b id="nb-commandes">60</b><span>commandes</span></li>
           <li><b>2</b><span>modules</span></li>
           <li><b>0 €</b><span>pour toujours</span></li>
+          <li data-support hidden><b data-support-membres>–</b><span>membres sur le support</span></li>
         </ul>
       </div>
 
@@ -172,8 +189,27 @@
       </div>
       <div class="browser">
         <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">cyber · tableau de bord</span></div>
-        <img src="assets/tableau-de-bord.png" width="1280" height="800" alt="Aperçu du tableau de bord de Cyber" loading="lazy">
+        <img src="assets/tableau-de-bord.webp" width="1280" height="800" alt="Aperçu du tableau de bord de Cyber" loading="lazy">
       </div>
+    </section>
+
+    <!-- Captures du tableau de bord -->
+    <section id="captures" class="section">
+      <span class="kicker">// CAPTURES</span>
+      <h2>Cyber en images</h2>
+      <p class="lead">Chaque module se règle depuis le tableau de bord, avec un aperçu du message tel qu'il apparaîtra sur Discord.</p>
+      <div class="cats captures-onglets" role="tablist" aria-label="Choisir une capture">
+        <button class="cat active" role="tab" aria-selected="true" aria-controls="capture" data-capture="tickets" data-alt="Réglages des tickets : rôle staff, 123 modèles et aperçu du panneau">🎫 Tickets</button>
+        <button class="cat" role="tab" aria-selected="false" aria-controls="capture" data-capture="automod" data-alt="Réglages de l'automod : filtres, mots interdits et sanctions">🤖 Automod</button>
+        <button class="cat" role="tab" aria-selected="false" aria-controls="capture" data-capture="niveaux" data-alt="Réglages des niveaux : XP et rôles récompenses">📈 Niveaux</button>
+        <button class="cat" role="tab" aria-selected="false" aria-controls="capture" data-capture="bienvenue" data-alt="Réglages du message de bienvenue avec aperçu">👋 Bienvenue</button>
+        <button class="cat" role="tab" aria-selected="false" aria-controls="capture" data-capture="verification" data-alt="Réglages de la vérification anti-raid">✅ Vérification</button>
+        <button class="cat" role="tab" aria-selected="false" aria-controls="capture" data-capture="vocaux" data-alt="Réglages des salons vocaux temporaires">🔊 Vocaux</button>
+      </div>
+      <figure class="browser capture" id="capture" role="tabpanel">
+        <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">cyber · tableau de bord</span></div>
+        <img src="assets/captures/tickets.webp" width="1280" height="800" alt="Réglages des tickets : rôle staff, 123 modèles et aperçu du panneau" loading="lazy">
+      </figure>
     </section>
 
     <!-- FAQ -->
@@ -183,6 +219,9 @@
       <div class="faq">
         <details><summary>Cyber est-il vraiment gratuit ?</summary><p>Oui, toutes les fonctions sont gratuites. Pas d'abonnement, pas de fonctions « premium ».</p></details>
         <details><summary>Comment ajouter Cyber à mon serveur ?</summary><p>Clique sur « Ajouter à Discord », choisis ton serveur et valide (il faut la permission « Gérer le serveur »). Cyber t'accueille alors avec un message pour choisir ses modules : Communauté, Académie ou les deux. Ensuite, suis le guide <a href="demarrer.html">Bien démarrer</a>.</p></details>
+        <details><summary>Quelles permissions demande Cyber ?</summary><p>Seulement celles dont ses fonctions ont besoin (gérer les messages, les rôles, les salons, exclure et bannir…), <b>jamais la permission Administrateur</b>. Tu peux retirer une permission à tout moment : seule la fonction qui en a besoin s'arrêtera.</p></details>
+        <details><summary>Cyber peut-il remplacer mes autres bots ?</summary><p>C'est son but : modération, automod, niveaux, tickets, giveaways, vérification, rôles à boutons et vocaux temporaires réunis dans un seul bot. Tu peux donc retirer MEE6, Carl-bot, Dyno ou Ticket Tool et garder un serveur plus simple.</p></details>
+        <details><summary>Il me manque une fonction, c'est possible ?</summary><p>Propose-la sur le serveur de support : les meilleures idées sont ajoutées pour tout le monde. Les <a href="modules.html">modules sur mesure</a>, codés pour un seul serveur, arrivent bientôt.</p></details>
         <details><summary>Les commandes n'apparaissent pas, que faire ?</summary><p>Attends quelques minutes puis redémarre Discord (Ctrl + R). Vérifie aussi que Cyber a bien été invité avec la permission « applications.commands ».</p></details>
         <details><summary>Quelles données Cyber enregistre-t-il ?</summary><p>Uniquement ce qui est nécessaire : les réglages de ton serveur, l'XP des membres et les avertissements. Aucune donnée n'est vendue ni partagée. Tout est détaillé dans la <a href="confidentialite.html">politique de confidentialité</a>.</p></details>
         <details><summary>C'est quoi l'Académie ?</summary><p>Un module pour apprendre le réseau et la cybersécurité directement sur Discord : fiches de cours sur les 3 modules du CCNA, glossaire, quiz avec classement, défi du jour et une IA qui répond aux questions d'informatique. Active-le ou désactive-le avec <code>/modules</code>.</p></details>
@@ -191,9 +230,28 @@
       </div>
     </section>
 
+    <!-- Modules sur mesure -->
+    <section id="sur-mesure" class="section split">
+      <div>
+        <span class="kicker">// SUR MESURE · BIENTÔT</span>
+        <h2>Une idée ? On la code pour toi</h2>
+        <p class="lead left">Bientôt, si une fonction manque à ton serveur, tu pourras la demander. Elle sera codée exprès pour toi, tu recevras un identifiant unique et tu l'ajouteras à Cyber depuis le tableau de bord, comme une cassette qu'on insère.</p>
+        <div class="cta">
+          <a class="btn" href="modules.html">Découvrir les modules sur mesure →</a>
+        </div>
+      </div>
+      <div class="cassette" aria-hidden="true">
+        <div class="cassette-corps">
+          <span class="cassette-etiquette">MODULE · <b>CYB-7F3A-K9</b></span>
+          <span class="cassette-bobines"><i></i><i></i></span>
+        </div>
+        <div class="cassette-fente">▼ Ajouter un module</div>
+      </div>
+    </section>
+
     <section class="section final">
       <div class="ring">
-        <img src="assets/logo.png" alt="Logo de Cyber" width="150" height="150" loading="lazy">
+        <img src="assets/logo.webp" alt="Logo de Cyber" width="150" height="150" loading="lazy">
       </div>
       <h2>Prêt à protéger ton serveur ?</h2>
       <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter Cyber gratuitement</a>
@@ -204,7 +262,7 @@
   <footer class="footer">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="34" height="34" loading="lazy"><span>CYBER</span></a>
+        <a class="brand" href="index.html"><img src="assets/logo.webp" alt="" width="34" height="34" loading="lazy"><span>CYBER</span></a>
         <p>Protège et anime ton serveur Discord. 100 % gratuit.</p>
       </div>
       <div>
@@ -213,7 +271,9 @@
         <a href="demarrer.html">Bien démarrer</a>
         <a href="index.html#commandes">Commandes</a>
         <a href="nouveautes.html">Nouveautés et statut</a>
+        <a href="modules.html">Modules sur mesure</a>
         <a href="panel/">Tableau de bord</a>
+        <a href="docs/">Documentation</a>
         <a href="https://discord.gg/jPACjGPJyv" target="_blank" rel="noopener">Serveur de support</a>
       </div>
       <div>
@@ -221,13 +281,14 @@
         <a href="conditions.html">Conditions d'utilisation</a>
         <a href="confidentialite.html">Confidentialité</a>
         <a href="mentions-legales.html">Mentions légales</a>
+        <a href="en.html" hreflang="en" lang="en">English version</a>
       </div>
     </div>
     <p class="foot-bottom">© <span data-annee>2026</span> Cyber · Créé par <a href="https://enzocerejo.github.io" target="_blank" rel="noopener">Enzo Cerejo</a> · Cyber n'est pas affilié à Discord Inc.</p>
   </footer>
 
   <script src="config.js?v=d0782783"></script>
-  <script src="commandes.js?v=6981a08b"></script>
-  <script src="script.js?v=728d8cd4"></script>
+  <script src="commandes.js?v=f3a92604"></script>
+  <script src="script.js?v=f580ae45"></script>
 </body>
 </html>
