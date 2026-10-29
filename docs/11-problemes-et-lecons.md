@@ -11,6 +11,9 @@ Le carnet de bord (chapitre 2) raconte les problèmes dans l'ordre où ils sont 
 | Images du site absentes en ligne | Dossier `assets` jamais envoyé sur GitHub | `PUBLIER.bat` publie tout le dossier avec Git | Publier avec un outil, pas à la main |
 | Nouveau HTML avec l'ancien CSS | Cache du navigateur | Versions « anti-cache » ajoutées automatiquement | Penser au cache dès qu'une mise à jour « ne marche pas » |
 | `redirect_uri` OAuth2 non valide | `index.html` dans l'adresse et « Cyber » contre « cyber » | Adresse normalisée | Une URL de redirection doit correspondre au caractère près |
+| Page anglaise sans tous les onglets | Menu de la version anglaise écrit à part | Menu aligné sur la version française | Une traduction se vérifie page par page |
+| Changements bloqués pendant des heures | PC éteint ou en veille, donc rien à installer | Paquets prêts et testés à l'avance, PR pour le site | Préparer pendant l'absence, installer en une fois au retour |
+| Dossier du site en retard sur GitHub | Des PR fusionnées en ligne pendant que le PC était éteint | `SYNCHRONISER-SITE.bat` (met de côté puis aligne sur GitHub) | Deux façons de publier = penser à se resynchroniser |
 | Chaque commande répondait deux fois | Plusieurs copies du bot tournaient (PC + hébergeur, ou anciennes fenêtres) | Instance unique par port local, fermeture des anciennes copies au démarrage | Un service doit savoir qu'il est seul |
 | Panel injoignable chez l'hébergeur | Nom passant par Cloudflare, puis **aucun port entrant** sur la machine | Tunnel Cloudflare sortant | Une connexion sortante passe là où l'entrante est bloquée |
 | Mélange HTTPS / HTTP | Site en HTTPS, panel en HTTP | Domaine + tunnel = panel en HTTPS | Le navigateur bloque le « contenu mixte » |
@@ -34,6 +37,10 @@ Ce projet a aussi été une découverte : je ne code pas, et j'ai dû apprendre 
 | Token collé dans la conversation | « Personne n'aura la conversation », donc je ne l'ai pas changé | Un secret qui a circulé est compromis : tout a été régénéré le 28 octobre |
 | Idée reçue sur GitHub | Je pensais héberger le bot sur GitHub comme mon portfolio | GitHub Pages ne sert que des pages statiques : le bot a besoin d'une machine allumée |
 | Conversation trop longue | Je voulais l'exporter pour aller plus vite | Un résumé à jour (`CONTEXTE-CLAUDE.md`) vaut mieux que tout l'historique |
+| Plusieurs chantiers sur les mêmes fichiers | Automod, version bilingue et audit prêts en même temps pour le même bot | Un ordre d'installation clair, une sauvegarde et une comparaison à chaque étape |
+| Un fil pour chaque chose | La demande « bot bilingue » a hésité entre deux fils | Une règle de routage écrite et appliquée sans exception |
+| Peur de la facture | « Je ne veux pas dépenser mes tokens » pour une IA dans l'automod | Toujours demander le coût réel et commencer par la solution gratuite |
+| Copier un jeu connu | Je voulais le jeu du dino de Google aux couleurs de Cyber | On ne copie pas une création protégée : un jeu original fait aussi bien l'affaire |
 | Vocabulaire nouveau | Token du bot ou jeton GitHub ? PR, merge, branche, ruleset, CNAME, TOTP… | Demander sans gêne « c'est quoi ? » : chaque réponse m'a fait progresser |
 | Où mettre les secrets | J'ai demandé où mettre le token sur GitHub | Un secret ne va **jamais** dans un dépôt, même privé |
 | Trop de validations | Me demander « ok » à chaque étape ralentissait tout | Fixer une règle claire : réversible = on fait, irréversible = on me demande |

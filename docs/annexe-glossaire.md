@@ -19,11 +19,14 @@
 | **Intent** | Type d'événements que le bot demande à recevoir de Discord (certains sont « privilégiés ») |
 | **Moindre privilège** | Ne donner que les droits strictement nécessaires |
 | **OAuth2** | Connexion « avec Discord » sans donner son mot de passe au site |
+| **Proxmox** | Système installé sur une machine pour y faire tourner plusieurs machines virtuelles isolées |
 | **Pterodactyl** | Panneau d'hébergement qui fait tourner chaque serveur dans un conteneur Docker |
 | **RGPD** | Règlement européen sur la protection des données personnelles |
 | **SHA-256 (empreinte)** | « Empreinte digitale » d'un fichier : si un seul octet change, l'empreinte change |
+| **SQLite** | Base de données contenue dans un seul fichier, sans serveur à installer |
 | **SSRF** | Faire envoyer par un serveur des requêtes vers son propre réseau interne |
 | **TOTP** | Code à 6 chiffres qui change toutes les 30 secondes dans une application d'authentification |
 | **Tunnel Cloudflare** | Connexion sortante chiffrée qui permet d'exposer un service sans ouvrir de port |
+| **WebP** | Format d'image moderne, beaucoup plus léger que PNG ou JPEG à qualité égale |
 | **XSS** | Injection de code dans une page web affichée à d'autres utilisateurs |
 | **Zero Trust** | Approche où chaque accès est vérifié, même s'il vient d'un réseau « de confiance » |

@@ -12,7 +12,7 @@ Compte rendu complet, étape par étape, de la création de **Cyber**, un bot Di
 1. [Contexte et objectifs](01-contexte.md)
 2. [Carnet de bord](02-carnet-de-bord.md) : le récit jour par jour, avec les problèmes techniques et humains
 3. [Choix techniques](03-choix-techniques.md)
-4. [Le bot et ses commandes](04-bot-et-commandes.md) (liste complète des 60 commandes)
+4. [Le bot et ses commandes](04-bot-et-commandes.md) (liste complète des 61 commandes)
 5. [Le panel d'administration](05-panel.md)
 6. [Le site et le domaine cyberbot.fr](06-site-et-domaine.md)
 7. [Hébergement, GitHub privé et tunnel Cloudflare](07-hebergement-et-tunnel.md)
@@ -28,13 +28,13 @@ Compte rendu complet, étape par étape, de la création de **Cyber**, un bot Di
 
 | | |
 |---|---|
-| Durée | 4 jours (25 → 28 octobre 2026) |
-| Versions | v1.0 → v1.7 |
-| Commandes | 60, en 2 modules (Communauté, Académie) |
+| Durée | 5 jours (25 → 29 octobre 2026) |
+| Versions | v1.0 → v1.8 |
+| Commandes | 61, en 2 modules (Communauté, Académie), en français et en anglais |
 | Académie | 47 fiches CCNA, 498 questions, 92 termes de glossaire |
 | Tickets | 123 modèles prêts à l'emploi |
-| Sécurité | 4 audits, plus de 45 points corrigés, 0 secret publié |
+| Sécurité | 5 audits, plus de 45 points corrigés, 0 secret publié |
 
 ## À propos des images
 
-Les captures du site et du panel viennent du **mode démonstration** public (aucune donnée réelle). Les écrans d'outils (Cloudflare, console d'hébergement, profil Discord…) sont des **illustrations recréées** d'après les vraies captures du projet, pour garder le même rendu sans exposer d'identifiants, d'adresses IP ni d'informations personnelles.
+Les captures du site et du panel viennent du **mode démonstration**, qui était public jusqu'au 29 octobre (aucune donnée réelle). Les écrans d'outils (Cloudflare, console d'hébergement, profil Discord…) sont des **illustrations recréées** d'après les vraies captures du projet, pour garder le même rendu sans exposer d'identifiants, d'adresses IP ni d'informations personnelles.

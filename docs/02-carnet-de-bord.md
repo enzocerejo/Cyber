@@ -58,7 +58,7 @@ Tout commence dans une première conversation avec Claude, intitulée « Bot Dis
 
 ### Le choix à l'arrivée et le panel animé (v1.4)
 
-**Dimanche 26 octobre, 22 h 52** · 🛠️ Une fonction dont on avait parlé n'existait pas encore : le **choix des modules à la première invitation**. Il est créé à deux endroits : un message de bienvenue dans Discord avec trois boutons (Communauté, Académie, Les deux, réservés à ceux qui gèrent le serveur), et un écran d'accueil dans le panel. Le panel reçoit aussi des **aperçus fidèles à Discord**, un **simulateur d'automod**, des animations et une alerte en cas de modifications non enregistrées. Le **serveur de support** est relié partout (`/aide`, site, pages légales).
+**Lundi 26 octobre, 22 h 52** · 🛠️ Une fonction dont on avait parlé n'existait pas encore : le **choix des modules à la première invitation**. Il est créé à deux endroits : un message de bienvenue dans Discord avec trois boutons (Communauté, Académie, Les deux, réservés à ceux qui gèrent le serveur), et un écran d'accueil dans le panel. Le panel reçoit aussi des **aperçus fidèles à Discord**, un **simulateur d'automod**, des animations et une alerte en cas de modifications non enregistrées. Le **serveur de support** est relié partout (`/aide`, site, pages légales).
 
 ### Mes retours de testeur et le fichier de contexte (v1.5)
 
@@ -99,7 +99,7 @@ Tout commence dans une première conversation avec Claude, intitulée « Bot Dis
 
 ---
 
-## Mardi 28 octobre : la grosse journée
+## Mercredi 28 octobre : la grosse journée
 
 ### Matin : le tunnel et le nom de domaine
 
@@ -229,10 +229,63 @@ Tout commence dans une première conversation avec Claude, intitulée « Bot Dis
 
 **00 h 24** · Je lance cette documentation. 📘
 
-## Jour 5 · jeudi 29 octobre 2026
+## Jeudi 29 octobre : Cyber s'ouvre au monde
+
+### Cette nuit-là : la vérification des nouveaux membres
+
+**00 h 37** · 🛠️ Le règlement du serveur de support reçoit son bouton : il donne le rôle « Membre » et retire « Non vérifié ».
+**00 h 43** · ⚠️ Je vérifie : « Tu as bien fait en sorte que le rôle Non vérifié soit attribué à chaque nouveau membre, puis enlevé après vérification ? » 💡 Pas encore automatiquement : il fallait passer par le rôle automatique. Le panel le fait maintenant tout seul.
+**00 h 53** · 🛠️ **Onglet Vérification du panel** : choix ou création des deux rôles, 17 modèles de règlement avec aperçu, option pour cacher les salons aux non-vérifiés. Dans la même demi-heure, la nouvelle icône du site et cette documentation sont mises en ligne.
+
+### Matin : préparer le homelab
+
+**10 h 29** · Question : « Proxmox et mon bot peuvent tenir ensemble sur le même PC ? » 💡 Oui, c'est le principe : Proxmox est la base, et chaque projet vit dans sa propre machine virtuelle, isolée des autres. Avec 16 Go de RAM, le bot, un bloqueur de pub et des labos BTS (pfSense, Windows Server) tiennent ensemble.
+
+### Début d'après-midi : trois chantiers en parallèle
+
+**13 h 44** · 💡 « Est-ce qu'on pourrait intégrer un peu d'IA dans l'automod, qui peut être contourné avec deux ou trois changements de texte ? »
+**13 h 46** · ⚠️ *Problème humain* : « Combien ça me coûte ? Je ne veux pas dépenser mes tokens facilement. » 💡 L'IA du bot utiliserait une clé API séparée de mon abonnement, environ 5 centimes pour 1 000 messages.
+**13 h 48** · « Restons normal pour l'instant. » 🛠️ Seule la couche gratuite est faite : l'automod démasque maintenant les lettres déguisées (alphabets étrangers, caractères invisibles, lettres stylisées, mots coupés par un symbole).
+🧠 Une bonne protection gratuite d'abord, l'option payante seulement quand le besoin est prouvé.
 
 **13 h 49** · Je demande ce qu'on pourrait améliorer sur le site. Claude propose 10 idées classées par priorité, je réponds « tout ».
-**14 h 30** · 🛠️ Site amélioré : page 404, plan du site pour Google (sitemap.xml et robots.txt), images en WebP (logo 26 fois plus léger), aperçu des liens partagés, section « Cyber en images », 3 nouvelles questions dans la FAQ, compteur des membres du support en direct, lien vers la documentation, accueil en anglais et page « Modules sur mesure » (annoncée comme « Bientôt »).
+**13 h 59** · 🛠️ Site amélioré (PR #6, fusionnée à 14 h 06) : page 404, plan du site pour Google (sitemap.xml et robots.txt), images en WebP (logo 26 fois plus léger), aperçu des liens partagés, section « Cyber en images », 3 nouvelles questions dans la FAQ, compteur des membres du support en direct, lien vers la documentation, accueil en anglais et page « Modules sur mesure » (annoncée comme « Bientôt »).
+
+**14 h 03** · 💡 « C'est possible d'avoir un bot français / anglais ? Que les utilisateurs choisissent la langue, dans toutes les commandes, et n'oublie pas d'actualiser les prochaines commandes. »
+⚠️ *Problème d'organisation* : la demande part d'abord dans un nouveau fil, puis revient dans le fil du panel, comme le voulait ma règle « gros changement du bot = fil du panel ». Deux messages contradictoires en une minute. 💡 Corrigé tout de suite, et la règle est maintenant appliquée sans exception.
+**14 h 21** · 🛠️ **v1.8 bilingue prête** : 860 textes traduits, `/langue` pour chaque membre, `/config langue` pour le serveur, noms des commandes en anglais. ⚠️ Mais **mon PC est hors ligne** : impossible de l'installer.
+**14 h 25** · 🧠 « Une PR, c'est quoi ? Et ça sert à quoi ? » Explication : une proposition de changements, relue puis fusionnée en un clic, et annulable. Conclusion : PR quand mon PC est éteint ou pour un gros changement, `PUBLIER.bat` le reste du temps.
+**14 h 32** · Côté homelab, mon père achètera le mini PC choisi **samedi**, avec la transaction sécurisée de leboncoin.
+**14 h 48** · ⚠️ Sur la page anglaise, il manque des onglets dans la barre du haut. 💡 Menu aligné sur la version française (PR #7, fusionnée à 15 h 03).
+
+### Milieu d'après-midi : ouvrir le panel à tout le monde
+
+**16 h 10** · Je cherche un hébergement pas cher jusqu'en janvier. 💡 Conseil : **Hetzner** (environ 4 € par mois, sans engagement), pas les offres « gratuites » qui m'ont déjà coûté un serveur.
+**16 h 21** · Le vrai besoin apparaît : « je veux que les gens aient accès au panel de config, sécurisé, sans interruption ».
+**16 h 22** · « On peut déjà créer le chemin sécurisé vers le panel pour tout le monde, sans le serveur ? » 💡 Oui : le chemin existe déjà (le tunnel). Seul le cadenas Cloudflare Access, réglé pour moi seul, bloque les autres.
+**16 h 35** · « Entre le site et le panel, c'est sécurisé ? » La question part au fil d'audit, comme prévu par ma règle.
+**16 h 36** · 🛠️ **Audit n°5** : un seul trou (un modérateur pouvait déplacer le salon des logs depuis le panel), et la « connexion token bizarre » de l'ancien panel d'aperçu est remplacée par un renvoi vers le vrai panel.
+**16 h 38** · 💡 Décision : l'hébergeur attendra quelques jours, je veux finir l'ouverture du panel « aujourd'hui et demain ».
+**16 h 39** · ⚠️ Mon PC ne répond plus (en veille). Tout est prêt mais rien ne peut être installé.
+**16 h 45** · « À quoi pourrait servir une base de données ? » 💡 Solidité en cas de coupure, rapidité avec beaucoup de serveurs, sessions qui survivent aux redémarrages. **16 h 46** · « Je peux utiliser SQLite maintenant ? » 💡 Oui, avec le SQLite intégré à Node.js, donc aucun module de plus à surveiller.
+
+### Fin d'après-midi : tout s'installe
+
+**17 h 14** · Mon PC est de retour : « installe maintenant ».
+⚠️ *Problème d'organisation* : trois fils avaient des changements prêts pour les mêmes fichiers (automod, version bilingue, audit), et le dossier du site sur mon PC était en retard sur GitHub. 💡 Un ordre d'installation précis : l'automod (un seul fichier), puis la v1.8, puis l'audit par-dessus. Chaque fois avec une sauvegarde et une comparaison avant d'écrire. Et un nouveau script, **`SYNCHRONISER-SITE.bat`**, remet le dossier du site à jour sans rien perdre, pour que `PUBLIER.bat` ne tombe pas sur un conflit.
+**17 h 16** · ✅ Automod renforcé installé.
+**17 h 21** · ✅ **Bot bilingue installé**. Site mis à jour (PR #8).
+**17 h 28** · ✅ **SQLite et panel public installés**, testés avec la v1.8 : 61 commandes valides, données importées toutes seules.
+**17 h 30** · 🛠️ Le serveur de support devient bilingue : un salon pour choisir sa langue, un règlement français et un anglais, des salons pour chaque langue.
+**17 h 36** · Je fais ma part : Cloudflare Access supprimé, ancienne redirection Discord retirée, `.env` modifié. J'envoie un extrait du `.env` avec les secrets remplacés par « CACHE ». 🧠 Le bon réflexe, cette fois du premier coup.
+**17 h 45** · « Quand les gens ouvrent, ça ne met pas cette page, si ? Et tu pourrais ajouter un jeu du dino comme Google, avec nos couleurs, au cas où ça prend du temps ? » 💡 Pas de copie du jeu de Google (il est protégé) : un **jeu original** où le robot Cyber saute par-dessus des bugs.
+**17 h 46** · « Des cookies pour garder la connexion Discord et le classement ? » 💡 La connexion est maintenant gardée 7 jours, même après un redémarrage. Le classement mondial est déconseillé : les scores seraient trop faciles à truquer. Le record reste dans le navigateur.
+**17 h 55** · ✅ Page d'attente en ligne (PR #11).
+**18 h 03** · ✅ **« Ça marche bien, j'ai demandé à un pote ! »** Le panel est ouvert à tous, testé par quelqu'un d'autre que moi.
+**18 h 06** · Le mini PC est choisi définitivement : un HP EliteDesk 800 G5 Mini avec 16 Go de RAM, pour 220 €.
+**18 h 12** · Je demande de continuer à alimenter cette documentation avec les nouveautés. 📘
+
+🧠 La leçon du jour : quand plusieurs chantiers avancent en même temps, le plus important n'est pas d'aller vite, c'est l'**ordre** dans lequel on installe, avec une sauvegarde à chaque étape.
 
 ---
 
@@ -240,10 +293,11 @@ Tout commence dans une première conversation avec Claude, intitulée « Bot Dis
 
 | Indicateur | Valeur |
 |---|---|
-| Durée | 4 jours, dont une journée de plus de 15 heures |
-| Versions | v1.0 → v1.7 |
-| Commandes | 20 → 60 |
-| Audits de sécurité | 4 (plus de 45 points corrigés) |
-| Pull requests sur le site | 3 (dont celle-ci) |
+| Durée | 5 jours, dont une journée de plus de 15 heures |
+| Versions | v1.0 → v1.8 |
+| Commandes | 20 → 61 |
+| Langues | Français et anglais |
+| Audits de sécurité | 5 (plus de 45 points corrigés) |
+| Pull requests sur le site | Plus de 10 |
 | Incidents majeurs | 1 (serveur supprimé par l'hébergeur) |
 | Données perdues | Celles du serveur hébergé (les sauvegardes automatiques existent depuis) |

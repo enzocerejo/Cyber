@@ -55,3 +55,5 @@ Un modèle complet a été conçu pour le serveur officiel, dans le style « emo
 - `@everyone` ne voit que l'accueil tant qu'il n'a pas cliqué sur le bouton de `/verification`, qui donne le rôle Membre ;
 - catégories Académie, Staff et **Bêta** (pour tester les futurs modules sur mesure), forum pour les bugs ;
 - pas de catégorie « Sanction » : `/mute` utilise déjà le timeout natif de Discord.
+
+Le 29 octobre, le serveur devient **bilingue**. Un nouveau venu arrive avec le rôle « Non vérifié » et ne voit qu'un salon `langue-language`. Il choisit 🇫🇷 ou 🇬🇧, lit le règlement de sa langue, l'accepte et reçoit « Membre » ou « Member ». Il voit alors les salons de sa langue et les salons communs. Le règlement anglais se publie avec un script dédié, comme le français.

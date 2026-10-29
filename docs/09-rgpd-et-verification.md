@@ -8,6 +8,7 @@ Un bot présent sur plus de 75 serveurs doit demander la **vérification** de Di
 |---|---|
 | Les données d'un serveur restaient pour toujours après le retrait du bot | **Effacement automatique 30 jours après le retrait** (annulé si le bot est réinvité). Vérifié aussi au démarrage, au cas où le bot était éteint au moment du retrait. |
 | Aucun moyen pour un membre de voir ou d'effacer ses données | **`/mesdonnees voir`** : le membre reçoit en privé un fichier JSON avec tout ce que Cyber garde sur lui. **`/mesdonnees effacer`** : XP, scores de l'Académie, AFK, rappels et participations aux giveaways sont effacés sur tous les serveurs. Les avertissements restent aux modérateurs. |
+| Nouvelles données du 29 octobre | La **langue choisie** avec `/langue` et les **sessions du panel** (identifiant et pseudo Discord, clé de session gardée sous forme d'empreinte) sont incluses dans `/mesdonnees`, effacées par `/mesdonnees effacer` et décrites dans la politique de confidentialité. Les sessions sont exclues des sauvegardes. |
 | Sauvegardes du salon Discord sans limite | Seules les **7 dernières** sont gardées |
 
 Règle de maintenance notée pour la suite : toute nouvelle donnée stockée doit être ajoutée au module `donnees.js` (export et effacement) **et** à la politique de confidentialité.
