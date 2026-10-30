@@ -289,12 +289,26 @@ Tout commence dans une première conversation avec Claude, intitulée « Bot Dis
 
 ---
 
+## Vendredi 30 octobre : la v1.9, plus claire pour tout le monde
+
+Une longue liste d'un coup, avec un mot d'ordre : « vérifie aussi toute la cohérence affichée sur le dashboard ainsi que sur le site ».
+
+- 🧩 **L'Académie devient un module en plus**, « fait par passion », et n'est plus proposée à l'arrivée. Communauté + Sécurité sont actifs tout de suite. Le site gagne une **visite guidée animée** (Communauté → Sécurité → Modules) et une section **Modules**.
+- 🌐 **Commandes en anglais pour tout le monde** (`/help`, `/learn`…), c'est plus standard. Et la **langue par salon** : un serveur peut parler français dans certains salons et anglais dans d'autres.
+- 🗂️ Panel : les **sous-rubriques** de chaque onglet s'affichent dans le menu pour y aller directement, les modules sont rangés tout en haut dans un menu déroulant, et **Modules publics** sépare les modules installés de la recherche (les plus installés, les mieux notés, par nom ou par identifiant).
+- 📊 Page « Choisir un serveur » plus détaillée et **boosts** dans l'aperçu.
+- 📜 Règlement : un **mode avancé façon Discohook** avec plusieurs cartes colorées, titres, séparateurs et images.
+
+⚠️ *Problème* : en passant les noms de commandes en anglais, un texte qui citait plusieurs commandes sur la même ligne ne traduisait que la première. 💡 Corrigé et vérifié sur tous les textes du bot, du panel et du site.
+
+---
+
 ## Bilan du carnet
 
 | Indicateur | Valeur |
 |---|---|
-| Durée | 5 jours, dont une journée de plus de 15 heures |
-| Versions | v1.0 → v1.8 |
+| Durée | 6 jours, dont une journée de plus de 15 heures |
+| Versions | v1.0 → v1.9 |
 | Commandes | 20 → 61 |
 | Langues | Français et anglais |
 | Audits de sécurité | 5 (plus de 45 points corrigés) |

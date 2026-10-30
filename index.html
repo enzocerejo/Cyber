@@ -27,7 +27,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=43cbfa9c">
+  <link rel="stylesheet" href="style.css?v=9f4dc6a1">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Cyber", "applicationCategory": "CommunicationApplication", "operatingSystem": "Discord", "url": "https://cyberbot.fr/", "image": "https://cyberbot.fr/assets/og-image.jpg", "description": "Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.", "inLanguage": "fr", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Enzo Cerejo"}}</script>
 </head>
 <body>
@@ -40,6 +40,7 @@
     <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="links" aria-label="Navigation principale">
       <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#modules">Modules</a>
       <a href="index.html#commandes">Commandes</a>
       <a href="demarrer.html">Démarrer</a>
       <a href="nouveautes.html">Nouveautés</a>
@@ -58,14 +59,14 @@
         <span class="badge"><span class="dot-status on"></span> Bot Discord · 100 % gratuit</span>
         <h1 class="glitch" data-text="CYBER">CYBER</h1>
         <p class="hero-sub">Le gardien de ton serveur Discord.</p>
-        <p class="tagline">Modération, automod, niveaux, tickets et giveaways, plus une académie réseau et cybersécurité niveau CCNA.<br>Active seulement ce dont ton serveur a besoin.</p>
+        <p class="tagline">Modération, automod, niveaux, tickets, giveaways et vérification, prêts dès l'invitation.<br>Et des <a href="#modules">modules en plus</a> quand tu veux.</p>
         <div class="cta">
           <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter à Discord</a>
           <a class="btn big ghost" href="demarrer.html">Bien démarrer →</a>
         </div>
         <ul class="counters">
-          <li><b id="nb-commandes">60</b><span>commandes</span></li>
-          <li><b>2</b><span>modules</span></li>
+          <li><b id="nb-commandes">61</b><span>commandes</span></li>
+          <li><b>2</b><span>modules de base</span></li>
           <li><b>0 €</b><span>pour toujours</span></li>
           <li data-support hidden><b data-support-membres>–</b><span>membres sur le support</span></li>
         </ul>
@@ -86,8 +87,8 @@
     <!-- Bandeau défilant -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>/ban</span><span>/automod</span><span>/rang</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/sousreseau</span><span>/dns</span><span>/userinfo</span><span>/classement</span><span>/mute</span><span>/panelroles</span>
-        <span>/ban</span><span>/automod</span><span>/rang</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/sousreseau</span><span>/dns</span><span>/userinfo</span><span>/classement</span><span>/mute</span><span>/panelroles</span>
+        <span>/ban</span><span>/automod</span><span>/rank</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/subnet</span><span>/dns</span><span>/userinfo</span><span>/leaderboard</span><span>/mute</span><span>/rolepanel</span>
+        <span>/ban</span><span>/automod</span><span>/rank</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/subnet</span><span>/dns</span><span>/userinfo</span><span>/leaderboard</span><span>/mute</span><span>/rolepanel</span>
       </div>
     </div>
 
@@ -95,14 +96,14 @@
     <section id="fonctions" class="section">
       <span class="kicker">// FONCTIONS</span>
       <h2>Tout ce dont ton serveur a besoin</h2>
-      <p class="lead">Deux modules à activer selon ton serveur : <b>Communauté</b> (pour remplacer MEE6, Carl-bot, Dyno, Ticket Tool) et <b>Académie</b> (pour apprendre le réseau et la cybersécurité).</p>
+      <p class="lead">Deux modules de base, actifs dès l'arrivée : <b>Communauté</b> et <b>Sécurité</b>, pour remplacer MEE6, Carl-bot, Dyno et Ticket Tool. Et des <a href="#modules">modules en plus</a> à ajouter quand tu veux.</p>
       <div class="bento">
         <article class="card big">
           <span class="ico">🛡️</span>
           <h3>Modération complète</h3>
           <p>Kick, ban, mute temporaire, avertissements, nettoyage de messages, verrouillage de salons. Chaque sanction est envoyée en MP au membre et enregistrée dans les logs, avec vérification de la hiérarchie des rôles.</p>
           <div class="term">
-            <div><span class="p">&gt;</span> /mute membre:@spammeur duree:10m</div>
+            <div><span class="p">&gt;</span> /mute member:@spammeur duration:10m</div>
             <div class="ok">✔ @spammeur est muet pendant 10 minutes.</div>
           </div>
         </article>
@@ -145,14 +146,99 @@
           <h3>Accueil & rôles</h3>
           <p>Bienvenue personnalisée, rôle automatique, rôles à boutons, vocaux temporaires.</p>
         </article>
-        <article class="card">
+        <article class="card module-pub">
+          <span class="ico">🧩</span>
+          <h3>Modules en plus</h3>
+          <p>Ajoute des fonctions à la carte depuis le tableau de bord, comme l'Académie réseau &amp; cyber, un module fait par passion.</p>
+          <a class="btn ghost small" href="#modules">Voir les modules →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Visite guidée animée : Communauté → Sécurité → Modules -->
+    <section id="visite" class="section">
+      <span class="kicker">// VISITE GUIDÉE</span>
+      <h2>Cyber en 3 étapes</h2>
+      <p class="lead">Dès que tu l'invites, Cyber est prêt : <b>Communauté</b> et <b>Sécurité</b> sont actifs d'office. Les <b>modules</b> ajoutent ensuite ce que tu veux, en un clic.</p>
+      <div class="visite" data-visite>
+        <div class="visite-onglets" role="tablist" aria-label="Étapes de la visite">
+          <button class="visite-onglet actif" role="tab" aria-selected="true" aria-controls="visite-1" id="vo-1"><span class="vo-num">1</span><span class="vo-txt"><b>Communauté</b><small>Animer le serveur</small></span><i class="vo-barre"></i></button>
+          <button class="visite-onglet" role="tab" aria-selected="false" aria-controls="visite-2" id="vo-2"><span class="vo-num">2</span><span class="vo-txt"><b>Sécurité</b><small>Protéger le serveur</small></span><i class="vo-barre"></i></button>
+          <button class="visite-onglet" role="tab" aria-selected="false" aria-controls="visite-3" id="vo-3"><span class="vo-num">3</span><span class="vo-txt"><b>Modules</b><small>Ajouter des fonctions</small></span><i class="vo-barre"></i></button>
+        </div>
+        <div class="visite-scene">
+          <div class="visite-panneau actif" role="tabpanel" id="visite-1" aria-labelledby="vo-1">
+            <div class="vp-texte">
+              <span class="vp-etat on">● Actif dès l'arrivée</span>
+              <h3>👥 Communauté</h3>
+              <p>Tout ce qui fait vivre un serveur, sans installer cinq bots : niveaux et classement, tickets (123 modèles), giveaways, bienvenue, rôles à boutons, vocaux temporaires et suggestions.</p>
+            </div>
+            <ul class="vp-anim">
+              <li><span>📈</span> @Léa passe au <b>niveau 12</b> !</li>
+              <li><span>🎫</span> Ticket <b>#support-0042</b> ouvert</li>
+              <li><span>🎉</span> Giveaway : <b>3 gagnants</b> tirés</li>
+              <li><span>👋</span> Bienvenue <b>@Noah</b> sur le serveur</li>
+            </ul>
+          </div>
+          <div class="visite-panneau" role="tabpanel" id="visite-2" aria-labelledby="vo-2" hidden>
+            <div class="vp-texte">
+              <span class="vp-etat on">● Actif dès l'arrivée</span>
+              <h3>🛡️ Sécurité</h3>
+              <p>Modération complète, automod (même contre les lettres déguisées), vérification par bouton avec règlement personnalisé, anti-raid et logs détaillés pour ton équipe.</p>
+            </div>
+            <ul class="vp-anim">
+              <li class="rouge"><span>🤖</span> Lien d'invitation <b>supprimé</b></li>
+              <li class="rouge"><span>🔇</span> @spammeur muet <b>10 min</b></li>
+              <li><span>✅</span> @Inès a <b>validé le règlement</b></li>
+              <li><span>📋</span> Sanction ajoutée aux <b>logs</b></li>
+            </ul>
+          </div>
+          <div class="visite-panneau" role="tabpanel" id="visite-3" aria-labelledby="vo-3" hidden>
+            <div class="vp-texte">
+              <span class="vp-etat">◆ À ajouter quand tu veux</span>
+              <h3>🧩 Modules</h3>
+              <p>Dans le tableau de bord, l'onglet <b>Modules publics</b> liste les modules en plus : les plus installés, les mieux notés, une recherche par nom ou par code. Coche, c'est installé.</p>
+            </div>
+            <ul class="vp-anim modules">
+              <li><span>🎓</span> <b>Académie</b> · réseau &amp; cyber <em class="vp-coche">Installé ✓</em></li>
+              <li><span>🔎</span> Rechercher un module…</li>
+              <li><span>⭐</span> Les mieux notés</li>
+              <li><span>📼</span> Code de module <b>CYB-7F3A-K9</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modules en plus -->
+    <section id="modules" class="section">
+      <span class="kicker">// MODULES</span>
+      <h2>Des modules en plus, quand tu veux</h2>
+      <p class="lead">La base (Communauté + Sécurité) est toujours là. Le reste, tu le choisis dans l'onglet <b>Modules publics</b> du tableau de bord.</p>
+      <div class="modules-vitrine">
+        <article class="card module-carte">
           <span class="ico">🎓</span>
-          <h3>Académie réseau & cyber</h3>
-          <p>47 fiches de cours détaillées niveau CCNA, près de 500 questions de quiz par sujet avec classement, défi du jour et une IA qui répond à tes questions d'informatique.</p>
+          <span class="module-badge">Module fait par passion</span>
+          <h3>Académie réseau &amp; cyber</h3>
+          <p>Un module optionnel, créé par passion par Enzo (étudiant en réseaux) : 47 fiches de cours niveau CCNA, 498 questions de quiz avec classement, défi du jour, glossaire et outils réseau. Il n'est pas activé par défaut : installe-le seulement si ton serveur parle informatique.</p>
           <div class="term">
-            <div><span class="p">&gt;</span> /apprendre sujet:VLAN</div>
+            <div><span class="p">&gt;</span> /learn topic:VLAN</div>
             <div class="ok">✔ Fiche ouverte · CCNA 2 (SRWE)</div>
           </div>
+        </article>
+        <article class="card module-carte">
+          <span class="ico">🧩</span>
+          <span class="module-badge">Dans le tableau de bord</span>
+          <h3>Modules publics</h3>
+          <p>Les modules installés sur ton serveur d'un côté, la recherche de l'autre : les plus installés, les mieux notés (note de 1 à 5), les nouveautés, une recherche par nom ou par identifiant, et le support si tu ne trouves pas.</p>
+          <a class="btn ghost" href="panel/">Ouvrir le tableau de bord →</a>
+        </article>
+        <article class="card module-carte">
+          <span class="ico">📼</span>
+          <span class="module-badge">Bientôt</span>
+          <h3>Modules sur mesure</h3>
+          <p>Une fonction qui n'existe nulle part ? Elle est codée pour ton serveur, tu reçois un code unique et tu l'ajoutes depuis le tableau de bord, comme une cassette qu'on insère.</p>
+          <a class="btn ghost" href="modules.html">Découvrir →</a>
         </article>
       </div>
     </section>
@@ -218,13 +304,13 @@
       <h2>Questions fréquentes</h2>
       <div class="faq">
         <details><summary>Cyber est-il vraiment gratuit ?</summary><p>Oui, toutes les fonctions sont gratuites. Pas d'abonnement, pas de fonctions « premium ».</p></details>
-        <details><summary>Comment ajouter Cyber à mon serveur ?</summary><p>Clique sur « Ajouter à Discord », choisis ton serveur et valide (il faut la permission « Gérer le serveur »). Cyber t'accueille alors avec un message pour choisir ses modules : Communauté, Académie ou les deux. Ensuite, suis le guide <a href="demarrer.html">Bien démarrer</a>.</p></details>
+        <details><summary>Comment ajouter Cyber à mon serveur ?</summary><p>Clique sur « Ajouter à Discord », choisis ton serveur et valide (il faut la permission « Gérer le serveur »). Communauté et Sécurité sont actifs tout de suite, et Cyber t'envoie un message avec le lien du tableau de bord. Ensuite, suis le guide <a href="demarrer.html">Bien démarrer</a>.</p></details>
         <details><summary>Quelles permissions demande Cyber ?</summary><p>Seulement celles dont ses fonctions ont besoin (gérer les messages, les rôles, les salons, exclure et bannir…), <b>jamais la permission Administrateur</b>. Tu peux retirer une permission à tout moment : seule la fonction qui en a besoin s'arrêtera.</p></details>
         <details><summary>Cyber peut-il remplacer mes autres bots ?</summary><p>C'est son but : modération, automod, niveaux, tickets, giveaways, vérification, rôles à boutons et vocaux temporaires réunis dans un seul bot. Tu peux donc retirer MEE6, Carl-bot, Dyno ou Ticket Tool et garder un serveur plus simple.</p></details>
         <details><summary>Il me manque une fonction, c'est possible ?</summary><p>Propose-la sur le serveur de support : les meilleures idées sont ajoutées pour tout le monde. Les <a href="modules.html">modules sur mesure</a>, codés pour un seul serveur, arrivent bientôt.</p></details>
         <details><summary>Les commandes n'apparaissent pas, que faire ?</summary><p>Attends quelques minutes puis redémarre Discord (Ctrl + R). Vérifie aussi que Cyber a bien été invité avec la permission « applications.commands ».</p></details>
         <details><summary>Quelles données Cyber enregistre-t-il ?</summary><p>Uniquement ce qui est nécessaire : les réglages de ton serveur, l'XP des membres et les avertissements. Aucune donnée n'est vendue ni partagée. Tout est détaillé dans la <a href="confidentialite.html">politique de confidentialité</a>.</p></details>
-        <details><summary>C'est quoi l'Académie ?</summary><p>Un module pour apprendre le réseau et la cybersécurité directement sur Discord : fiches de cours sur les 3 modules du CCNA, glossaire, quiz avec classement, défi du jour et une IA qui répond aux questions d'informatique. Active-le ou désactive-le avec <code>/modules</code>.</p></details>
+        <details><summary>C'est quoi l'Académie ?</summary><p>Un module optionnel, fait par passion, pour apprendre le réseau et la cybersécurité directement sur Discord : fiches de cours sur les 3 modules du CCNA, glossaire, quiz avec classement, défi du jour et une IA qui répond aux questions d'informatique. Il n'est pas activé par défaut : installe-le depuis l'onglet <b>Modules publics</b> du tableau de bord.</p></details>
         <details><summary>J'ai un problème ou une idée, où demander ?</summary><p>Rejoins le <a href="https://discord.gg/erqHM5s8Vz" target="_blank" rel="noopener">serveur de support de Cyber</a> : aide, signalement de bugs et suggestions.</p></details>
         <details><summary>Qui a créé Cyber ?</summary><p>Cyber est développé par Enzo, étudiant en BTS CIEL (informatique et réseaux) passionné de cybersécurité.</p></details>
       </div>
@@ -245,7 +331,7 @@
           <span class="cassette-etiquette">MODULE · <b>CYB-7F3A-K9</b></span>
           <span class="cassette-bobines"><i></i><i></i></span>
         </div>
-        <div class="cassette-fente">▼ Ajouter un module</div>
+        <div class="cassette-fente">▼ Code de module</div>
       </div>
     </section>
 
@@ -288,7 +374,7 @@
   </footer>
 
   <script src="config.js?v=d0782783"></script>
-  <script src="commandes.js?v=dc84960e"></script>
-  <script src="script.js?v=168fd435"></script>
+  <script src="commandes.js?v=0b6a40eb"></script>
+  <script src="script.js?v=219772ab"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=43cbfa9c">
+  <link rel="stylesheet" href="style.css?v=9f4dc6a1">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Cyber", "applicationCategory": "CommunicationApplication", "operatingSystem": "Discord", "url": "https://cyberbot.fr/", "image": "https://cyberbot.fr/assets/og-image.jpg", "description": "Cyber protects and brings your Discord server to life: moderation, automod, levels, tickets, giveaways, verification and a networking academy. 100% free.", "inLanguage": "en", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Enzo Cerejo"}}</script>
 </head>
 <body>
@@ -40,6 +40,7 @@
     <button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
     <nav class="links" aria-label="Main navigation">
       <a href="en.html#features">Features</a>
+      <a href="en.html#modules">Modules</a>
       <a href="index.html#commandes" hreflang="fr">Commands</a>
       <a href="demarrer.html" hreflang="fr">Get started</a>
       <a href="nouveautes.html" hreflang="fr">Changelog</a>
@@ -57,18 +58,18 @@
         <span class="badge"><span class="dot-status on"></span> Discord bot · 100% free</span>
         <h1 class="glitch" data-text="CYBER">CYBER</h1>
         <p class="hero-sub">The guardian of your Discord server.</p>
-        <p class="tagline">Moderation, automod, levels, tickets and giveaways, plus a networking and cybersecurity academy (CCNA level).<br>Turn on only what your server needs.</p>
+        <p class="tagline">Moderation, automod, levels, tickets, giveaways and verification, ready as soon as you invite it.<br>Plus <a href="#modules">extra modules</a> whenever you want.</p>
         <div class="cta">
           <a class="btn big" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Add to Discord</a>
           <a class="btn big ghost" href="https://discord.gg/erqHM5s8Vz" target="_blank" rel="noopener">Support server →</a>
         </div>
         <ul class="counters">
-          <li><b>60</b><span>commands</span></li>
-          <li><b>2</b><span>modules</span></li>
+          <li><b>61</b><span>commands</span></li>
+          <li><b>2</b><span>core modules</span></li>
           <li><b>0 €</b><span>forever</span></li>
           <li data-support hidden><b data-support-membres>–</b><span>support members</span></li>
         </ul>
-        <p class="muted-s note-langue">🇬🇧 Cyber speaks English and French: admins pick the server language with <code>/config language</code> (or in the dashboard), and each member can choose their own with <code>/language</code>.</p>
+        <p class="muted-s note-langue">🇬🇧 Cyber speaks English and French: pick French, English or both (English in some channels only) with <code>/config language</code> or in the dashboard, and each member can choose their own with <code>/language</code>. Command names are in English for everyone.</p>
       </div>
       <div class="browser">
         <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">cyber · dashboard</span></div>
@@ -79,7 +80,7 @@
     <section id="features" class="section">
       <span class="kicker">// FEATURES</span>
       <h2>Everything your server needs</h2>
-      <p class="lead">Two modules to switch on: <b>Community</b> (to replace MEE6, Carl-bot, Dyno and Ticket Tool) and <b>Academy</b> (to learn networking and cybersecurity).</p>
+      <p class="lead">Two core modules, on from day one: <b>Community</b> and <b>Security</b>, to replace MEE6, Carl-bot, Dyno and Ticket Tool. Plus <a href="#modules">extra modules</a> whenever you want.</p>
       <div class="grid">
         <article class="card"><span class="ico">🛡️</span><h3>Full moderation</h3><p>Kick, ban, timed mute, warnings, message purge and channel lock. Every sanction is sent to the member by DM and logged, with role hierarchy checks.</p></article>
         <article class="card"><span class="ico">🤖</span><h3>Automod</h3><p>Automatically removes spam, invites, links, bad words (even disguised ones), excessive caps and mass mentions.</p></article>
@@ -88,7 +89,90 @@
         <article class="card"><span class="ico">🎉</span><h3>Giveaways</h3><p>Join button, automatic draw and reroll.</p></article>
         <article class="card"><span class="ico">✅</span><h3>Anti-raid</h3><p>Button verification. Accounts younger than 24 hours are blocked.</p></article>
         <article class="card"><span class="ico">👋</span><h3>Welcome & roles</h3><p>Custom welcome messages, auto-role, button roles and temporary voice channels.</p></article>
-        <article class="card"><span class="ico">🎓</span><h3>Networking academy</h3><p>47 CCNA-level lessons, nearly 500 quiz questions with a leaderboard, a daily challenge and an AI that answers IT questions.</p></article>
+        <article class="card"><span class="ico">🧩</span><h3>Extra modules</h3><p>Add features à la carte from the dashboard, like the networking academy, a module made out of passion. <a href="#modules">See modules →</a></p></article>
+      </div>
+    </section>
+
+    <!-- Animated tour: Community → Security → Modules -->
+    <section id="tour" class="section">
+      <span class="kicker">// QUICK TOUR</span>
+      <h2>Cyber in 3 steps</h2>
+      <p class="lead">As soon as you invite it, Cyber is ready: <b>Community</b> and <b>Security</b> are on by default. <b>Modules</b> then add whatever you want, in one click.</p>
+      <div class="visite" data-visite>
+        <div class="visite-onglets" role="tablist" aria-label="Tour steps">
+          <button class="visite-onglet actif" role="tab" aria-selected="true" aria-controls="tour-1" id="to-1"><span class="vo-num">1</span><span class="vo-txt"><b>Community</b><small>Bring it to life</small></span><i class="vo-barre"></i></button>
+          <button class="visite-onglet" role="tab" aria-selected="false" aria-controls="tour-2" id="to-2"><span class="vo-num">2</span><span class="vo-txt"><b>Security</b><small>Keep it safe</small></span><i class="vo-barre"></i></button>
+          <button class="visite-onglet" role="tab" aria-selected="false" aria-controls="tour-3" id="to-3"><span class="vo-num">3</span><span class="vo-txt"><b>Modules</b><small>Add features</small></span><i class="vo-barre"></i></button>
+        </div>
+        <div class="visite-scene">
+          <div class="visite-panneau actif" role="tabpanel" id="tour-1" aria-labelledby="to-1">
+            <div class="vp-texte">
+              <span class="vp-etat on">● On from day one</span>
+              <h3>👥 Community</h3>
+              <p>Everything that keeps a server alive, without five different bots: levels and leaderboard, tickets (123 templates), giveaways, welcome messages, button roles, temporary voice channels and suggestions.</p>
+            </div>
+            <ul class="vp-anim">
+              <li><span>📈</span> @Lea reached <b>level 12</b>!</li>
+              <li><span>🎫</span> Ticket <b>#support-0042</b> opened</li>
+              <li><span>🎉</span> Giveaway: <b>3 winners</b> drawn</li>
+              <li><span>👋</span> Welcome <b>@Noah</b> to the server</li>
+            </ul>
+          </div>
+          <div class="visite-panneau" role="tabpanel" id="tour-2" aria-labelledby="to-2" hidden>
+            <div class="vp-texte">
+              <span class="vp-etat on">● On from day one</span>
+              <h3>🛡️ Security</h3>
+              <p>Full moderation, automod (even against disguised letters), button verification with your own rules message, anti-raid and detailed logs for your team.</p>
+            </div>
+            <ul class="vp-anim">
+              <li class="rouge"><span>🤖</span> Invite link <b>removed</b></li>
+              <li class="rouge"><span>🔇</span> @spammer muted for <b>10 min</b></li>
+              <li><span>✅</span> @Ines <b>accepted the rules</b></li>
+              <li><span>📋</span> Sanction added to the <b>logs</b></li>
+            </ul>
+          </div>
+          <div class="visite-panneau" role="tabpanel" id="tour-3" aria-labelledby="to-3" hidden>
+            <div class="vp-texte">
+              <span class="vp-etat">◆ Add them whenever you want</span>
+              <h3>🧩 Modules</h3>
+              <p>In the dashboard, the <b>Modules publics</b> (public modules) tab lists extra modules: most installed, best rated, and a search by name or code. Tick it and it's installed.</p>
+            </div>
+            <ul class="vp-anim modules">
+              <li><span>🎓</span> <b>Academy</b> · networking &amp; cyber <em class="vp-coche">Installed ✓</em></li>
+              <li><span>🔎</span> Search a module…</li>
+              <li><span>⭐</span> Best rated</li>
+              <li><span>📼</span> Module code <b>CYB-7F3A-K9</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules" class="section">
+      <span class="kicker">// MODULES</span>
+      <h2>Extra modules, whenever you want</h2>
+      <p class="lead">The base (Community + Security) is always there. Everything else is up to you, in the <b>Modules publics</b> (public modules) tab of the dashboard.</p>
+      <div class="modules-vitrine">
+        <article class="card module-carte">
+          <span class="ico">🎓</span>
+          <span class="module-badge">Made out of passion</span>
+          <h3>Networking academy</h3>
+          <p>An optional module built out of passion by Enzo (a networking student): 47 CCNA-level lessons, 498 quiz questions with a leaderboard, a daily challenge, a glossary and network tools. It is off by default: install it only if your server is into IT. Lessons are in French for now.</p>
+        </article>
+        <article class="card module-carte">
+          <span class="ico">🧩</span>
+          <span class="module-badge">In the dashboard</span>
+          <h3>Public modules</h3>
+          <p>Installed modules on one side, search on the other: most installed, best rated (1 to 5 stars), newest, search by name or by ID, and the support server if you can't find what you need.</p>
+          <a class="btn ghost" href="panel/">Open the dashboard →</a>
+        </article>
+        <article class="card module-carte">
+          <span class="ico">📼</span>
+          <span class="module-badge">Coming soon</span>
+          <h3>Custom modules</h3>
+          <p>A feature that doesn't exist anywhere? It gets coded for your server, you receive a unique code and add it from the dashboard, like inserting a cassette.</p>
+          <a class="btn ghost" href="modules.html" hreflang="fr">Learn more (FR) →</a>
+        </article>
       </div>
     </section>
 
@@ -118,7 +202,7 @@
       <div class="faq">
         <details><summary>Is Cyber really free?</summary><p>Yes, every feature is free. No subscription, no premium tier.</p></details>
         <details><summary>Which permissions does Cyber need?</summary><p>Only what its features use (manage messages, roles and channels, kick and ban…), <b>never Administrator</b>. You can remove a permission at any time: only the feature that needs it will stop.</p></details>
-        <details><summary>Does Cyber speak English?</summary><p>Yes. Commands, replies and buttons are available in English and French. Set the server language with <code>/config language</code> or in the dashboard; each member can override it with <code>/language</code>. Commands also show English names when your Discord is in English. The Academy lessons and the dashboard are still in French for now.</p></details>
+        <details><summary>Does Cyber speak English?</summary><p>Yes. Commands, replies and buttons are available in English and French. Choose French, English, or both with <code>/config language</code> or in the dashboard: in mixed mode, Cyber writes in English only in the channels or categories you pick. Each member can override it with <code>/language</code>. Command names are in English for everyone. The Academy lessons and the dashboard are still in French for now.</p></details>
         <details><summary>What data does Cyber store?</summary><p>Only what it needs: your server settings, members' XP and warnings. Nothing is sold or shared. Any member can see or delete their data with <code>/mydata</code>. Details are in the <a href="confidentialite.html" hreflang="fr">privacy policy</a> (in French).</p></details>
         <details><summary>Who made Cyber?</summary><p>Cyber is built by Enzo, a French networking and IT student passionate about cybersecurity.</p></details>
       </div>
@@ -163,6 +247,6 @@
   </footer>
 
   <script src="config.js?v=d0782783"></script>
-  <script src="script.js?v=168fd435"></script>
+  <script src="script.js?v=219772ab"></script>
 </body>
 </html>
