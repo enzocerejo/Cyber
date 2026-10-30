@@ -523,7 +523,9 @@ figure.browser { margin: 0; }
 .vp-coche { float: right; font-style: normal; font-size: .78rem; color: var(--ok); background: #3ddc8422; padding: 2px 8px; border-radius: 99px; }
 
 /* ---------- Vitrine des modules ---------- */
-.modules-vitrine { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.modules-vitrine { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 980px; margin: 0 auto; }
+.module-discret { max-width: 760px; margin: 22px auto 0; text-align: center; color: var(--mut); font-size: .9rem; }
+.module-discret a { white-space: nowrap; }
 .module-carte { position: relative; display: flex; flex-direction: column; gap: 6px; }
 .module-carte::after {
   content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;

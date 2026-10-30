@@ -27,7 +27,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=9f4dc6a1">
+  <link rel="stylesheet" href="style.css?v=7a0ddb4d">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Cyber", "applicationCategory": "CommunicationApplication", "operatingSystem": "Discord", "url": "https://cyberbot.fr/", "image": "https://cyberbot.fr/assets/og-image.jpg", "description": "Cyber protège et anime ton serveur Discord : modération, automod, niveaux, tickets, giveaways, vérification et outils réseau. 100 % gratuit.", "inLanguage": "fr", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Enzo Cerejo"}}</script>
 </head>
 <body>
@@ -87,8 +87,8 @@
     <!-- Bandeau défilant -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
-        <span>/ban</span><span>/automod</span><span>/rank</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/subnet</span><span>/dns</span><span>/userinfo</span><span>/leaderboard</span><span>/mute</span><span>/rolepanel</span>
-        <span>/ban</span><span>/automod</span><span>/rank</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/subnet</span><span>/dns</span><span>/userinfo</span><span>/leaderboard</span><span>/mute</span><span>/rolepanel</span>
+        <span>/ban</span><span>/automod</span><span>/rank</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/warn</span><span>/poll</span><span>/userinfo</span><span>/leaderboard</span><span>/mute</span><span>/rolepanel</span>
+        <span>/ban</span><span>/automod</span><span>/rank</span><span>/ticket</span><span>/giveaway</span><span>/verification</span><span>/warn</span><span>/poll</span><span>/userinfo</span><span>/leaderboard</span><span>/mute</span><span>/rolepanel</span>
       </div>
     </div>
 
@@ -149,7 +149,7 @@
         <article class="card module-pub">
           <span class="ico">🧩</span>
           <h3>Modules en plus</h3>
-          <p>Ajoute des fonctions à la carte depuis le tableau de bord, comme l'Académie réseau &amp; cyber, un module fait par passion.</p>
+          <p>Ajoute des fonctions à la carte depuis le tableau de bord, ou demande un module codé exprès pour ton serveur.</p>
           <a class="btn ghost small" href="#modules">Voir les modules →</a>
         </article>
       </div>
@@ -217,16 +217,6 @@
       <p class="lead">La base (Communauté + Sécurité) est toujours là. Le reste, tu le choisis dans l'onglet <b>Modules publics</b> du tableau de bord.</p>
       <div class="modules-vitrine">
         <article class="card module-carte">
-          <span class="ico">🎓</span>
-          <span class="module-badge">Module fait par passion</span>
-          <h3>Académie réseau &amp; cyber</h3>
-          <p>Un module optionnel, créé par passion par Enzo (étudiant en réseaux) : 47 fiches de cours niveau CCNA, 498 questions de quiz avec classement, défi du jour, glossaire et outils réseau. Il n'est pas activé par défaut : installe-le seulement si ton serveur parle informatique.</p>
-          <div class="term">
-            <div><span class="p">&gt;</span> /learn topic:VLAN</div>
-            <div class="ok">✔ Fiche ouverte · CCNA 2 (SRWE)</div>
-          </div>
-        </article>
-        <article class="card module-carte">
           <span class="ico">🧩</span>
           <span class="module-badge">Dans le tableau de bord</span>
           <h3>Modules publics</h3>
@@ -241,6 +231,7 @@
           <a class="btn ghost" href="modules.html">Découvrir →</a>
         </article>
       </div>
+      <p class="module-discret"><span aria-hidden="true">🎓</span> Un exemple déjà disponible : l'<b>Académie</b>, un petit module fait par Enzo, par passion pour l'infra réseau (cours niveau CCNA, quiz). Il est optionnel et n'est pas activé par défaut. <a href="docs/PORTFOLIO.html">Le portfolio d'Enzo</a></p>
     </section>
 
     <!-- Commandes -->
@@ -310,7 +301,7 @@
         <details><summary>Il me manque une fonction, c'est possible ?</summary><p>Propose-la sur le serveur de support : les meilleures idées sont ajoutées pour tout le monde. Les <a href="modules.html">modules sur mesure</a>, codés pour un seul serveur, arrivent bientôt.</p></details>
         <details><summary>Les commandes n'apparaissent pas, que faire ?</summary><p>Attends quelques minutes puis redémarre Discord (Ctrl + R). Vérifie aussi que Cyber a bien été invité avec la permission « applications.commands ».</p></details>
         <details><summary>Quelles données Cyber enregistre-t-il ?</summary><p>Uniquement ce qui est nécessaire : les réglages de ton serveur, l'XP des membres et les avertissements. Aucune donnée n'est vendue ni partagée. Tout est détaillé dans la <a href="confidentialite.html">politique de confidentialité</a>.</p></details>
-        <details><summary>C'est quoi l'Académie ?</summary><p>Un module optionnel, fait par passion, pour apprendre le réseau et la cybersécurité directement sur Discord : fiches de cours sur les 3 modules du CCNA, glossaire, quiz avec classement, défi du jour et une IA qui répond aux questions d'informatique. Il n'est pas activé par défaut : installe-le depuis l'onglet <b>Modules publics</b> du tableau de bord.</p></details>
+        <details><summary>C'est quoi l'Académie ?</summary><p>Un petit module optionnel, fait par passion pour l'infra réseau : des fiches de cours niveau CCNA, des quiz et quelques outils réseau. Il n'est pas activé par défaut ; installe-le depuis l'onglet <b>Modules publics</b> du tableau de bord seulement si ton serveur parle réseau.</p></details>
         <details><summary>J'ai un problème ou une idée, où demander ?</summary><p>Rejoins le <a href="https://discord.gg/erqHM5s8Vz" target="_blank" rel="noopener">serveur de support de Cyber</a> : aide, signalement de bugs et suggestions.</p></details>
         <details><summary>Qui a créé Cyber ?</summary><p>Cyber est développé par Enzo, étudiant en BTS CIEL (informatique et réseaux) passionné de cybersécurité.</p></details>
       </div>
@@ -374,7 +365,7 @@
   </footer>
 
   <script src="config.js?v=d0782783"></script>
-  <script src="commandes.js?v=0b6a40eb"></script>
+  <script src="commandes.js?v=9313fdc8"></script>
   <script src="script.js?v=219772ab"></script>
 </body>
 </html>
