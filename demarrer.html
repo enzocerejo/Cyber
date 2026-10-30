@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=43cbfa9c">
+  <link rel="stylesheet" href="style.css?v=9f4dc6a1">
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
@@ -36,6 +36,7 @@
     <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="links" aria-label="Navigation principale">
       <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#modules">Modules</a>
       <a href="index.html#commandes">Commandes</a>
       <a href="demarrer.html" aria-current="page">Démarrer</a>
       <a href="nouveautes.html">Nouveautés</a>
@@ -60,7 +61,7 @@
           <div class="step-num">1</div>
           <div class="step-body">
             <h2>Inviter Cyber</h2>
-            <p>Clique sur le bouton ci-dessous, choisis ton serveur et valide. Il faut avoir la permission <b>« Gérer le serveur »</b>. Cyber envoie ensuite un message pour choisir ses <b>modules</b> : Communauté, Académie ou les deux.</p>
+            <p>Clique sur le bouton ci-dessous, choisis ton serveur et valide. Il faut avoir la permission <b>« Gérer le serveur »</b>. <b>Communauté</b> et <b>Sécurité</b> sont actifs tout de suite. Les modules en plus (comme l'Académie) s'ajoutent depuis l'onglet <b>Modules publics</b> du <a href="panel/">tableau de bord</a>.</p>
             <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1563977964616421376&amp;permissions=282884146850902&amp;scope=bot+applications.commands" target="_blank" rel="noopener">➕ Ajouter Cyber à mon serveur</a>
           </div>
         </li>
@@ -84,7 +85,7 @@
           <div class="step-body">
             <h2>Activer les logs</h2>
             <p>Crée un salon privé <b>#logs</b> pour le staff. Cyber y enverra les sanctions, les messages supprimés ou modifiés, l'automod et les tickets fermés.</p>
-            <button class="cmd-copy" data-copy="/config logs salon:#logs"><code>/config logs salon:#logs</code></button>
+            <button class="cmd-copy" data-copy="/config logs channel:#logs"><code>/config logs channel:#logs</code></button>
           </div>
         </li>
 
@@ -93,7 +94,7 @@
           <div class="step-body">
             <h2>Accueillir les nouveaux</h2>
             <p>Un message de bienvenue et un rôle donné automatiquement à l'arrivée. Variables disponibles : <code>{membre}</code> <code>{nom}</code> <code>{serveur}</code> <code>{nombre}</code>.</p>
-            <button class="cmd-copy" data-copy="/config bienvenue salon:#bienvenue message:Bienvenue {membre} sur {serveur} !"><code>/config bienvenue salon:#bienvenue message:Bienvenue {membre} sur {serveur} !</code></button>
+            <button class="cmd-copy" data-copy="/config welcome channel:#bienvenue message:Bienvenue {membre} sur {serveur} !"><code>/config welcome channel:#bienvenue message:Bienvenue {membre} sur {serveur} !</code></button>
             <button class="cmd-copy" data-copy="/config autorole role:@Membre"><code>/config autorole role:@Membre</code></button>
             <div class="discord-msg" aria-hidden="true">
               <img src="assets/logo.webp" alt="" width="40" height="40">
@@ -113,8 +114,8 @@
           <div class="step-body">
             <h2>Protéger le serveur</h2>
             <p>Active la modération automatique, puis publie le panneau de vérification dans un salon comme <b>#vérification</b>. Les comptes de moins de 24 h seront bloqués.</p>
-            <button class="cmd-copy" data-copy="/automod activer etat:True"><code>/automod activer etat:True</code></button>
-            <button class="cmd-copy" data-copy="/automod mot action:ajouter mot:"><code>/automod mot action:ajouter mot:…</code></button>
+            <button class="cmd-copy" data-copy="/automod enable state:True"><code>/automod enable state:True</code></button>
+            <button class="cmd-copy" data-copy="/automod word action:ajouter word:"><code>/automod word action:ajouter word:…</code></button>
             <button class="cmd-copy" data-copy="/verification role:@Membre"><code>/verification role:@Membre</code></button>
           </div>
         </li>
@@ -133,8 +134,8 @@
           <div class="step-body">
             <h2>Niveaux et récompenses</h2>
             <p>Les membres gagnent de l'XP en discutant. Choisis où annoncer les passages de niveau et quels rôles offrir.</p>
-            <button class="cmd-copy" data-copy="/config niveaux actif:True salon:#niveaux"><code>/config niveaux actif:True salon:#niveaux</code></button>
-            <button class="cmd-copy" data-copy="/recompense ajouter niveau:5 role:@Actif"><code>/recompense ajouter niveau:5 role:@Actif</code></button>
+            <button class="cmd-copy" data-copy="/config levels enabled:True channel:#niveaux"><code>/config levels enabled:True channel:#niveaux</code></button>
+            <button class="cmd-copy" data-copy="/reward add level:5 role:@Actif"><code>/reward add level:5 role:@Actif</code></button>
           </div>
         </li>
 
@@ -143,9 +144,9 @@
           <div class="step-body">
             <h2>Les petits plus</h2>
             <p>Salons vocaux temporaires, rôles à choisir avec des boutons et salon de suggestions.</p>
-            <button class="cmd-copy" data-copy="/config vocal salon:➕ Créer un vocal"><code>/config vocal salon:➕ Créer un vocal</code></button>
-            <button class="cmd-copy" data-copy="/panelroles titre:Choisis tes rôles role1:@Gamer"><code>/panelroles titre:Choisis tes rôles role1:@Gamer</code></button>
-            <button class="cmd-copy" data-copy="/config suggestions salon:#suggestions"><code>/config suggestions salon:#suggestions</code></button>
+            <button class="cmd-copy" data-copy="/config voice channel:➕ Créer un vocal"><code>/config voice channel:➕ Créer un vocal</code></button>
+            <button class="cmd-copy" data-copy="/rolepanel title:Choisis tes rôles role1:@Gamer"><code>/rolepanel title:Choisis tes rôles role1:@Gamer</code></button>
+            <button class="cmd-copy" data-copy="/config suggestions channel:#suggestions"><code>/config suggestions channel:#suggestions</code></button>
           </div>
         </li>
 
@@ -153,9 +154,9 @@
           <div class="step-num">✓</div>
           <div class="step-body">
             <h2>Vérifier</h2>
-            <p>Affiche toute ta configuration, puis découvre toutes les commandes avec <code>/aide</code>.</p>
-            <button class="cmd-copy" data-copy="/config voir"><code>/config voir</code></button>
-            <button class="cmd-copy" data-copy="/aide"><code>/aide</code></button>
+            <p>Affiche toute ta configuration, puis découvre toutes les commandes avec <code>/help</code>.</p>
+            <button class="cmd-copy" data-copy="/config show"><code>/config show</code></button>
+            <button class="cmd-copy" data-copy="/help"><code>/help</code></button>
           </div>
         </li>
       </ol>
@@ -196,6 +197,6 @@
   </footer>
 
   <script src="config.js?v=d0782783"></script>
-  <script src="script.js?v=168fd435"></script>
+  <script src="script.js?v=219772ab"></script>
 </body>
 </html>

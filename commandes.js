@@ -12,19 +12,13 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
-    "name": "aide",
-    "desc": "Liste de toutes les commandes de Cyber",
-    "subs": [],
-    "staff": false
-   },
-   {
     "name": "avatar",
     "desc": "Affiche l'avatar d'un membre en grand",
     "subs": [],
     "staff": false
    },
    {
-    "name": "banniere",
+    "name": "banner",
     "desc": "Affiche la bannière de profil d'un membre",
     "subs": [],
     "staff": false
@@ -36,7 +30,7 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
-    "name": "calcul",
+    "name": "calc",
     "desc": "Calculatrice (+ - * / ^ %, sqrt, sin, cos, log, pi…)",
     "subs": [],
     "staff": false
@@ -48,27 +42,33 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
-    "name": "langue",
+    "name": "help",
+    "desc": "Liste de toutes les commandes de Cyber",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "language",
     "desc": "Choisis la langue dans laquelle Cyber te répond",
     "subs": [],
     "staff": false
    },
    {
-    "name": "membres",
+    "name": "members",
     "desc": "Statistiques des membres du serveur",
     "subs": [],
     "staff": false
    },
    {
-    "name": "mesdonnees",
+    "name": "mydata",
     "desc": "Voir ou effacer les données que Cyber garde sur toi",
     "subs": [
      {
-      "name": "voir",
+      "name": "show",
       "desc": "Reçois en privé une copie de tes données (fichier JSON)"
      },
      {
-      "name": "effacer",
+      "name": "clear",
       "desc": "Efface tes données (niveaux, scores, AFK, rappels…) sur tous les serveurs"
      }
     ],
@@ -81,7 +81,13 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
-    "name": "rappel",
+    "name": "poll",
+    "desc": "Crée un sondage avec réactions",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "remind",
     "desc": "Cyber te rappelle quelque chose plus tard (en MP)",
     "subs": [],
     "staff": false
@@ -93,7 +99,7 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
-    "name": "serveur",
+    "name": "server",
     "desc": "Informations sur le serveur",
     "subs": [],
     "staff": false
@@ -103,12 +109,6 @@ window.CYBER_COMMANDES = [
     "desc": "Affiche le dernier message supprimé du salon",
     "subs": [],
     "staff": true
-   },
-   {
-    "name": "sondage",
-    "desc": "Crée un sondage avec réactions",
-    "subs": [],
-    "staff": false
    },
    {
     "name": "userinfo",
@@ -124,10 +124,29 @@ window.CYBER_COMMANDES = [
   "label": "Académie",
   "commands": [
    {
-    "name": "apprendre",
-    "desc": "Fiche de cours réseau / cybersécurité (niveau CCNA)",
+    "name": "ai",
+    "desc": "Pose une question d'informatique à l'IA de Cyber",
     "subs": [],
     "staff": false
+   },
+   {
+    "name": "challenge",
+    "desc": "Défi du jour : un quiz réseau / cyber chaque jour, avec classement",
+    "subs": [
+     {
+      "name": "enable",
+      "desc": "Publier un quiz chaque jour (salon créé automatiquement si besoin)"
+     },
+     {
+      "name": "disable",
+      "desc": "Arrêter le défi du jour"
+     },
+     {
+      "name": "now",
+      "desc": "Clôturer le quiz en cours et en publier un nouveau tout de suite"
+     }
+    ],
+    "staff": true
    },
    {
     "name": "cisco",
@@ -136,33 +155,14 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
-    "name": "defi",
-    "desc": "Défi du jour : un quiz réseau / cyber chaque jour, avec classement",
-    "subs": [
-     {
-      "name": "activer",
-      "desc": "Publier un quiz chaque jour (salon créé automatiquement si besoin)"
-     },
-     {
-      "name": "desactiver",
-      "desc": "Arrêter le défi du jour"
-     },
-     {
-      "name": "maintenant",
-      "desc": "Clôturer le quiz en cours et en publier un nouveau tout de suite"
-     }
-    ],
-    "staff": true
-   },
-   {
-    "name": "glossaire",
+    "name": "glossary",
     "desc": "Définition détaillée d'un terme réseau / cybersécurité",
     "subs": [],
     "staff": false
    },
    {
-    "name": "ia",
-    "desc": "Pose une question d'informatique à l'IA de Cyber",
+    "name": "learn",
+    "desc": "Fiche de cours réseau / cybersécurité (niveau CCNA)",
     "subs": [],
     "staff": false
    },
@@ -183,11 +183,11 @@ window.CYBER_COMMANDES = [
     "desc": "Quiz réseau / cybersécurité niveau CCNA",
     "subs": [
      {
-      "name": "jouer",
+      "name": "play",
       "desc": "Une question au hasard, ou une série de 5 sur un sujet"
      },
      {
-      "name": "classement",
+      "name": "leaderboard",
       "desc": "Les meilleurs du serveur"
      },
      {
@@ -205,7 +205,7 @@ window.CYBER_COMMANDES = [
   "label": "Outils réseau",
   "commands": [
    {
-    "name": "convertir",
+    "name": "convert",
     "desc": "Convertit un nombre (décimal, binaire, hexa, octal)",
     "subs": [],
     "staff": false
@@ -223,7 +223,7 @@ window.CYBER_COMMANDES = [
     "staff": false
    },
    {
-    "name": "sousreseau",
+    "name": "subnet",
     "desc": "Calculateur de sous-réseau IPv4",
     "subs": [],
     "staff": false
@@ -236,31 +236,31 @@ window.CYBER_COMMANDES = [
   "label": "Niveaux",
   "commands": [
    {
-    "name": "classement",
+    "name": "leaderboard",
     "desc": "Top 10 des membres les plus actifs",
     "subs": [],
     "staff": false
    },
    {
-    "name": "rang",
+    "name": "rank",
     "desc": "Ton niveau et ton XP",
     "subs": [],
     "staff": false
    },
    {
-    "name": "recompense",
+    "name": "reward",
     "desc": "Rôles donnés automatiquement à un niveau",
     "subs": [
      {
-      "name": "ajouter",
+      "name": "add",
       "desc": "Donne un rôle quand on atteint un niveau"
      },
      {
-      "name": "retirer",
+      "name": "remove",
       "desc": "Supprime la récompense d'un niveau"
      },
      {
-      "name": "liste",
+      "name": "list",
       "desc": "Liste des récompenses"
      }
     ],
@@ -271,11 +271,11 @@ window.CYBER_COMMANDES = [
     "desc": "Gérer l'XP des membres",
     "subs": [
      {
-      "name": "ajouter",
+      "name": "add",
       "desc": "Ajoute de l'XP"
      },
      {
-      "name": "retirer",
+      "name": "remove",
       "desc": "Retire de l'XP"
      },
      {
@@ -297,31 +297,31 @@ window.CYBER_COMMANDES = [
     "desc": "Modération automatique",
     "subs": [
      {
-      "name": "activer",
+      "name": "enable",
       "desc": "Active ou désactive l'automod"
      },
      {
-      "name": "filtre",
+      "name": "filter",
       "desc": "Active ou désactive un filtre"
      },
      {
-      "name": "mot",
+      "name": "word",
       "desc": "Ajoute ou retire un mot interdit"
      },
      {
-      "name": "autoriser",
+      "name": "allow",
       "desc": "Ajoute ou retire un mot toujours autorisé (même s'il est dans la bibliothèque)"
      },
      {
-      "name": "exempter",
+      "name": "exempt",
       "desc": "Ajoute ou retire un rôle ignoré par l'automod"
      },
      {
-      "name": "sanction",
+      "name": "penalty",
       "desc": "Nombre d'infractions avant un mute de 10 min"
      },
      {
-      "name": "voir",
+      "name": "show",
       "desc": "Affiche la configuration de l'automod"
      }
     ],
@@ -332,11 +332,11 @@ window.CYBER_COMMANDES = [
     "desc": "Concours avec tirage au sort",
     "subs": [
      {
-      "name": "lancer",
+      "name": "start",
       "desc": "Lance un giveaway"
      },
      {
-      "name": "terminer",
+      "name": "end",
       "desc": "Termine un giveaway maintenant"
      },
      {
@@ -347,7 +347,7 @@ window.CYBER_COMMANDES = [
     "staff": true
    },
    {
-    "name": "suggestion",
+    "name": "suggest",
     "desc": "Propose une idée pour le serveur",
     "subs": [],
     "staff": false
@@ -357,19 +357,19 @@ window.CYBER_COMMANDES = [
     "desc": "Réponses enregistrées (règles, liens, FAQ…)",
     "subs": [
      {
-      "name": "voir",
+      "name": "show",
       "desc": "Affiche un tag"
      },
      {
-      "name": "creer",
+      "name": "create",
       "desc": "Crée ou modifie un tag (staff)"
      },
      {
-      "name": "supprimer",
+      "name": "delete",
       "desc": "Supprime un tag (staff)"
      },
      {
-      "name": "liste",
+      "name": "list",
       "desc": "Liste des tags"
      }
     ],
@@ -384,15 +384,15 @@ window.CYBER_COMMANDES = [
       "desc": "Publie le bouton « Ouvrir un ticket » (admin)"
      },
      {
-      "name": "fermer",
+      "name": "close",
       "desc": "Ferme le ticket actuel"
      },
      {
-      "name": "ajouter",
+      "name": "add",
       "desc": "Ajoute un membre au ticket"
      },
      {
-      "name": "retirer",
+      "name": "remove",
       "desc": "Retire un membre du ticket"
      }
     ],
@@ -405,23 +405,23 @@ window.CYBER_COMMANDES = [
     "staff": true
    },
    {
-    "name": "vocal",
+    "name": "voice",
     "desc": "Règle ton salon vocal temporaire",
     "subs": [
      {
-      "name": "renommer",
+      "name": "rename",
       "desc": "Change le nom de ton vocal"
      },
      {
-      "name": "limite",
+      "name": "limit",
       "desc": "Nombre maximum de personnes (0 = illimité)"
      },
      {
-      "name": "statut",
+      "name": "status",
       "desc": "Texte affiché sous le nom du salon"
      },
      {
-      "name": "panneau",
+      "name": "panel",
       "desc": "Renvoie le panneau de contrôle dans le chat du vocal"
      }
     ],
@@ -438,6 +438,25 @@ window.CYBER_COMMANDES = [
     "name": "ban",
     "desc": "Bannit un utilisateur",
     "subs": [],
+    "staff": true
+   },
+   {
+    "name": "channel",
+    "desc": "Gestion du salon actuel",
+    "subs": [
+     {
+      "name": "lock",
+      "desc": "Empêche @everyone d'écrire"
+     },
+     {
+      "name": "unlock",
+      "desc": "Autorise de nouveau @everyone à écrire"
+     },
+     {
+      "name": "slowmode",
+      "desc": "Mode lent"
+     }
+    ],
     "staff": true
    },
    {
@@ -459,28 +478,9 @@ window.CYBER_COMMANDES = [
     "staff": true
    },
    {
-    "name": "pseudo",
+    "name": "nickname",
     "desc": "Change le pseudo d'un membre sur le serveur",
     "subs": [],
-    "staff": true
-   },
-   {
-    "name": "salon",
-    "desc": "Gestion du salon actuel",
-    "subs": [
-     {
-      "name": "verrouiller",
-      "desc": "Empêche @everyone d'écrire"
-     },
-     {
-      "name": "deverrouiller",
-      "desc": "Autorise de nouveau @everyone à écrire"
-     },
-     {
-      "name": "slowmode",
-      "desc": "Mode lent"
-     }
-    ],
     "staff": true
    },
    {
@@ -500,15 +500,15 @@ window.CYBER_COMMANDES = [
     "desc": "Gestion des avertissements",
     "subs": [
      {
-      "name": "ajouter",
+      "name": "add",
       "desc": "Avertit un membre"
      },
      {
-      "name": "liste",
+      "name": "list",
       "desc": "Liste les avertissements d'un membre"
      },
      {
-      "name": "effacer",
+      "name": "clear",
       "desc": "Efface tous les avertissements d'un membre"
      }
     ],
@@ -522,24 +522,24 @@ window.CYBER_COMMANDES = [
   "label": "Rôles",
   "commands": [
    {
-    "name": "panelroles",
-    "desc": "Crée un panneau où les membres choisissent leurs rôles avec des boutons",
-    "subs": [],
-    "staff": true
-   },
-   {
     "name": "role",
     "desc": "Donner ou retirer un rôle",
     "subs": [
      {
-      "name": "donner",
+      "name": "give",
       "desc": "Donne un rôle à un membre"
      },
      {
-      "name": "retirer",
+      "name": "remove",
       "desc": "Retire un rôle à un membre"
      }
     ],
+    "staff": true
+   },
+   {
+    "name": "rolepanel",
+    "desc": "Crée un panneau où les membres choisissent leurs rôles avec des boutons",
+    "subs": [],
     "staff": true
    }
   ]
@@ -550,44 +550,44 @@ window.CYBER_COMMANDES = [
   "label": "Fun",
   "commands": [
    {
-    "name": "blague",
-    "desc": "Une blague ou une devinette au hasard",
-    "subs": [],
-    "staff": false
-   },
-   {
-    "name": "choisir",
+    "name": "choose",
     "desc": "Choisit au hasard parmi plusieurs options",
     "subs": [],
     "staff": false
    },
    {
-    "name": "compatibilite",
+    "name": "coinflip",
+    "desc": "Lance une pièce",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "compatibility",
     "desc": "Taux de compatibilité entre deux membres",
     "subs": [],
     "staff": false
    },
    {
-    "name": "de",
+    "name": "dice",
     "desc": "Lance un ou plusieurs dés",
     "subs": [],
     "staff": false
    },
    {
-    "name": "note",
+    "name": "joke",
+    "desc": "Une blague ou une devinette au hasard",
+    "subs": [],
+    "staff": false
+   },
+   {
+    "name": "rate",
     "desc": "Cyber note n'importe quoi sur 10",
     "subs": [],
     "staff": false
    },
    {
-    "name": "pfc",
+    "name": "rps",
     "desc": "Pierre, feuille, ciseaux contre Cyber",
-    "subs": [],
-    "staff": false
-   },
-   {
-    "name": "pileouface",
-    "desc": "Lance une pièce",
     "subs": [],
     "staff": false
    }
@@ -603,7 +603,7 @@ window.CYBER_COMMANDES = [
     "desc": "Configuration du bot sur ce serveur",
     "subs": [
      {
-      "name": "bienvenue",
+      "name": "welcome",
       "desc": "Salon et message de bienvenue"
      },
      {
@@ -615,11 +615,11 @@ window.CYBER_COMMANDES = [
       "desc": "Rôle donné automatiquement aux nouveaux"
      },
      {
-      "name": "niveaux",
+      "name": "levels",
       "desc": "Système de niveaux / XP"
      },
      {
-      "name": "vocal",
+      "name": "voice",
       "desc": "Salon vocal « Rejoindre pour créer » (salons temporaires)"
      },
      {
@@ -631,11 +631,11 @@ window.CYBER_COMMANDES = [
       "desc": "Combien de temps garder un giveaway terminé (pour /giveaway reroll)"
      },
      {
-      "name": "langue",
-      "desc": "Langue du bot sur ce serveur"
+      "name": "language",
+      "desc": "Langue du bot sur ce serveur (ou selon le salon)"
      },
      {
-      "name": "voir",
+      "name": "show",
       "desc": "Affiche la configuration actuelle"
      }
     ],

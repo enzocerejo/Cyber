@@ -74,6 +74,16 @@ Jusque-là, Cloudflare Access ne laissait entrer que moi. Le 29 octobre, je veux
 
 ![Page d'attente du panel avec le mini-jeu](images/site-panel-attente.jpg)
 
+## Étape 6 · Panel v1.9 : plus rapide à parcourir (30 octobre)
+
+- **Menu avec sous-rubriques** : l'onglet ouvert affiche ses parties (par exemple Vérification → Rôles, Message du règlement, Salon et publication) pour y sauter directement.
+- **Modules tout en haut** : Modules publics, puis chaque module (Académie) dans son propre menu déroulant, séparé des réglages de base.
+- **Modules publics** en deux parties : « Installés sur ce serveur » et « Trouver un module » (les plus installés, les mieux notés, nouveautés, recherche par nom ou par identifiant, lien vers le support). Chaque serveur peut noter un module de 1 à 5 étoiles. Le code de module sur mesure tient dans un petit bouton en haut.
+- **Choisir un serveur** : chaque carte montre les membres, les membres en ligne, les boosts, les salons, la langue, les modules et depuis quand Cyber est là.
+- **Aperçu** : nombre de boosts et niveau, émojis.
+- **Langue** : français, anglais, ou les deux avec la liste des salons en anglais.
+- **Règlement avancé façon Discohook** : plusieurs cartes, chacune avec sa couleur, et des blocs titre, texte, petit texte, séparateur ou image, avec l'aperçu en direct.
+
 ## Sécurité du panel
 
 Le panel n'a ni mot de passe ni base SQL : **aucune injection SQL n'est possible**. Les protections en place :

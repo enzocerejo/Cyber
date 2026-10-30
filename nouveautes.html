@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preload" href="assets/polices/orbitron-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=43cbfa9c">
+  <link rel="stylesheet" href="style.css?v=9f4dc6a1">
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
@@ -36,6 +36,7 @@
     <button class="menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="links" aria-label="Navigation principale">
       <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#modules">Modules</a>
       <a href="index.html#commandes">Commandes</a>
       <a href="demarrer.html">Démarrer</a>
       <a href="nouveautes.html" aria-current="page">Nouveautés</a>
@@ -68,11 +69,25 @@
 
       <div class="timeline">
         <article class="release">
-          <div class="rel-head"><span class="version">v1.8</span><time datetime="2026-10-29">29 octobre 2026</time><span class="rel-tag new">Dernière</span></div>
+          <div class="rel-head"><span class="version">v1.9</span><time datetime="2026-10-30">30 octobre 2026</time><span class="rel-tag new">Dernière</span></div>
+          <h2>Modules, langues et règlement avancé</h2>
+          <ul>
+            <li><b>Noms de commandes en anglais pour tout le monde</b> (<code>/help</code>, <code>/learn</code>, <code>/config</code>…), avec leur description en français si ton Discord est en français.</li>
+            <li><b>Langue par salon</b> : français, anglais, ou les deux, avec une liste de salons et de catégories où Cyber écrit en anglais (<code>/config language</code> ou panel, onglet Général).</li>
+            <li>Communauté et Sécurité sont actifs dès l'arrivée. L'<b>Académie devient un module optionnel</b>, fait par passion, à installer depuis <b>Modules publics</b>.</li>
+            <li>Modules publics refaits : modules installés d'un côté, recherche de l'autre (les plus installés, les mieux notés, nouveautés, par nom ou par identifiant), notes de 1 à 5.</li>
+            <li>Menu du panel avec les <b>sous-rubriques</b> de chaque onglet pour y aller directement, et une section Modules repliable tout en haut.</li>
+            <li>Page « Choisir un serveur » plus détaillée (membres, en ligne, boosts, langue, modules) et <b>boosts</b> dans l'aperçu.</li>
+            <li>Règlement : <b>mode avancé façon Discohook</b> avec plusieurs cartes colorées, titres, petits textes, séparateurs et images.</li>
+          </ul>
+        </article>
+
+        <article class="release">
+          <div class="rel-head"><span class="version">v1.8</span><time datetime="2026-10-29">29 octobre 2026</time></div>
           <h2>Cyber parle anglais</h2>
           <ul>
             <li>Cyber est maintenant <b>bilingue français / anglais</b> : réponses, boutons, formulaires et messages automatiques.</li>
-            <li>Langue du serveur avec <code>/config langue</code> ou dans le panel (onglet Général), et langue personnelle pour chaque membre avec <code>/langue</code>.</li>
+            <li>Langue du serveur avec <code>/config language</code> ou dans le panel (onglet Général), et langue personnelle pour chaque membre avec <code>/language</code>.</li>
             <li>Les commandes ont aussi leur nom anglais dans le menu « / » de Discord (<code>/help</code>, <code>/learn</code>, <code>/challenge</code>…).</li>
             <li>Vérification : rôle « Non vérifié » donné à chaque arrivant puis retiré après validation, rôles créés ou choisis depuis le panel, salons masqués aux non‑vérifiés en un clic.</li>
             <li><b>17 modèles de règlement</b> prêts à l'emploi (communauté, gaming, Minecraft, études, boutique…), avec aperçu dans le panel.</li>
@@ -87,7 +102,7 @@
             <li>Nouveaux onglets : <b>Communauté</b>, <b>Sécurité</b>, <b>Académie</b> et <b>Modules publics</b>.</li>
             <li>Automod : <b>bibliothèque de mots interdits</b> (insultes, haine, harcèlement, arnaques…) qui reconnaît les variantes (c0nn4rd, c.o.n.n.a.r.d…), plus une liste de <b>mots autorisés</b>.</li>
             <li>Tickets : <b>123 modèles prêts à l'emploi</b> (recrutement, plainte, partenariat, boutique, jeux, roleplay…), modifiables, avec questions à l'ouverture.</li>
-            <li>Vocaux temporaires façon « Join to Create » : salon créateur en un clic, options par défaut, et un panneau pour renommer, limiter, verrouiller, masquer, expulser… (<code>/vocal</code>).</li>
+            <li>Vocaux temporaires façon « Join to Create » : salon créateur en un clic, options par défaut, et un panneau pour renommer, limiter, verrouiller, masquer, expulser… (<code>/voice</code>).</li>
             <li>Défi du jour : un quiz privé chaque jour dans un salon créé automatiquement, avec un classement publié tous les jours.</li>
             <li>Tous les messages de Cyber passent au nouveau format de Discord (Components V2).</li>
           </ul>
@@ -97,7 +112,7 @@
           <div class="rel-head"><span class="version">v1.6</span><time datetime="2026-10-29">29 octobre 2026</time></div>
           <h2>Tes données, sous ton contrôle</h2>
           <ul>
-            <li><b><code>/mesdonnees</code></b> : reçois en privé une copie de tout ce que Cyber garde sur toi, ou efface-le en un clic.</li>
+            <li><b><code>/mydata</code></b> : reçois en privé une copie de tout ce que Cyber garde sur toi, ou efface-le en un clic.</li>
             <li>Quand Cyber est retiré d'un serveur, les données de ce serveur sont <b>effacées automatiquement après 30 jours</b>.</li>
             <li>Sauvegardes automatiques quotidiennes, gardées 7 jours, pour ne plus rien perdre en cas de panne.</li>
             <li>Conditions d'utilisation et politique de confidentialité réécrites, nouvelle page <a href="mentions-legales.html">mentions légales</a>.</li>
@@ -110,9 +125,9 @@
           <h2>Une Académie beaucoup plus complète</h2>
           <ul>
             <li><b>498 questions de quiz</b> (au lieu de 75), au moins 10 par fiche de cours.</li>
-            <li><b>Séries de 5 questions sur un sujet</b> : bouton « Me tester sur ce sujet » sous chaque fiche, ou <code>/quiz jouer sujet:</code>, avec un bilan à la fin.</li>
+            <li><b>Séries de 5 questions sur un sujet</b> : bouton « Me tester sur ce sujet » sous chaque fiche, ou <code>/quiz play topic:</code>, avec un bilan à la fin.</li>
             <li><b>Les 47 fiches de cours réécrites</b> : explications 3 à 5 fois plus détaillées, exemples concrets et commandes Cisco.</li>
-            <li><code>/glossaire</code> : 92 termes avec de vraies explications (fonctionnement, exemples, protections).</li>
+            <li><code>/glossary</code> : 92 termes avec de vraies explications (fonctionnement, exemples, protections).</li>
             <li><code>/port</code>, <code>/cisco</code> et <code>/osi</code> plus précis, avec des conseils de dépannage couche par couche.</li>
             <li>Correction : les rappels et les réponses AFK ne s'envoient plus en double.</li>
           </ul>
@@ -126,7 +141,7 @@
             <li><b>Aperçus fidèles à Discord</b> dans le tableau de bord : bienvenue, passage de niveau, panneaux de tickets et de vérification, défi du jour.</li>
             <li><b>Simulateur d'automod</b> : teste un message avant d'enregistrer tes réglages.</li>
             <li>Animations plus fluides, chargement plus agréable, alerte en cas de modifications non enregistrées.</li>
-            <li><b>Serveur de support</b> : lien dans <code>/aide</code> et sur le site.</li>
+            <li><b>Serveur de support</b> : lien dans <code>/help</code> et sur le site.</li>
           </ul>
         </article>
 
@@ -135,11 +150,11 @@
           <h2>L'Académie et les modules</h2>
           <ul>
             <li><b>Deux modules</b> à activer selon ton serveur : Communauté et Académie (<code>/modules</code> ou tableau de bord).</li>
-            <li><b>Académie niveau CCNA</b> : 47 fiches de cours (ITN, SRWE, ENSA) avec <code>/apprendre</code>.</li>
-            <li><code>/glossaire</code> (80 termes), <code>/osi</code>, <code>/port</code>, <code>/cisco</code>.</li>
+            <li><b>Académie niveau CCNA</b> : 47 fiches de cours (ITN, SRWE, ENSA) avec <code>/learn</code>.</li>
+            <li><code>/glossary</code> (80 termes), <code>/osi</code>, <code>/port</code>, <code>/cisco</code>.</li>
             <li><code>/quiz</code> : 75 questions, points, séries et classement du serveur.</li>
             <li><b>Défi du jour</b> publié automatiquement à l'heure choisie.</li>
-            <li><code>/ia</code> : une IA qui répond aux questions d'informatique (bientôt activée).</li>
+            <li><code>/ai</code> : une IA qui répond aux questions d'informatique (bientôt activée).</li>
             <li>Tableau de bord : onglet Académie et choix des modules.</li>
           </ul>
         </article>
@@ -151,7 +166,7 @@
             <li><b>Tableau de bord</b> façon MEE6 : connexion avec Discord, réglages en quelques clics, aperçu des messages en direct.</li>
             <li><b>Nouveau logo et nouvelle bannière.</b></li>
             <li><code>/userinfo</code> beaucoup plus complet : badges, âge du compte, position d'arrivée, permissions clés, niveau et activité.</li>
-            <li><code>/blague</code> : 79 blagues et devinettes, avec choix de la catégorie.</li>
+            <li><code>/joke</code> : 79 blagues et devinettes, avec choix de la catégorie.</li>
             <li>Statut qui change toutes les 20 secondes.</li>
             <li>Suppression de <code>/8ball</code> et <code>/dire</code>.</li>
             <li>Lancement de ce site.</li>
@@ -162,12 +177,12 @@
           <div class="rel-head"><span class="version">v1.1</span><time datetime="2026-10-25">25 octobre 2026</time></div>
           <h2>De quoi remplacer tous les autres bots</h2>
           <ul>
-            <li><b>Niveaux et XP</b> : <code>/rang</code>, <code>/classement</code>, rôles récompenses.</li>
+            <li><b>Niveaux et XP</b> : <code>/rank</code>, <code>/leaderboard</code>, rôles récompenses.</li>
             <li><b>Automod</b> : spam, invitations, liens, majuscules, mentions de masse, mots interdits.</li>
             <li><b>Tickets</b>, <b>giveaways</b>, <b>vérification anti-raid</b>, <b>suggestions</b>, <b>tags</b>.</li>
-            <li><b>Vocaux temporaires</b>, <code>/rappel</code>, <code>/afk</code>, <code>/snipe</code>, <code>/calcul</code>.</li>
-            <li><b>Outils réseau</b> : <code>/sousreseau</code>, <code>/dns</code>, <code>/convertir</code>.</li>
-            <li>Menu <code>/aide</code> classé par catégories.</li>
+            <li><b>Vocaux temporaires</b>, <code>/remind</code>, <code>/afk</code>, <code>/snipe</code>, <code>/calc</code>.</li>
+            <li><b>Outils réseau</b> : <code>/subnet</code>, <code>/dns</code>, <code>/convert</code>.</li>
+            <li>Menu <code>/help</code> classé par catégories.</li>
           </ul>
         </article>
 
@@ -214,6 +229,6 @@
   </footer>
 
   <script src="config.js?v=d0782783"></script>
-  <script src="script.js?v=168fd435"></script>
+  <script src="script.js?v=219772ab"></script>
 </body>
 </html>
