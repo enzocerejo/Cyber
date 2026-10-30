@@ -299,6 +299,11 @@ Une longue liste d'un coup, avec un mot d'ordre : « vérifie aussi toute la coh
 - 📊 Page « Choisir un serveur » plus détaillée et **boosts** dans l'aperçu.
 - 📜 Règlement : un **mode avancé façon Discohook** avec plusieurs cartes colorées, titres, séparateurs et images.
 
+Le lendemain matin, une deuxième vague :
+
+- 🎓 « Il faut arrêter de parler du module Académie comme un module du bot par défaut. » Elle devient un petit module optionnel, fait par passion pour l'infra réseau : plus dans la bio ni dans l'accueil, et ses commandes n'apparaissent même plus dans le menu « / » des serveurs qui ne l'ont pas installée.
+- 🌐 **Salons bilingues** : un bouton 🇬🇧 English / 🇫🇷 Français sous les messages de Cyber, qui change la langue du message sur place.
+
 ⚠️ *Problème* : en passant les noms de commandes en anglais, un texte qui citait plusieurs commandes sur la même ligne ne traduisait que la première. 💡 Corrigé et vérifié sur tous les textes du bot, du panel et du site.
 
 ---

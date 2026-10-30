@@ -121,7 +121,7 @@ window.CYBER_COMMANDES = [
  {
   "id": "academie",
   "emoji": "🎓",
-  "label": "Académie",
+  "label": "Académie (module optionnel)",
   "commands": [
    {
     "name": "ai",
@@ -202,7 +202,7 @@ window.CYBER_COMMANDES = [
  {
   "id": "reseau",
   "emoji": "🌐",
-  "label": "Outils réseau",
+  "label": "Outils réseau (Académie)",
   "commands": [
    {
     "name": "convert",
