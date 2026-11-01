@@ -16,6 +16,12 @@ if (menuBtn && links) {
   });
 }
 
+// ---------- Adresse propre : enlève « .html » de la barre d'adresse (index.html → /) ----------
+if (/\.html$/.test(location.pathname) && history.replaceState) {
+  const propre = location.pathname.replace(/(^|\/)index\.html$/, '$1').replace(/\.html$/, '');
+  history.replaceState(null, '', propre + location.search + location.hash);
+}
+
 document.querySelectorAll('[data-annee]').forEach((n) => { n.textContent = new Date().getFullYear(); });
 
 function el(tag, cls, text) {
