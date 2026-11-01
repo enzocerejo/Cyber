@@ -1,11 +1,7 @@
 // Réglages du site Cyber (tu peux modifier ce fichier sans risque)
 window.CYBER_CONFIG = {
-  // ID du serveur Discord utilisé pour afficher si Cyber est en ligne.
-  // Ce serveur doit avoir le widget activé : Paramètres du serveur > Widget > « Activer le widget du serveur ».
-  // Conseil : utilise un petit serveur « Support Cyber », car le widget rend publique la liste des membres en ligne.
-  // Laisse vide ('') pour masquer le statut.
-  statutServeurId: '',
-
-  // Nom exact du bot tel qu'il apparaît sur Discord
-  nomDuBot: 'Cyber',
+  // Adresse où le bot dit s'il est en ligne (nombre de serveurs et de membres, rien de personnel).
+  // Si le bot change d'adresse (autre hébergeur), mets la nouvelle ici. Elle doit aussi être dans la ligne
+  // « connect-src » des pages (outils/site/build.py dans bot-cyber).
+  statutUrl: 'https://panel.cyberbot.fr/statut',
 };
