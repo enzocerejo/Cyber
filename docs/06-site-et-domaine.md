@@ -23,6 +23,7 @@ Le site présente Cyber, liste ses commandes, explique comment démarrer et publ
 
 1. Les pages sont écrites dans le dossier du bot, sous `outils/site/<page>.main.html`.
 2. Le script `build.py` ajoute l'en-tête, le pied de page et des numéros de version « anti-cache », puis écrit les pages dans le dossier du site. Il réécrit aussi le fichier `CNAME`.
+   Depuis le 1er novembre, il écrit des **adresses propres**, sans « .html » : `cyberbot.fr/demarrer` au lieu de `cyberbot.fr/demarrer.html`, et `cyberbot.fr/` au lieu de `cyberbot.fr/index.html`. GitHub Pages trouve tout seul le fichier `demarrer.html`, et un petit script enlève le « .html » de la barre d'adresse si quelqu'un tape l'ancienne adresse (les anciens liens marchent donc toujours).
 3. `commandes.js` est **généré à partir du code du bot** : la liste du site est donc toujours à jour.
 4. `PUBLIER.bat` envoie le tout sur GitHub. Le site est en ligne 1 à 2 minutes plus tard.
 
