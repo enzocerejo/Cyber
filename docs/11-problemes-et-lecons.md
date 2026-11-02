@@ -14,6 +14,9 @@ Le carnet de bord (chapitre 2) raconte les problèmes dans l'ordre où ils sont 
 | Page anglaise sans tous les onglets | Menu de la version anglaise écrit à part | Menu aligné sur la version française | Une traduction se vérifie page par page |
 | Changements bloqués pendant des heures | PC éteint ou en veille, donc rien à installer | Paquets prêts et testés à l'avance, PR pour le site | Préparer pendant l'absence, installer en une fois au retour |
 | Dossier du site en retard sur GitHub | Des PR fusionnées en ligne pendant que le PC était éteint | `SYNCHRONISER-SITE.bat` (met de côté puis aligne sur GitHub) | Deux façons de publier = penser à se resynchroniser |
+| Serveur de l'hébergeur supprimé | L'article 5.3 de ses conditions interdit les tunnels Cloudflare (découvert le 31 octobre) | Rester sur mon PC, puis un serveur à moi | Lire les conditions d'utilisation avant d'installer |
+| Guide du serveur Discord refusait mes salons | `@everyone` avait encore le droit d'écrire au niveau du rôle lui-même | Retirer « Envoyer des messages » sur le rôle `@everyone` | Les permissions Discord se cumulent : rôle, catégorie, salon |
+| Rôle « J'utilise Cyber » impossible | Discord ne liste pas les installations d'une app sur un compte | Idée abandonnée, code retiré | Vérifier ce que l'API permet avant de coder |
 | Chaque commande répondait deux fois | Plusieurs copies du bot tournaient (PC + hébergeur, ou anciennes fenêtres) | Instance unique par port local, fermeture des anciennes copies au démarrage | Un service doit savoir qu'il est seul |
 | Panel injoignable chez l'hébergeur | Nom passant par Cloudflare, puis **aucun port entrant** sur la machine | Tunnel Cloudflare sortant | Une connexion sortante passe là où l'entrante est bloquée |
 | Mélange HTTPS / HTTP | Site en HTTPS, panel en HTTP | Domaine + tunnel = panel en HTTPS | Le navigateur bloque le « contenu mixte » |
@@ -41,6 +44,11 @@ Ce projet a aussi été une découverte : je ne code pas, et j'ai dû apprendre 
 | Un fil pour chaque chose | La demande « bot bilingue » a hésité entre deux fils | Une règle de routage écrite et appliquée sans exception |
 | Peur de la facture | « Je ne veux pas dépenser mes tokens » pour une IA dans l'automod | Toujours demander le coût réel et commencer par la solution gratuite |
 | Copier un jeu connu | Je voulais le jeu du dino de Google aux couleurs de Cyber | On ne copie pas une création protégée : un jeu original fait aussi bien l'affaire |
+| Mail important non lu | Le mail qui expliquait la suppression du serveur était dans ma boîte depuis trois jours | Surveiller ses mails et ses notifications, surtout après un incident |
+| Paiement hors plateforme | Un vendeur voulait PayPal « entre proches » | Toujours payer avec la transaction sécurisée du site, sinon renoncer |
+| Pièce incompatible | Je comptais mettre de la DDR5 dans un PC qui n'accepte que la DDR4 | Vérifier la compatibilité de chaque pièce avant d'acheter |
+| Prix mal lus | Prix hors taxe, engagement de 24 mois, frais d'installation, erreur de ligne | Comparer le prix final TTC sans engagement |
+| Frustration (« jpp ») | Des réglages Discord qui refusaient de marcher | Faire une pause et décrire précisément le blocage : la cause était simple |
 | Vocabulaire nouveau | Token du bot ou jeton GitHub ? PR, merge, branche, ruleset, CNAME, TOTP… | Demander sans gêne « c'est quoi ? » : chaque réponse m'a fait progresser |
 | Où mettre les secrets | J'ai demandé où mettre le token sur GitHub | Un secret ne va **jamais** dans un dépôt, même privé |
 | Trop de validations | Me demander « ok » à chaque étape ralentissait tout | Fixer une règle claire : réversible = on fait, irréversible = on me demande |

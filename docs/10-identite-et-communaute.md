@@ -30,7 +30,7 @@ Les générateurs gratuits sortent des images en 1024 ou 1536 px : chaque image 
 
 ![Bannière de profil](images/banniere.jpg)
 
-Quelques bandeaux d'embed déjà produits (1200 × 400) :
+Au 1er novembre, les prompts 2 à 24 sont faits : avatar, bannières, image de partage, bandeaux 8 à 21, carte de niveau, miniatures et émojis. Quelques bandeaux d'embed (1200 × 400) :
 
 ![Bandeau Bienvenue](images/bandeau-08-bienvenue.jpg)
 ![Bandeau Modération](images/bandeau-10-moderation.jpg)
@@ -40,7 +40,7 @@ Quelques bandeaux d'embed déjà produits (1200 × 400) :
 ## Le profil du bot sur Discord
 
 - **Avatar et bannière** chargés dans le portail développeur (la bannière a été refaite en version opaque, avec le texte centré, pour bien s'afficher en petite vue).
-- **Statut permanent** : « 🌐 cyberbot.fr · /aide ».
+- **Statut permanent** : « 🌐 cyberbot.fr · /help » (depuis que les commandes s'appellent en anglais).
 - **Bio automatique** avec le nombre de serveurs, de membres et de commandes, mise à jour par le bot lui-même.
 - Liens vers les conditions d'utilisation et la politique de confidentialité.
 - Application transférée dans une **équipe Discord**.
@@ -57,3 +57,24 @@ Un modèle complet a été conçu pour le serveur officiel, dans le style « emo
 - pas de catégorie « Sanction » : `/mute` utilise déjà le timeout natif de Discord.
 
 Le 29 octobre, le serveur devient **bilingue**. Un nouveau venu arrive avec le rôle « Non vérifié » et ne voit qu'un salon `langue-language`. Il choisit 🇫🇷 ou 🇬🇧, lit le règlement de sa langue, l'accepte et reçoit « Membre » ou « Member ». Il voit alors les salons de sa langue et les salons communs. Le règlement anglais se publie avec un script dédié, comme le français.
+
+**Le modèle final (30 et 31 octobre)**. Après plusieurs essais (deux serveurs séparés par langue, puis des salons cachés selon la langue), la formule retenue est **un seul serveur bilingue** :
+
+- les rôles 🇫🇷 Français et 🇬🇧 English sont seulement **informatifs** : chacun peut prendre les deux, et ils ne cachent aucun salon ;
+- les salons ont des noms dans les deux langues (`📢・annonces-news`, `🔍・entraide-help`…), seule la discussion est séparée (`🇫🇷・discussions` et `🇬🇧・general`) ;
+- chaque salon a un sujet en français et en anglais ;
+- mode **lecture seule** : `@everyone` voit tout mais ne peut pas écrire. Le bouton du règlement donne le rôle ✅ Vérifié, qui peut écrire là où la discussion est ouverte. Les deux règlements sont dans le même salon, et Cyber répond dans la langue de celui sur lequel on a cliqué.
+
+## Se faire connaître
+
+Le 31 octobre et le 1er novembre, j'ai préparé la visibilité de Cyber :
+
+| Levier | Rôle | Quand |
+|---|---|---|
+| **top.gg** | Annuaire de bots : page avec captures, votes, avis | Dès que le bot est en ligne 24 h/24 (examen de 1 à 2 semaines) |
+| **DISBOARD** | Remonte le serveur de support dans un annuaire (« bump ») | Tout de suite |
+| **Ko-fi** | Dons, avec le rôle 💎 Contributeur donné automatiquement | Quand il y aura des utilisateurs |
+| **Partenariats** | Échange de publicité entre serveurs | Plus tard, avec les serveurs qui utilisent Cyber |
+| **Statut en direct** | Le site affiche si le bot est en ligne et son nombre de serveurs | Fait le 1er novembre |
+
+Le lien d'invitation du site ne demande pas la permission Administrateur, ce que top.gg exige. Des textes prêts à copier (français et anglais) ont été écrits pour chaque plateforme. Le site renvoie aussi vers mon portfolio, **enzocerejo.fr**.

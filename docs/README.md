@@ -28,12 +28,12 @@ Compte rendu complet, étape par étape, de la création de **Cyber**, un bot Di
 
 | | |
 |---|---|
-| Durée | 5 jours (25 → 29 octobre 2026) |
-| Versions | v1.0 → v1.9 |
+| Durée | 9 jours (25 octobre → 2 novembre 2026) |
+| Versions | v1.0 → v1.9.2 |
 | Commandes | 61, en 2 modules (Communauté, Académie), en français et en anglais |
 | Académie | 47 fiches CCNA, 498 questions, 92 termes de glossaire |
 | Tickets | 123 modèles prêts à l'emploi |
-| Sécurité | 5 audits, plus de 45 points corrigés, 0 secret publié |
+| Sécurité | 6 audits dont un pentest, plus de 50 points corrigés, 0 secret publié |
 
 ## À propos des images
 

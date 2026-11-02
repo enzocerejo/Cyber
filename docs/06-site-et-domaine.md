@@ -56,6 +56,13 @@ Les polices (Orbitron, Inter) sont hébergées sur le site lui-même pour ne rie
 
 Le même jour, l'ancien panel de démonstration a laissé la place à un renvoi vers le vrai panel (chapitre 5).
 
+### Depuis, côté site (30 octobre → 2 novembre)
+
+- **Visite guidée animée** et section **Modules** sur l'accueil ; l'Académie y est présentée comme un module optionnel.
+- **Adresses propres** sans « .html » (`cyberbot.fr/demarrer`).
+- **Statut en direct** : le bot publie sur `panel.cyberbot.fr/statut` s'il est en ligne et son nombre de serveurs et de membres, et le site l'affiche avec un compteur de serveurs.
+- Nouveau lien permanent vers le serveur de support, et nom de l'auteur relié au portfolio **enzocerejo.fr**.
+
 ## Achat du nom de domaine (28 octobre)
 
 Les noms `cyber.com` ou `cyberbot.com` étant presque sûrement pris ou très chers, le choix s'est porté sur **cyberbot.fr** :
