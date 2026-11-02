@@ -1,6 +1,6 @@
 # Chapitre 8 · Sécurité et audits
 
-La sécurité a été traitée comme un fil rouge : cinq audits en quatre jours, chaque fois avec un rapport classé par priorité, une explication simple de chaque faille, puis les corrections testées.
+La sécurité a été traitée comme un fil rouge : six audits en une semaine, dont un pentest, chaque fois avec un rapport classé par priorité, une explication simple de chaque faille, puis les corrections testées.
 
 ![Bilan des audits](images/bilan-audits.jpg)
 
@@ -97,12 +97,28 @@ Dans la foulée :
 
 Test final avec un autre compte Discord : validé.
 
+Le soir même, une vérification complémentaire a ajouté trois renforcements : un cookie de connexion verrouillé sur `panel.cyberbot.fr` (préfixe `__Host-`, impossible à remplacer depuis un autre sous-domaine), la redirection automatique de `http://` vers `https://` derrière le tunnel, et dans Cloudflare **Always Use HTTPS** et **Bot Fight Mode**.
+
 ## L'automod contre les lettres déguisées (29 octobre)
 
 Ma question : « On pourrait intégrer un peu d'IA dans l'automod, qui peut être contourné avec deux ou trois changements de texte ? » Deux couches ont été proposées :
 
 1. **Gratuite** (installée) : avant de chercher les mots interdits, le texte est « aplati ». Les caractères invisibles sont retirés, les lettres stylisées (𝐜𝐨𝐧, ⓒⓞⓝ), les lettres russes ou grecques qui ressemblent aux nôtres et les lettres-drapeaux sont ramenées à des lettres normales, et les mots coupés par un symbole (« con-nard », « con🤡nard ») sont recollés. Testé sans faux positif sur des phrases normales comme « la mer de glace ».
 2. **IA** (Claude Haiku, environ 5 centimes pour 1 000 messages, avec une clé API séparée de mon abonnement) : elle comprendrait aussi les insultes reformulées. J'ai préféré **ne rien dépenser pour l'instant**. Le code est gardé de côté.
+
+## Audit n°6 · Pentest complet (31 octobre)
+
+Demande : « je veux un bot sans aucune faille ». Un test d'intrusion de mes propres services : revue du code du bot (permissions, entrées, données), tests en boîte noire du panel (CSRF, sessions, en-têtes, limites), revue du site public et de l'historique GitHub. Pour la disponibilité, seulement une revue du code et de la configuration : pas de test de charge, puisque Cloudflare et GitHub Pages ne m'appartiennent pas.
+
+**Résultat : aucune faille critique ni élevée.** 2 problèmes moyens et 3 faibles :
+
+| Problème | Gravité | Correction |
+|---|---|---|
+| Un admin pouvait autoriser `/ban` à un rôle qui n'a pas le droit de bannir, et Cyber bannissait quand même | Moyen | Cyber revérifie la permission réelle du membre avant chaque commande |
+| Un plantage arrêtait le bot jusqu'à la relance à la main | Moyen | Redémarrage automatique (jusqu'à 20 fois) |
+| `/snipe` gardait les messages supprimés sans limite de temps | Faible | Oubliés au bout d'une heure |
+| Requêtes cassées au panel → « erreur interne » | Faible | Réponses propres (400, 404, 413) |
+| Une ancienne adresse e-mail reste dans l'historique Git du site | Faible | Laissée en l'état (réécrire l'historique serait plus risqué) |
 
 ## Protections du compte et de l'infrastructure
 

@@ -92,7 +92,7 @@ Comparaison faite pour un hébergement à la maison :
 | Virtualisation | Très limitée | Proxmox, plusieurs VM (pfSense, Windows Server, labos) |
 | Compatibilité Docker | La plupart des images | Toutes |
 
-Conclusion retenue : un **mini PC reconditionné** (HP EliteDesk 800 G4/G5 Mini, Lenovo ThinkCentre M720q/M920q, Dell OptiPlex 7070 Micro) avec Proxmox ou Debian, Docker et le tunnel Cloudflare déjà prêt. Il servira aussi de laboratoire pour le BTS CIEL et le CCNA. Choix final (29 octobre) : un **HP EliteDesk 800 G5 Mini** d'occasion (i5-9500 6 cœurs, **16 Go** de RAM, SSD 500 Go, Wi-Fi) à **220 €**, préféré à un modèle à 200 € qui n'avait que 12 Go. Mon père l'achète le samedi 31 octobre avec la transaction sécurisée de leboncoin. Prévu ensuite : **Proxmox**, une VM Debian avec Docker pour le bot, le panel et le tunnel, puis des VM de labo (pfSense, Windows Server, Linux) allumées seulement pour réviser.
+Conclusion retenue : un **mini PC reconditionné** (HP EliteDesk 800 G4/G5 Mini, Lenovo ThinkCentre M720q/M920q, Dell OptiPlex 7070 Micro) avec Proxmox ou Debian, Docker et le tunnel Cloudflare déjà prêt. Il servira aussi de laboratoire pour le BTS CIEL et le CCNA. Le 29 octobre, un **HP EliteDesk 800 G5 Mini** d'occasion (i5-9500 6 cœurs, 16 Go de RAM, SSD 500 Go, Wi-Fi) à 220 € est d'abord choisi. Le soir même, le vendeur demande un paiement PayPal hors de leboncoin : l'annonce est abandonnée, et le choix se reporte sur un autre G5 Mini (i5-9600, 12 Go, 512 Go, 200 €), à acheter uniquement avec la transaction sécurisée de leboncoin. Une barrette DDR5 que je possédais ne pouvait pas servir : ces PC n'acceptent que la DDR4. Prévu ensuite : **Proxmox**, une VM Debian avec Docker pour le bot, le panel et le tunnel, puis des VM de labo (pfSense, Windows Server, Linux) allumées seulement pour réviser.
 
 ## Et en attendant ?
 
@@ -106,3 +106,17 @@ Le 29 octobre, j'ai aussi étudié un hébergement payant pour que le panel rest
 | Hébergeurs « gratuits spécial bots » | « Gratuit » | Écartés : c'est le genre qui a supprimé mon serveur |
 
 Décision : rester sur le PC pour l'instant (le panel est disponible quand il est allumé) et décider dans quelques jours. Le tunnel ne changera pas : il suffira de le lancer depuis la nouvelle machine.
+
+**Mise à jour du 1er novembre** : au moment de créer le serveur, les prix réels de Hetzner (TTC, adresse IPv4 comprise) étaient bien plus hauts. Le modèle CX23 était indisponible, le CPX02 (1 Go) coûtait 7,79 € par mois, et le CPX11 21,59 €. La piste **IONOS** (VPS M, 4 Go) a été ajoutée, à condition de vérifier le prix sans engagement : les 2 à 3 € affichés correspondent à un engagement de 24 mois. Le choix est en cours.
+
+## Pourquoi Teoheberg a supprimé le serveur
+
+Le 31 octobre, j'ai retrouvé le mail de l'hébergeur que je n'avais pas vu. Le serveur avait été supprimé pour non-respect de l'**article 5.3** de ses conditions, qui s'applique aux offres Eco et Standard. Il interdit notamment :
+
+- les **tunnels** (dont « Cloudflare Argo Tunnel » et Ngrok) utilisés pour contourner les restrictions de ports ;
+- les serveurs proxy (VLESS, VMESS, Trojan…) ;
+- les programmes renommés pour cacher leur rôle ;
+- l'envoi automatique de configurations vers des services tiers ;
+- les agents de surveillance extérieurs.
+
+Le `cloudflared` lancé par Cyber était donc exactement ce qui était interdit. Une récidive fermerait le compte. Pour revenir chez Teoheberg, il faudrait un serveur **sans tunnel** (pas de `TUNNEL_TOKEN`), et donc renoncer à `panel.cyberbot.fr`, ou prendre la gamme Standard avec un port, en HTTP. C'est pourquoi un serveur à moi (VPS ou homelab) reste la bonne solution.

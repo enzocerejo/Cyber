@@ -287,6 +287,16 @@ Tout commence dans une première conversation avec Claude, intitulée « Bot Dis
 
 🧠 La leçon du jour : quand plusieurs chantiers avancent en même temps, le plus important n'est pas d'aller vite, c'est l'**ordre** dans lequel on installe, avec une sauvegarde à chaque étape.
 
+### Soirée : renforcer, et un achat qui se complique
+
+**18 h 31** · 🛠️ Ménage et dernière vérification du panel public : aucune faille, mais trois renforcements. Le cookie de connexion est verrouillé sur `panel.cyberbot.fr`, `http://` renvoie automatiquement vers `https://`, et la page d'attente accepte aussi `www.cyberbot.fr`. L'ancien panel de démonstration et des images inutiles sont retirés du site (PR #13). Tout le monde est déconnecté une fois, c'est normal.
+**22 h 40** · ⚠️ *Problème humain* : le vendeur du mini PC choisi l'après-midi veut être payé par **PayPal « entre proches »**, hors de leboncoin. 💡 J'abandonne l'annonce : ce mode de paiement ne protège pas l'acheteur et c'est une technique d'arnaque classique. Nouveau classement, avec un message prêt à envoyer à un autre vendeur.
+**22 h 43** · ⚠️ J'avais prévu de mettre dans le mini PC une barrette de **DDR5** que je possède déjà. 💡 Les EliteDesk G5 n'acceptent que la **DDR4** : la barrette ne rentre physiquement pas. Elle pourra être revendue pour financer une barrette DDR4.
+🧠 Avant d'acheter, vérifier la compatibilité de chaque pièce, et ne jamais sortir de la plateforme de paiement sécurisée.
+**22 h 52** · Dans Cloudflare, j'active **Always Use HTTPS** et **Bot Fight Mode**. « Tout est fait. »
+**23 h 00** · 🛠️ Nouveau lien d'invitation permanent pour le serveur de support, remplacé partout : bot, bio, `/help`, site (PR #14).
+**Vers 23 h** · Sur le serveur de support, je supprime le rôle « Non vérifié » : tout le monde voit les salons, mais seuls les membres vérifiés peuvent écrire.
+
 ---
 
 ## Vendredi 30 octobre : la v1.9, plus claire pour tout le monde
@@ -306,17 +316,51 @@ Le lendemain matin, une deuxième vague :
 
 ⚠️ *Problème* : en passant les noms de commandes en anglais, un texte qui citait plusieurs commandes sur la même ligne ne traduisait que la première. 💡 Corrigé et vérifié sur tous les textes du bot, du panel et du site.
 
+Et toute la journée, en parallèle :
+
+- 🛠️ **Tickets** : plusieurs rôles du staff peuvent maintenant voir les tickets (jusqu'à 10).
+- 🛠️ **Vérification à deux modes** : soit les salons sont **cachés** aux non-vérifiés, soit ils sont visibles en **lecture seule**. Le panel règle lui-même les permissions de `@everyone` et du rôle vérifié, sans jamais donner de droit dangereux.
+- 💡 Idée abandonnée : donner automatiquement un rôle « J'utilise Cyber » à ceux qui ont installé Cyber sur leur compte. ⚠️ Discord ne fournit pas la liste des installations sur un compte, c'est donc impossible. Le code est retiré.
+- 🛠️ **20 h 33** · Le serveur de support redevient **un seul serveur bilingue** : des rôles 🇫🇷 / 🇬🇧 seulement informatifs, des salons aux noms dans les deux langues, et les deux règlements dans le même salon. Le bouton du règlement donne le rôle vérifié et répond dans la langue du règlement cliqué.
+- 🛠️ **Vers 23 h** · Option du panel « Répondre dans la langue de chaque membre » : Cyber regarde dans l'ordre le choix `/language` du membre, son rôle de langue, la langue de son Discord, puis celle du serveur ou du salon.
+
+## Samedi 31 octobre : la vraie cause de l'incident, et un pentest
+
+**12 h 09 → 12 h 16** · 🛠️ Serveur de support : les ressources du « Guide du serveur » et un sujet en français et en anglais pour chacun des 33 salons, avec un bouton pour les copier.
+**14 h 53** · « Les partenaires, c'est quoi ? Il faut un bot de bump ? Comment faire pour que mon bot soit vu et choisi ? » 💡 Les partenariats attendront les premiers vrais utilisateurs. Pour les dons, **Ko-fi** peut donner un rôle 💎 Contributeur tout seul. **DISBOARD** suffit pour le bump, et la priorité est une page sur **top.gg**.
+**16 h 52** · ⚠️ *Problème humain* : je retrouve un mail de Teoheberg du 28 octobre que **je n'avais pas vu**. Il expliquait la suppression du serveur : « non-respect du point 5.3 des conditions d'utilisation ». Je colle le texte de l'article. 💡 Le 5.3 interdit noir sur blanc les **tunnels Cloudflare** pour contourner les restrictions de ports, c'est-à-dire exactement le `cloudflared` que lançait mon bot. Une récidive fermerait le compte définitivement.
+🧠 Lire les conditions d'utilisation **avant** d'installer, et surveiller ses mails : la réponse à « pourquoi mon serveur a disparu » était dans ma boîte depuis trois jours.
+**17 h 12** · Je demande un **pentest complet** du bot, du panel et du site : « je veux un bot sans aucune faille ».
+**23 h 07** · ⚠️ *Problème humain* : « jpp ». Le Guide du serveur de Discord refuse mes salons sans que je comprenne pourquoi. 💡 Discord regarde aussi les permissions du rôle `@everyone` lui-même, pas seulement celles des catégories. Une minute pour le régler, une fois la cause connue.
+**23 h 14** · ✅ **Pentest terminé : aucune faille critique ni élevée.** Quatre corrections installées (chapitre 8).
+
+## Dimanche 1er novembre : se faire connaître
+
+**17 h 45** · 🛠️ Adresses propres sur le site : `cyberbot.fr/demarrer` au lieu de `cyberbot.fr/demarrer.html` (PR #18).
+**17 h 52** · J'essaie de créer le serveur Hetzner. ⚠️ Les prix ont beaucoup monté, le modèle le moins cher est indisponible, et une erreur de lecture m'a fait croire qu'un serveur à 21,59 € en coûtait 7,79 €. 💡 Correction immédiate, et comparaison avec **IONOS** en vérifiant le prix **sans engagement** (les petits prix affichés sont pour 24 mois).
+🧠 Toujours lire le prix final TTC, la durée d'engagement et les frais d'installation.
+**18 h 01** · 🛠️ Guide « Faire connaître Cyber » avec les textes prêts à copier pour top.gg, DISBOARD et Ko-fi. Le lien d'invitation du site ne demande pas la permission Administrateur, ce qui est exigé par top.gg. Dernière condition : le bot doit être **en ligne 24 h/24** avant d'être proposé.
+**18 h 18** · 🎨 Visuels 19 à 24 faits : bandeaux, carte de niveau, miniatures et émojis.
+**18 h 22** · 🛠️ **Statut en direct sur le site** : le bot publie s'il est en ligne, son nombre de serveurs et de membres, et le site les affiche (PR #19).
+
+## Lundi 2 novembre : le portfolio
+
+**23 h 14** · 🛠️ Le nom « Enzo Cerejo » en bas de chaque page du site renvoie maintenant vers mon portfolio **enzocerejo.fr** (PR #20).
+**23 h 26** · Je demande de remettre cette documentation à jour. 📘
+
+🧠 La leçon de ces jours-là : un projet qui grandit a autant besoin de communication (serveur de support, top.gg, portfolio) que de code.
+
 ---
 
 ## Bilan du carnet
 
 | Indicateur | Valeur |
 |---|---|
-| Durée | 6 jours, dont une journée de plus de 15 heures |
-| Versions | v1.0 → v1.9 |
+| Durée | 9 jours (25 octobre → 2 novembre), dont une journée de plus de 15 heures |
+| Versions | v1.0 → v1.9.2 |
 | Commandes | 20 → 61 |
 | Langues | Français et anglais |
-| Audits de sécurité | 5 (plus de 45 points corrigés) |
-| Pull requests sur le site | Plus de 10 |
-| Incidents majeurs | 1 (serveur supprimé par l'hébergeur) |
+| Audits de sécurité | 6, dont un pentest (plus de 50 points corrigés) |
+| Pull requests sur le site | 21 (dont celle-ci) |
+| Incidents majeurs | 1 (serveur supprimé par l'hébergeur, cause trouvée le 31 octobre : tunnels interdits par ses conditions) |
 | Données perdues | Celles du serveur hébergé (les sauvegardes automatiques existent depuis) |

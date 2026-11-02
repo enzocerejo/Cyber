@@ -84,6 +84,13 @@ Jusque-là, Cloudflare Access ne laissait entrer que moi. Le 29 octobre, je veux
 - **Langue** : français, anglais, ou les deux avec la liste des salons en anglais.
 - **Règlement avancé façon Discohook** : plusieurs cartes, chacune avec sa couleur, et des blocs titre, texte, petit texte, séparateur ou image, avec l'aperçu en direct.
 
+Ajouts du 30 octobre (v1.9.1 et suivantes) :
+
+- **Panel en anglais** : bouton 🇬🇧 EN / 🇫🇷 FR en haut à droite.
+- **Vérification à deux modes** : salons **cachés** aux non-vérifiés, ou visibles en **lecture seule**. Le panel applique lui-même les bonnes permissions à `@everyone` et au rôle vérifié, sans jamais donner de droit dangereux.
+- **Tickets** : jusqu'à 10 rôles du staff peuvent voir les tickets.
+- **Répondre dans la langue de chaque membre** : choix personnel, puis rôle de langue, puis langue de Discord, puis langue du serveur ou du salon.
+
 ## Sécurité du panel
 
 Le panel n'a ni mot de passe ni base SQL : **aucune injection SQL n'est possible**. Les protections en place :

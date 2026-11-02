@@ -3,6 +3,7 @@
 | Terme | Explication simple |
 |---|---|
 | **API** | Porte d'entrée d'un service pour les programmes (ici, celle de Discord ou d'Anthropic) |
+| **Bump** | Remonter son serveur en tête d'un annuaire comme DISBOARD, à intervalle régulier |
 | **Branche / Pull request / Merge** | Copie de travail d'un dépôt Git / proposition de modification / acceptation de cette proposition |
 | **CNAME** | Enregistrement DNS qui dit « ce nom est un alias de cet autre nom » ; aussi le fichier qui donne son domaine à GitHub Pages |
 | **Cloudflare Access** | Contrôle d'accès devant un site : il faut prouver son identité (code par mail, application 2FA) avant de voir la page |
@@ -19,6 +20,7 @@
 | **Intent** | Type d'événements que le bot demande à recevoir de Discord (certains sont « privilégiés ») |
 | **Moindre privilège** | Ne donner que les droits strictement nécessaires |
 | **OAuth2** | Connexion « avec Discord » sans donner son mot de passe au site |
+| **Pentest** | Test d'intrusion : on attaque ses propres services, avec autorisation, pour trouver les failles avant les autres |
 | **Proxmox** | Système installé sur une machine pour y faire tourner plusieurs machines virtuelles isolées |
 | **Pterodactyl** | Panneau d'hébergement qui fait tourner chaque serveur dans un conteneur Docker |
 | **RGPD** | Règlement européen sur la protection des données personnelles |

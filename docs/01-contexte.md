@@ -4,15 +4,15 @@
 
 **Cyber** est un bot Discord créé par **Enzo Cerejo**, étudiant en **BTS CIEL** (Cybersécurité, Informatique et réseaux, Électronique), option Informatique et Réseaux. Le projet est né d'un constat simple : sur un serveur Discord, on empile souvent cinq ou six bots différents (un pour les tickets, un pour la modération, un pour les niveaux, un pour les giveaways…). Chacun a ses permissions, son tableau de bord, ses pannes.
 
-L'idée : **un seul bot, gratuit, qui remplace tous les autres**, avec en plus un module pédagogique pour réviser les réseaux au niveau **CCNA**, ce qui colle à la formation d'Enzo.
+L'idée : **un seul bot, gratuit, qui remplace tous les autres**. En plus, un petit module optionnel, l'**Académie**, permet de réviser les réseaux au niveau **CCNA**. Il est né de la passion d'Enzo pour l'infrastructure réseau, en lien avec sa formation.
 
 ## Les objectifs fixés
 
 | Objectif | Ce que ça veut dire concrètement |
 |---|---|
 | Tout-en-un | Modération, automod, tickets, niveaux, giveaways, vérification, vocaux temporaires, rôles… |
-| Modulable | Chaque serveur active seulement ce dont il a besoin (modules **Communauté** et **Académie**) |
-| Pédagogique | Fiches de cours CCNA, quiz, glossaire, défi du jour, outils réseau |
+| Modulable | Chaque serveur active seulement ce dont il a besoin (base **Communauté + Sécurité**, et des modules à installer comme l'**Académie**) |
+| Pédagogique (en option) | Fiches de cours CCNA, quiz, glossaire, défi du jour, outils réseau, regroupés depuis le 30 octobre dans un module **Académie** optionnel, fait par passion |
 | Simple à configurer | Un **panel web** façon MEE6 avec connexion Discord |
 | Sûr | Aucun secret publié, permissions minimales, panel protégé, données personnelles maîtrisées |
 | Professionnel | Site public, nom de domaine, pages légales, identité visuelle, préparation à la vérification Discord |
@@ -21,7 +21,7 @@ L'idée : **un seul bot, gratuit, qui remplace tous les autres**, avec en plus u
 
 Enzo a résumé sa vision ainsi : un serveur demande un module sur mesure, Enzo le développe, puis donne au serveur un **identifiant unique**. L'administrateur le saisit dans son panel (« Ajouter un module ») et Cyber installe le module, comme les cartes que l'on insère dans **Baymax** dans *Les Nouveaux Héros*.
 
-Au moment de cette documentation, cette fonction est **annoncée « Bientôt »** dans le panel et dans la bio du bot : elle n'est pas encore codée. Les modules Communauté et Académie, eux, sont activables par serveur.
+Au moment de cette documentation, cette fonction est **annoncée « Bientôt »** dans le panel et dans la bio du bot : elle n'est pas encore codée. L'onglet « Modules publics » du panel, avec ses notes et sa recherche, est déjà prêt à les accueillir.
 
 ## Méthode de travail
 
